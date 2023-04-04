@@ -7,19 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
+		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
+		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
 		C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6B29DAEDB800164371 /* AppDelegate.swift */; };
 		C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */; };
-		C2E60C7029DAEDB800164371 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6F29DAEDB800164371 /* ViewController.swift */; };
+		C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6F29DAEDB800164371 /* SettingViewController.swift */; };
 		C2E60C7329DAEDB800164371 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7129DAEDB800164371 /* Main.storyboard */; };
 		C2E60C7529DAEDB900164371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7429DAEDB900164371 /* Assets.xcassets */; };
 		C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C2E60C6829DAEDB800164371 /* WOWA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOWA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E60C6B29DAEDB800164371 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C2E60C6F29DAEDB800164371 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C2E60C6F29DAEDB800164371 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C2E60C7229DAEDB800164371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C2E60C7429DAEDB900164371 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2E60C7729DAEDB900164371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,12 +36,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C20FE14929DAFECC009EF3D0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C2E60C6F29DAEDB800164371 /* SettingViewController.swift */,
+				C2D63F0229DBF5E700885BB4 /* MainViewController.swift */,
+				C2D63F0629DC389200885BB4 /* RoutineViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C20FE14A29DAFEE4009EF3D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C2E60C7129DAEDB800164371 /* Main.storyboard */,
+				C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C2E60C5F29DAEDB800164371 = {
 			isa = PBXGroup;
 			children = (
@@ -58,10 +83,9 @@
 			children = (
 				C2E60C6B29DAEDB800164371 /* AppDelegate.swift */,
 				C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */,
-				C2E60C6F29DAEDB800164371 /* ViewController.swift */,
-				C2E60C7129DAEDB800164371 /* Main.storyboard */,
+				C20FE14929DAFECC009EF3D0 /* Controller */,
+				C20FE14A29DAFEE4009EF3D0 /* View */,
 				C2E60C7429DAEDB900164371 /* Assets.xcassets */,
-				C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */,
 				C2E60C7929DAEDB900164371 /* Info.plist */,
 			);
 			path = WOWA;
@@ -83,6 +107,9 @@
 			dependencies = (
 			);
 			name = WOWA;
+			packageProductDependencies = (
+				C2D63F0029DBF56C00885BB4 /* FSCalendar */,
+			);
 			productName = WOWA;
 			productReference = C2E60C6829DAEDB800164371 /* WOWA.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +138,9 @@
 				Base,
 			);
 			mainGroup = C2E60C5F29DAEDB800164371;
+			packageReferences = (
+				C2D63EFF29DBF56C00885BB4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+			);
 			productRefGroup = C2E60C6929DAEDB800164371 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +168,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2E60C7029DAEDB800164371 /* ViewController.swift in Sources */,
+				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
 				C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */,
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,
+				C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */,
+				C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +390,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C2D63EFF29DBF56C00885BB4 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C2D63F0029DBF56C00885BB4 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2D63EFF29DBF56C00885BB4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C2E60C6029DAEDB800164371 /* Project object */;
 }
