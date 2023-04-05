@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
 		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
 		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
@@ -16,9 +17,14 @@
 		C2E60C7329DAEDB800164371 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7129DAEDB800164371 /* Main.storyboard */; };
 		C2E60C7529DAEDB900164371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7429DAEDB900164371 /* Assets.xcassets */; };
 		C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */; };
+		D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		341CB4086113C93705ED81BF /* Pods-WOWA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WOWA.debug.xcconfig"; path = "Target Support Files/Pods-WOWA/Pods-WOWA.debug.xcconfig"; sourceTree = "<group>"; };
+		AC1BA1652F76B9008A35AEFF /* Pods-WOWA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WOWA.release.xcconfig"; path = "Target Support Files/Pods-WOWA/Pods-WOWA.release.xcconfig"; sourceTree = "<group>"; };
+		C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WOWA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C2E60C6829DAEDB800164371 /* WOWA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOWA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,12 +43,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */,
+				D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33149CF93ADE2B27E5E97344 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8109045D89070F80572DF8A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				341CB4086113C93705ED81BF /* Pods-WOWA.debug.xcconfig */,
+				AC1BA1652F76B9008A35AEFF /* Pods-WOWA.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C20FE14929DAFECC009EF3D0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -62,11 +86,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C2460D3529DD54E1006A237C /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				C2460D3629DD6BE4006A237C /* Work.swift */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
 		C2E60C5F29DAEDB800164371 = {
 			isa = PBXGroup;
 			children = (
 				C2E60C6A29DAEDB800164371 /* WOWA */,
 				C2E60C6929DAEDB800164371 /* Products */,
+				8109045D89070F80572DF8A8 /* Pods */,
+				33149CF93ADE2B27E5E97344 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +117,7 @@
 			children = (
 				C2E60C6B29DAEDB800164371 /* AppDelegate.swift */,
 				C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */,
+				C2460D3529DD54E1006A237C /* Data Model */,
 				C20FE14929DAFECC009EF3D0 /* Controller */,
 				C20FE14A29DAFEE4009EF3D0 /* View */,
 				C2E60C7429DAEDB900164371 /* Assets.xcassets */,
@@ -98,9 +133,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E60C7C29DAEDB900164371 /* Build configuration list for PBXNativeTarget "WOWA" */;
 			buildPhases = (
+				EB552949DF78940B1FE7B16E /* [CP] Check Pods Manifest.lock */,
 				C2E60C6429DAEDB800164371 /* Sources */,
 				C2E60C6529DAEDB800164371 /* Frameworks */,
 				C2E60C6629DAEDB800164371 /* Resources */,
+				BC3B118276F5AFAF7F7275F8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,12 +200,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BC3B118276F5AFAF7F7275F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WOWA/Pods-WOWA-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WOWA/Pods-WOWA-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WOWA/Pods-WOWA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB552949DF78940B1FE7B16E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WOWA-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C2E60C6429DAEDB800164371 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
+				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,
 				C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */,
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,
 				C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */,
@@ -314,6 +394,7 @@
 		};
 		C2E60C7D29DAEDB900164371 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 341CB4086113C93705ED81BF /* Pods-WOWA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -342,6 +423,7 @@
 		};
 		C2E60C7E29DAEDB900164371 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC1BA1652F76B9008A35AEFF /* Pods-WOWA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
