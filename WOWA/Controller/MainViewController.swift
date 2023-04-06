@@ -7,12 +7,13 @@
 
 import UIKit
 import FSCalendar
+import RealmSwift
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     let dateFormatter = DateFormatter()
-    
+    var rows = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.backgroundColor = .white
@@ -21,6 +22,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         dateFormatter.dateFormat = "yyyy-MM-dd"
         calendarView.delegate = self
         calendarView.dataSource = self
+        
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeEvent(_:)))
         swipeUp.direction = .up
         self.view.addGestureRecognizer(swipeUp)
@@ -29,17 +31,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         swipeDown.direction = .down
         self.view.addGestureRecognizer(swipeDown)
         
+        var today = dateFormatter.string(from: Date())
+        var todayWork = WorkModel()
+        todayWork = DatabaseManager.manager.loadSelectedDateWork(date: today)!
+        rows = todayWork.work.count
+        print(todayWork)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return rows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.textLabel?.text = String(indexPath.row)
-        
         return cell
     }
     
@@ -52,6 +57,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("down")
         }
     }
+    
     
 }
 extension MainViewController : FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
+		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
 		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
 		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
 		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
@@ -25,6 +26,7 @@
 		AC1BA1652F76B9008A35AEFF /* Pods-WOWA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WOWA.release.xcconfig"; path = "Target Support Files/Pods-WOWA/Pods-WOWA.release.xcconfig"; sourceTree = "<group>"; };
 		C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WOWA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
+		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C2E60C6829DAEDB800164371 /* WOWA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOWA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				C2460D3629DD6BE4006A237C /* Work.swift */,
+				C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,
 				C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */,
 				C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */,
+				C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
