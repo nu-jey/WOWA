@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class WorkModel: Object{
-    @objc dynamic var date: String = "2023-04-05"
+    @objc dynamic var date: String = ""
     var work = List<Work>()
     // id 가 고유 값입니다.
     override static func primaryKey() -> String? {

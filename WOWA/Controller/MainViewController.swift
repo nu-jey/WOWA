@@ -9,11 +9,14 @@ import UIKit
 import FSCalendar
 import RealmSwift
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+    
     let dateFormatter = DateFormatter()
-    var rows = 0
+    var rows = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.backgroundColor = .white
@@ -31,21 +34,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         swipeDown.direction = .down
         self.view.addGestureRecognizer(swipeDown)
         
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
+              
+        
         var today = dateFormatter.string(from: Date())
         var todayWork = WorkModel()
         todayWork = DatabaseManager.manager.loadSelectedDateWork(date: today)!
-        rows = todayWork.work.count
+        //rows = todayWork.work.count
         print(todayWork)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rows
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
     }
     
     @objc func swipeEvent(_ swipe: UISwipeGestureRecognizer) {
@@ -57,12 +56,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("down")
         }
     }
-    
-    
 }
-extension MainViewController : FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+
+extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(dateFormatter.string(from: date))
+        var todayWork = DatabaseManager.manager.loadSelectedDateWork(date: dateFormatter.string(from: date))!
+        print(todayWork)
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -70,6 +69,21 @@ extension MainViewController : FSCalendarDelegate, FSCalendarDataSource, FSCalen
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
+        cell.bodyPart.text = "어깨"
+        cell.name.text = "밀리터리 프레스"
+        cell.set.text = "4"
+        cell.rep.text = "10"
+        return cell
     }
 }
 

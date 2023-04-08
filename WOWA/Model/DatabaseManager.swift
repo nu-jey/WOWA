@@ -17,6 +17,10 @@ class DatabaseManager{
     }
 
     func loadSelectedDateWork(date: String) -> WorkModel? {
-        return realm.objects(WorkModel.self).filter("date == '\(date)'").first
+        if let res = realm.objects(WorkModel.self).filter("date == '\(date)'").first {
+            return res
+        } else {
+            return WorkModel()
+        }
     }
 }

@@ -12,6 +12,10 @@
 		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
 		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
 		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
+		C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFB56129E02C1700D250DC /* RoutineListCell.swift */; };
+		C2DFB56429E02C1700D250DC /* RoutineListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2DFB56229E02C1700D250DC /* RoutineListCell.xib */; };
+		C2DFB56629E0400C00D250DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFB56529E0400C00D250DC /* Constants.swift */; };
+		C2DFB56829E0411900D250DC /* AddWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFB56729E0411900D250DC /* AddWorkViewController.swift */; };
 		C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6B29DAEDB800164371 /* AppDelegate.swift */; };
 		C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */; };
 		C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E60C6F29DAEDB800164371 /* SettingViewController.swift */; };
@@ -29,6 +33,10 @@
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
+		C2DFB56129E02C1700D250DC /* RoutineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListCell.swift; sourceTree = "<group>"; };
+		C2DFB56229E02C1700D250DC /* RoutineListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineListCell.xib; sourceTree = "<group>"; };
+		C2DFB56529E0400C00D250DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C2DFB56729E0411900D250DC /* AddWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkViewController.swift; sourceTree = "<group>"; };
 		C2E60C6829DAEDB800164371 /* WOWA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOWA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E60C6B29DAEDB800164371 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +83,7 @@
 				C2E60C6F29DAEDB800164371 /* SettingViewController.swift */,
 				C2D63F0229DBF5E700885BB4 /* MainViewController.swift */,
 				C2D63F0629DC389200885BB4 /* RoutineViewController.swift */,
+				C2DFB56729E0411900D250DC /* AddWorkViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -84,17 +93,19 @@
 			children = (
 				C2E60C7129DAEDB800164371 /* Main.storyboard */,
 				C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */,
+				C2DFB56129E02C1700D250DC /* RoutineListCell.swift */,
+				C2DFB56229E02C1700D250DC /* RoutineListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		C2460D3529DD54E1006A237C /* Data Model */ = {
+		C2460D3529DD54E1006A237C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				C2460D3629DD6BE4006A237C /* Work.swift */,
 				C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */,
 			);
-			path = "Data Model";
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C2E60C5F29DAEDB800164371 = {
@@ -120,11 +131,12 @@
 			children = (
 				C2E60C6B29DAEDB800164371 /* AppDelegate.swift */,
 				C2E60C6D29DAEDB800164371 /* SceneDelegate.swift */,
-				C2460D3529DD54E1006A237C /* Data Model */,
+				C2460D3529DD54E1006A237C /* Model */,
 				C20FE14929DAFECC009EF3D0 /* Controller */,
 				C20FE14A29DAFEE4009EF3D0 /* View */,
 				C2E60C7429DAEDB900164371 /* Assets.xcassets */,
 				C2E60C7929DAEDB900164371 /* Info.plist */,
+				C2DFB56529E0400C00D250DC /* Constants.swift */,
 			);
 			path = WOWA;
 			sourceTree = "<group>";
@@ -195,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2DFB56429E02C1700D250DC /* RoutineListCell.xib in Resources */,
 				C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */,
 				C2E60C7529DAEDB900164371 /* Assets.xcassets in Resources */,
 				C2E60C7329DAEDB800164371 /* Main.storyboard in Resources */,
@@ -252,11 +265,14 @@
 			files = (
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
 				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,
+				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
+				C2DFB56829E0411900D250DC /* AddWorkViewController.swift in Sources */,
 				C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */,
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,
 				C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */,
 				C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */,
 				C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */,
+				C2DFB56629E0400C00D250DC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
