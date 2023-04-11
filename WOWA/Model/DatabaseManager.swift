@@ -16,11 +16,22 @@ class DatabaseManager{
         realm = try! Realm()
     }
 
-    func loadSelectedDateWork(date: String) -> WorkModel? {
-        if let res = realm.objects(WorkModel.self).filter("date == '\(date)'").first {
-            return res
+    func loadSelectedDateWork(date: String) -> Results<Work>? {
+        var res = realm.objects(Work.self).filter("date == '\(date)'")
+        if res.count == 0 {
+            return nil
         } else {
-            return WorkModel()
+            return res
+        }
+    }
+    
+    func addWork(work: Work) {
+        do {
+            try realm.write {
+                realm.add(work)
+            }
+        } catch {
+            print(error)
         }
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
+		C2B00FB729E4410D0028D874 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B00FB629E4410D0028D874 /* Routine.swift */; };
 		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
 		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
 		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
@@ -31,6 +32,7 @@
 		C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WOWA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C2DFB56129E02C1700D250DC /* RoutineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListCell.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			children = (
 				C2460D3629DD6BE4006A237C /* Work.swift */,
 				C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */,
+				C2B00FB629E4410D0028D874 /* Routine.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */,
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,
 				C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */,
+				C2B00FB729E4410D0028D874 /* Routine.swift in Sources */,
 				C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */,
 				C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */,
 				C2DFB56629E0400C00D250DC /* Constants.swift in Sources */,
