@@ -46,7 +46,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
         loadTodayWorks()
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        // print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     func loadTodayWorks() {
@@ -74,6 +74,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         loadTodayWorks()
     }
     
+    // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let addViewController = segue.destination as? AddWorkViewController else {
             return
@@ -83,6 +84,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
     
 }
 
+// MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
         print("추가 후 리로딩")
@@ -90,7 +92,7 @@ extension MainViewController: AddWorkViewControllerDelegate {
     }
 }
 
-
+// MARK: - FSCalendar Methods
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
 //        var todayWork = DatabaseManager.manager.loadSelectedDateWork(date: dateFormatter.string(from: date))!
@@ -105,8 +107,8 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
 }
 
+// MARK: - TableView Methods
 extension MainViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewData.count
     }
@@ -119,7 +121,10 @@ extension MainViewController: UITableViewDataSource {
         cell.rep.text = String(tableViewData[indexPath.row].reps)
         return cell
     }
-    
+     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
 }
 

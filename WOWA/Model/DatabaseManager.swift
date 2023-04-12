@@ -16,12 +16,13 @@ class DatabaseManager{
         realm = try! Realm()
     }
 
+    // MARK: - Work Methods
     func loadSelectedDateWork(date: String) -> Results<Work>? {
-        var res = realm.objects(Work.self).filter("date == '\(date)'")
-        if res.count == 0 {
+        var resWork = realm.objects(Work.self).filter("date == '\(date)'")
+        if resWork.count == 0 {
             return nil
         } else {
-            return res
+            return resWork
         }
     }
     
@@ -34,4 +35,17 @@ class DatabaseManager{
             print(error)
         }
     }
+    
+    // MARK: - Routine Methods
+    func loadAllRoutine() -> Results<Routine>? {
+        var resRoutine =  realm.objects(Routine.self)
+        if resRoutine.count == 0 {
+            return nil
+        } else {
+            return resRoutine
+        }
+    }
+    
+    
+    
 }
