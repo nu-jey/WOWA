@@ -12,18 +12,32 @@ class RoutineViewController: UIViewController {
     var tableViewData = [Routine]()
     var selectedIndex: Int?
     var hiddenSections = Set<Int>()
+    var isHidden = false
     
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
         
         if let loadAllRoutine = DatabaseManager.manager.loadAllRoutine() {
             tableViewData = loadAllRoutine.map{ $0 }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            DispatchQueue.main.async {self.tableView.reloadData()}
         } else {
             print("오늘 날짜의 운동 없음 ")
         }
+        
+        if !isHidden {
+            for i in 0..<tableViewData.count {
+                if tableView.numberOfRows(inSection: i) != 0 {
+                    var indexPaths = [IndexPath]()
+                    for row in 0..<self.tableViewData[i].workList.count {
+                        indexPaths.append(IndexPath(row: row, section: i))
+                    }
+                    self.hiddenSections.insert(i)
+                    self.tableView.deleteRows(at: indexPaths, with: .none)
+                }
+            }
+            isHidden = true
+        }
+        
         super.viewDidLoad()
     }
     
@@ -34,6 +48,7 @@ class RoutineViewController: UIViewController {
     
     @objc private func hideSection(sender: UIButton) {
         let section = sender.tag
+        
         func indexPathsForSection() -> [IndexPath] {
             var indexPaths = [IndexPath]()
             for row in 0..<self.tableViewData[section].workList.count {
@@ -44,23 +59,26 @@ class RoutineViewController: UIViewController {
         }
         
         if self.hiddenSections.contains(section) {
+            isHidden = false
             self.hiddenSections.remove(section)
             self.tableView.insertRows(at: indexPathsForSection(), with: .fade)
             self.tableView.scrollToRow(at: IndexPath(row: self.tableViewData[section].workList.count - 1,section: section), at: UITableView.ScrollPosition.bottom, animated: true)
         } else {
+            isHidden = true
             self.hiddenSections.insert(section)
             self.tableView.deleteRows(at: indexPathsForSection(), with: .fade)
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        for i in 0..<tableViewData.count {
-            var indexPaths = [IndexPath]()
-            for row in 0..<self.tableViewData[i].workList.count {
-                indexPaths.append(IndexPath(row: row, section: i))
-            }
-            self.hiddenSections.insert(i)
-            self.tableView.deleteRows(at: indexPaths, with: .none)
-        }
+    
+    @objc private func goToEditRoutine(sender: UIButton) {
+        selectedIndex = sender.tag
+        performSegue(withIdentifier: "showEditRoutineView", sender: nil)
+    }
+    
+    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+        selectedIndex = (gesture.view?.tag)!
+        performSegue(withIdentifier: "showEditRoutineView", sender: nil)
+        print("partnerProfileTap")
     }
 }
 
@@ -70,12 +88,37 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        var stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.backgroundColor = .white
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        
         let sectionButton = UIButton()
         sectionButton.setTitle(tableViewData[section].routineName, for: .normal)
         sectionButton.backgroundColor = .systemBlue
         sectionButton.tag = section
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
-        return sectionButton
+        
+//        let editButton = UIButton()
+//        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+//        sectionButton.tag = section
+//        sectionButton.addTarget(self,action: #selector(self.goToEditRoutine(sender:)),for: .touchUpInside)
+    
+        let view = UIImageView()
+        view.image = UIImage(systemName: "pencil")
+        view.tag = section
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
+        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        
+        
+        stackView.addArrangedSubview(sectionButton)
+        stackView.addArrangedSubview(view)
+        
+        return stackView
         
     }
     
@@ -98,7 +141,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedIndex = indexPath.row
-        performSegue(withIdentifier: "showEditRoutineView", sender: nil)
+        //performSegue(withIdentifier: "showEditRoutineView", sender: nil)
     }
     
 }
