@@ -15,6 +15,7 @@
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
 		C292DBD629E6750E00EB97C8 /* EditRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */; };
 		C2B00FB729E4410D0028D874 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B00FB629E4410D0028D874 /* Routine.swift */; };
+		C2CE553729E981170035E2C1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CE553629E981170035E2C1 /* Schedule.swift */; };
 		C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C2D63F0029DBF56C00885BB4 /* FSCalendar */; };
 		C2D63F0329DBF5E700885BB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0229DBF5E700885BB4 /* MainViewController.swift */; };
 		C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D63F0629DC389200885BB4 /* RoutineViewController.swift */; };
@@ -43,6 +44,7 @@
 		C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineViewController.swift; sourceTree = "<group>"; };
 		C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewController.swift; sourceTree = "<group>"; };
 		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		C2CE553629E981170035E2C1 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		C2D63F0229DBF5E700885BB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C2D63F0629DC389200885BB4 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		C2DFB56129E02C1700D250DC /* RoutineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListCell.swift; sourceTree = "<group>"; };
@@ -119,9 +121,10 @@
 		C2460D3529DD54E1006A237C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C2460D3629DD6BE4006A237C /* Work.swift */,
 				C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */,
+				C2460D3629DD6BE4006A237C /* Work.swift */,
 				C2B00FB629E4410D0028D874 /* Routine.swift */,
+				C2CE553629E981170035E2C1 /* Schedule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				C292DBD129E6560400EB97C8 /* MyRoutineListCell.swift in Sources */,
 				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
 				C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */,
+				C2CE553729E981170035E2C1 /* Schedule.swift in Sources */,
 				C2DFB56829E0411900D250DC /* AddWorkViewController.swift in Sources */,
 				C2E60C6C29DAEDB800164371 /* AppDelegate.swift in Sources */,
 				C2E60C6E29DAEDB800164371 /* SceneDelegate.swift in Sources */,

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 class AddWorkViewController: UIViewController {
     @IBOutlet weak var selectBodyPart: UIPickerView!
     @IBOutlet weak var repTextField: UITextField!
@@ -21,12 +21,16 @@ class AddWorkViewController: UIViewController {
     var today = ""
     let dateFormatter = DateFormatter()
     var newWork = Work()
+    var routineID: ObjectId?
+    var scheduleID: ObjectId?
+    
     
     override func viewDidLoad() {
         stepperSet.value = 3
         stepperRep.value = 9
         dateFormatter.dateFormat = "yyyy-MM-dd"
         today = dateFormatter.string(from: Date())
+        print(routineID)
         super.viewDidLoad()
     }
     
@@ -39,21 +43,25 @@ class AddWorkViewController: UIViewController {
     }
     
     @IBAction func addWork(_ sender: UIButton) {
-        newWork.date = today
-        newWork.target = target
-        newWork.name = nameTextField.text!
-        newWork.set = Int(stepperSet.value)
-        newWork.reps = Int(stepperRep.value)
-        DatabaseManager.manager.addWork(work: newWork)
-        delegate?.addWorkAndReload()
-        self.dismiss(animated: true)
+        if (scheduleID != nil) {
+            newWork.target = target
+            newWork.name = nameTextField.text!
+            newWork.set = Int(stepperSet.value)
+            newWork.reps = Int(stepperRep.value)
+            DatabaseManager.manager.addWorkInSchedule(newWork: newWork, id: scheduleID!)
+            delegate?.addWorkAndReload()
+            self.dismiss(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is MainViewController {
-            print("리로딩")
             let vc = segue.destination as? MainViewController
             vc?.tableViewData.append(newWork)
+        } else if segue.destination is EditRoutineViewController {
+            
+        } else if segue.destination is NewRoutineViewController {
+            
         }
     }
     

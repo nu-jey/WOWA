@@ -9,10 +9,18 @@ import Foundation
 import RealmSwift
 
 class Work: Object{
-    @objc dynamic var date: String = ""
-    @objc dynamic var target: String = ""
-    @objc dynamic var name: String = ""
-    @objc dynamic var set: Int = 0
-    @objc dynamic var reps: Int = 0
+    @Persisted var target: String
+    @Persisted var name: String
+    @Persisted var set: Int
+    @Persisted var reps: Int
+    @Persisted(primaryKey: true) var _id: ObjectId
+    
+    convenience init(target: String, name: String, set: Int, reps: Int) {
+        self.init()
+        self.target = target
+        self.name = name
+        self.set = set
+        self.reps = reps
+    }
 }
 

@@ -15,30 +15,39 @@ class DatabaseManager{
     init() {
         realm = try! Realm()
     }
-
+    
     // MARK: - Work Methods
-    func loadSelectedDateWork(date: String) -> Results<Work>? {
-        var resWork = realm.objects(Work.self).filter("date == '\(date)'")
-        if resWork.count == 0 {
-            return nil
-        } else {
+    func loadSelectedDateSchedule(date: String) -> Schedule? {
+        if let resWork = realm.objects(Schedule.self).filter("date == '\(date)'").first {
             return resWork
+        } else {
+            return nil
         }
     }
     
-    func addWork(work: Work) {
-        do {
-            try realm.write {
-                realm.add(work)
+    func addWorkInRoutine(newWork: Work, id: ObjectId) {
+        if let routine = realm.object(ofType: Routine.self, forPrimaryKey: id) {
+            try! realm.write {
+                routine.workList.append(newWork)
             }
-        } catch {
-            print(error)
+        } else {
+            print("routine에 work 추가 불가능")
+        }
+    }
+    
+    func addWorkInSchedule(newWork: Work, id: ObjectId) {
+        if let schedule = realm.object(ofType: Schedule.self, forPrimaryKey: id) {
+            try! realm.write {
+                schedule.workList.append(newWork)
+            }
+        } else {
+            print("schedule에 work 추가 불가능")
         }
     }
     
     // MARK: - Routine Methods
     func loadAllRoutine() -> Results<Routine>? {
-        var resRoutine =  realm.objects(Routine.self)
+        let resRoutine =  realm.objects(Routine.self)
         if resRoutine.count == 0 {
             return nil
         } else {

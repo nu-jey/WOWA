@@ -22,6 +22,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
     let dateFormatter = DateFormatter()
     var rows = 1
     var tableViewData = [Work]()
+    var scheduleID: ObjectId?
     var today = ""
     
     override func viewDidLoad() {
@@ -45,14 +46,15 @@ class MainViewController: UIViewController, UITableViewDelegate {
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
-        loadTodayWorks()
+        loadTodaySchedule()
         // print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
-    func loadTodayWorks() {
+    func loadTodaySchedule() {
         today = dateFormatter.string(from: Date())
-        if let todayWorks = DatabaseManager.manager.loadSelectedDateWork(date: today) {
-            tableViewData = todayWorks.map{ $0 }
+        if let todayWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: today) {
+            tableViewData = todayWorks.workList.map{ $0 }
+            scheduleID = todayWorks._id
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -71,7 +73,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadTodayWorks()
+        loadTodaySchedule()
     }
     
     // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
@@ -79,6 +81,8 @@ class MainViewController: UIViewController, UITableViewDelegate {
         guard let addViewController = segue.destination as? AddWorkViewController else {
             return
         }
+        print(scheduleID)
+        addViewController.scheduleID = scheduleID!
         addViewController.delegate = self
     }
     
@@ -88,7 +92,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
         print("추가 후 리로딩")
-        loadTodayWorks()
+        loadTodaySchedule()
     }
 }
 
