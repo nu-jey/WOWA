@@ -43,12 +43,17 @@ class AddWorkViewController: UIViewController {
     }
     
     @IBAction func addWork(_ sender: UIButton) {
-        if (scheduleID != nil) {
-            newWork.target = target
-            newWork.name = nameTextField.text!
-            newWork.set = Int(stepperSet.value)
-            newWork.reps = Int(stepperRep.value)
+        newWork.target = target
+        newWork.name = nameTextField.text!
+        newWork.set = Int(stepperSet.value)
+        newWork.reps = Int(stepperRep.value)
+        
+        if scheduleID != nil {
             DatabaseManager.manager.addWorkInSchedule(newWork: newWork, id: scheduleID!)
+            delegate?.addWorkAndReload()
+            self.dismiss(animated: true)
+        } else if routineID != nil {
+            DatabaseManager.manager.addWorkInRoutine(newWork: newWork, id: routineID!)
             delegate?.addWorkAndReload()
             self.dismiss(animated: true)
         }
@@ -59,9 +64,12 @@ class AddWorkViewController: UIViewController {
             let vc = segue.destination as? MainViewController
             vc?.tableViewData.append(newWork)
         } else if segue.destination is EditRoutineViewController {
+            let vc = segue.destination as? EditRoutineViewController
+            vc?.tableViewData.append(newWork)
             
         } else if segue.destination is NewRoutineViewController {
-            
+            let vc = segue.destination as? NewRoutineViewController
+            vc?.tableViewData.append(newWork)
         }
     }
     

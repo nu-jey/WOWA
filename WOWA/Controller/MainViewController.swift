@@ -81,7 +81,6 @@ class MainViewController: UIViewController, UITableViewDelegate {
         guard let addViewController = segue.destination as? AddWorkViewController else {
             return
         }
-        print(scheduleID)
         addViewController.scheduleID = scheduleID!
         addViewController.delegate = self
     }

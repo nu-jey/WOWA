@@ -6,30 +6,64 @@
 //
 
 import UIKit
+import RealmSwift
 
 class EditRoutineViewController: UIViewController {
 
     @IBOutlet weak var routineNameTextField: UITextField!
     
     @IBOutlet weak var routineDescriptionTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    
     var editingRoutine: Routine?
+    var tableViewData = [Work]()
+    var routineID: ObjectId?
+    
     override func viewDidLoad() {
+        
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
+        
         routineNameTextField.text = editingRoutine?.routineName
         routineDescriptionTextField.text = editingRoutine?.routineDiscription
+        tableViewData = (editingRoutine?.workList)!.map { $0 }
+        routineID = editingRoutine?._id
         super.viewDidLoad()
-        print(editingRoutine)
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard let addViewController = segue.destination as? AddWorkViewController else {
+            return
+        }
+        addViewController.routineID = routineID!
+        addViewController.delegate = self
     }
-    */
+    
+}
+extension EditRoutineViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
+        cell.bodyPart.text = tableViewData[indexPath.row].target
+        cell.name.text = tableViewData[indexPath.row].name
+        cell.set.text = String(tableViewData[indexPath.row].set)
+        cell.rep.text = String(tableViewData[indexPath.row].reps)
+        return cell
+    }
+    
+    
+}
 
+extension EditRoutineViewController: AddWorkViewControllerDelegate {
+    func addWorkAndReload() {
+        if let loadRoutineData = DatabaseManager.manager.loadRoutineData(id: routineID!) {
+            tableViewData = loadRoutineData.workList.map { $0 }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 }

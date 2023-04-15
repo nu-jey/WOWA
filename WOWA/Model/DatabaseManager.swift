@@ -16,7 +16,15 @@ class DatabaseManager{
         realm = try! Realm()
     }
     
-    // MARK: - Work Methods
+    func loadRoutineData(id: ObjectId) -> Routine? {
+        if let resRoutine = realm.object(ofType: Routine.self, forPrimaryKey: id) {
+            return resRoutine
+        } else {
+            return nil
+        }
+    }
+    
+    
     func loadSelectedDateSchedule(date: String) -> Schedule? {
         if let resWork = realm.objects(Schedule.self).filter("date == '\(date)'").first {
             return resWork

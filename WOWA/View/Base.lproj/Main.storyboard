@@ -245,6 +245,10 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yJe-yc-YFO">
                                         <rect key="frame" x="0.0" y="99" width="361" height="616"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="p0f-51-dVE" id="kJm-BS-zO7"/>
+                                            <outlet property="delegate" destination="p0f-51-dVE" id="uT8-RO-FLg"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <constraints>
@@ -262,7 +266,18 @@
                             <constraint firstItem="mfT-M9-NLs" firstAttribute="top" secondItem="jJO-ks-Itx" secondAttribute="top" id="rx7-Sd-LNm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New Routine" id="gQd-pA-aKS"/>
+                    <navigationItem key="navigationItem" title="New Routine" id="gQd-pA-aKS">
+                        <barButtonItem key="rightBarButtonItem" title="save" id="Z4c-ao-Sch">
+                            <connections>
+                                <action selector="addSaveButton:" destination="p0f-51-dVE" id="8A1-bN-lW3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="routineDescriptionTextField" destination="wIX-lw-rnh" id="WzN-i2-Ljv"/>
+                        <outlet property="routineNameTextField" destination="dTy-X2-ZFE" id="dfJ-AR-g2h"/>
+                        <outlet property="tableView" destination="yJe-yc-YFO" id="uWQ-X9-X66"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xdI-Ff-NX2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -343,6 +358,7 @@
                     <connections>
                         <outlet property="routineDescriptionTextField" destination="Uso-cQ-la4" id="n1V-6c-ekx"/>
                         <outlet property="routineNameTextField" destination="fIb-To-t7L" id="NXL-XX-2dR"/>
+                        <outlet property="tableView" destination="y7V-xs-Odc" id="dtZ-3C-Vgy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQB-1o-zsg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
