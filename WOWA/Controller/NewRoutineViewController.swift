@@ -7,22 +7,38 @@
 import UIKit
 import RealmSwift
 
-class NewRoutineViewController: UIViewController {
+protocol ForNewRoutineAddWorkViewControllerDelegate: AnyObject {
+    func addWorkForNewRoutineAndReload(_ newWork: Work)
+}
 
+class NewRoutineViewController: UIViewController {
+    
     @IBOutlet weak var routineNameTextField: UITextField!
     @IBOutlet weak var routineDescriptionTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     var tableViewData = [Work]()
     var routineID: ObjectId?
-    
+    var delegate: NewAndEditRoutineViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let addViewController = segue.destination as? AddWorkViewController else {
+            return
+        }
+        addViewController.isNewRoutine = true
+        addViewController.delegateForNewRoutine = self
+    }
+    
+    
+    @IBAction func addWorkButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showNewWorkFromNewRoutine", sender: nil)
+    }
+    
+    
     @IBAction func addSaveButton(_ sender: Any) {
         let newRoutine = Routine(routineName: routineNameTextField.text!)
         if let description = routineNameTextField.text {
@@ -31,29 +47,26 @@ class NewRoutineViewController: UIViewController {
         for work in tableViewData {
             newRoutine.workList.append(work)
         }
+        DatabaseManager.manager.addNewRoutine(newRoutine)
+        delegate?.addRoutineAndReload()
+        _ = navigationController?.popViewController(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let addViewController = segue.destination as? AddWorkViewController else {
-            return
+}
+
+extension NewRoutineViewController: ForNewRoutineAddWorkViewControllerDelegate {
+    func addWorkForNewRoutineAndReload(_ newWork: Work) {
+        tableViewData.append(newWork)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        addViewController.routineID = routineID!
-        addViewController.delegate = self
-    }
-    
-}
-
-
-extension NewRoutineViewController: AddWorkViewControllerDelegate {
-    func addWorkAndReload() {
-        print("추가 후 리로딩")
-        
     }
 }
+
 
 extension NewRoutineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return tableViewData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,6 +77,5 @@ extension NewRoutineViewController: UITableViewDataSource {
         cell.rep.text = String(tableViewData[indexPath.row].reps)
         return cell
     }
-    
     
 }

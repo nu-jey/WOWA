@@ -59,7 +59,9 @@ class MainViewController: UIViewController, UITableViewDelegate {
                 self.tableView.reloadData()
             }
         } else {
-            print("오늘 날짜의 운동 없음 ")
+            let newSchedule = DatabaseManager.manager.addNewSchedule(date: today)
+            tableViewData = newSchedule.workList.map{ $0 }
+            scheduleID = newSchedule._id
         }
     }
     
@@ -90,7 +92,6 @@ class MainViewController: UIViewController, UITableViewDelegate {
 // MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
-        print("추가 후 리로딩")
         loadTodaySchedule()
     }
 }

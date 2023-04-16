@@ -178,7 +178,7 @@
                     <navigationItem key="navigationItem" title="Routine" id="6zu-Ln-X2a">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1aN-jB-B8i">
                             <connections>
-                                <segue destination="p0f-51-dVE" kind="show" id="6W6-6M-0XQ"/>
+                                <segue destination="p0f-51-dVE" kind="show" identifier="showNewRoutineView" id="6W6-6M-0XQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -203,47 +203,47 @@
                                 <rect key="frame" x="16" y="103" width="361" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="sX8-Nc-SbZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="루틴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uda-v6-lgL">
-                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dTy-X2-ZFE">
-                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="20.333333333333332"/>
+                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="ATN-wZ-nmG">
-                                        <rect key="frame" x="0.0" y="28.333333333333343" width="361" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="42" width="361" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osw-CN-wKE">
-                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wIX-lw-rnh">
-                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="20.333333333333332"/>
+                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hW1-vE-ARl">
-                                        <rect key="frame" x="0.0" y="56.666666666666657" width="361" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="84" width="361" height="166"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
-                                            <segue destination="rh8-fQ-9hH" kind="modal" id="y6h-pu-hpL"/>
+                                            <action selector="addWorkButtonPressed:" destination="p0f-51-dVE" eventType="touchUpInside" id="PQI-7G-HP4"/>
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yJe-yc-YFO">
-                                        <rect key="frame" x="0.0" y="99" width="361" height="616"/>
+                                        <rect key="frame" x="0.0" y="258" width="361" height="457"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="p0f-51-dVE" id="kJm-BS-zO7"/>
@@ -277,11 +277,12 @@
                         <outlet property="routineDescriptionTextField" destination="wIX-lw-rnh" id="WzN-i2-Ljv"/>
                         <outlet property="routineNameTextField" destination="dTy-X2-ZFE" id="dfJ-AR-g2h"/>
                         <outlet property="tableView" destination="yJe-yc-YFO" id="uWQ-X9-X66"/>
+                        <segue destination="rh8-fQ-9hH" kind="modal" identifier="showNewWorkFromNewRoutine" id="eUS-d0-Ql8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xdI-Ff-NX2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="536.64122137404581" y="1474.6478873239437"/>
+            <point key="canvasLocation" x="560" y="1475"/>
         </scene>
         <!--Eidt Routine-->
         <scene sceneID="JOi-ga-0f4">
@@ -295,47 +296,47 @@
                                 <rect key="frame" x="16" y="103" width="361" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="HI0-c5-gVU">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="루틴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmx-FY-Lye">
-                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fIb-To-t7L">
-                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="20.333333333333332"/>
+                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="97o-mx-vMp">
-                                        <rect key="frame" x="0.0" y="28.333333333333343" width="361" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="42" width="361" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDY-lo-xy0">
-                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="29.666666666666668" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-cQ-la4">
-                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="20.333333333333332"/>
+                                                <rect key="frame" x="58.666666666666657" y="0.0" width="302.33333333333337" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s7l-Ro-XjP">
-                                        <rect key="frame" x="0.0" y="56.666666666666657" width="361" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="84" width="361" height="166"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
-                                            <segue destination="rh8-fQ-9hH" kind="modal" id="uZE-Ve-4mE"/>
+                                            <action selector="addNewWorkButtonPressed:" destination="W87-p9-8yG" eventType="touchUpInside" id="cLv-KQ-cVB"/>
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="y7V-xs-Odc">
-                                        <rect key="frame" x="0.0" y="99" width="361" height="616"/>
+                                        <rect key="frame" x="0.0" y="258" width="361" height="457"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -354,11 +355,18 @@
                             <constraint firstItem="57c-FJ-1ec" firstAttribute="leading" secondItem="B4b-pn-dT3" secondAttribute="leading" constant="16" id="hkU-o0-K0k"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Eidt Routine" id="h0U-T3-ouA"/>
+                    <navigationItem key="navigationItem" title="Eidt Routine" id="h0U-T3-ouA">
+                        <barButtonItem key="rightBarButtonItem" title="save" id="BQX-8E-SZA">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="W87-p9-8yG" id="4fY-Fw-Y7C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="routineDescriptionTextField" destination="Uso-cQ-la4" id="n1V-6c-ekx"/>
                         <outlet property="routineNameTextField" destination="fIb-To-t7L" id="NXL-XX-2dR"/>
                         <outlet property="tableView" destination="y7V-xs-Odc" id="dtZ-3C-Vgy"/>
+                        <segue destination="rh8-fQ-9hH" kind="modal" identifier="showNewWorkFromEditRoutine" id="XuR-Ku-27U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQB-1o-zsg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -464,7 +472,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uZE-Ve-4mE"/>
+        <segue reference="XuR-Ku-27U"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>

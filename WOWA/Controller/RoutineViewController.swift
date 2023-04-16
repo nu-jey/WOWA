@@ -5,6 +5,10 @@
 //  Created by 오예준 on 2023/04/04.
 //
 import UIKit
+protocol NewAndEditRoutineViewControllerDelegate: AnyObject {
+    func addRoutineAndReload()
+}
+
 
 class RoutineViewController: UIViewController {
     
@@ -16,13 +20,7 @@ class RoutineViewController: UIViewController {
     
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
-        
-        if let loadAllRoutine = DatabaseManager.manager.loadAllRoutine() {
-            tableViewData = loadAllRoutine.map{ $0 }
-            DispatchQueue.main.async {self.tableView.reloadData()}
-        } else {
-            print("오늘 날짜의 운동 없음 ")
-        }
+        loadAllRoutines()
         
         if !isHidden {
             for i in 0..<tableViewData.count {
@@ -41,9 +39,24 @@ class RoutineViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    func loadAllRoutines() {
+        if let loadAllRoutine = DatabaseManager.manager.loadAllRoutine() {
+            tableViewData = loadAllRoutine.map{ $0 }
+            DispatchQueue.main.async {self.tableView.reloadData()}
+        } else {
+            print("오늘 날짜의 운동 없음 ")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let editRoutineViewController = segue.destination as? EditRoutineViewController else {return}
-        editRoutineViewController.editingRoutine = tableViewData[selectedIndex!]
+        if segue.identifier == "showNewRoutineView" {
+            guard let newRoutineViewController = segue.destination as? NewRoutineViewController else {return}
+            newRoutineViewController.delegate = self
+            
+        } else if segue.identifier == "showEditRoutineView" {
+            guard let editRoutineViewController = segue.destination as? EditRoutineViewController else {return}
+            editRoutineViewController.editingRoutine = tableViewData[selectedIndex!]
+        }
     }
     
     @objc private func hideSection(sender: UIButton) {
@@ -80,6 +93,9 @@ class RoutineViewController: UIViewController {
         performSegue(withIdentifier: "showEditRoutineView", sender: nil)
         print("partnerProfileTap")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        loadAllRoutines()
+    }
 }
 
 extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
@@ -89,7 +105,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .white
         stackView.alignment = .fill
@@ -101,11 +117,6 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         sectionButton.backgroundColor = .systemBlue
         sectionButton.tag = section
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
-        
-//        let editButton = UIButton()
-//        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-//        sectionButton.tag = section
-//        sectionButton.addTarget(self,action: #selector(self.goToEditRoutine(sender:)),for: .touchUpInside)
     
         let view = UIImageView()
         view.image = UIImage(systemName: "pencil")
@@ -141,7 +152,12 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedIndex = indexPath.row
-        //performSegue(withIdentifier: "showEditRoutineView", sender: nil)
     }
     
+}
+
+extension RoutineViewController: NewAndEditRoutineViewControllerDelegate {
+    func addRoutineAndReload() {
+        loadAllRoutines()
+    }
 }

@@ -53,7 +53,6 @@ class DatabaseManager{
         }
     }
     
-    // MARK: - Routine Methods
     func loadAllRoutine() -> Results<Routine>? {
         let resRoutine =  realm.objects(Routine.self)
         if resRoutine.count == 0 {
@@ -63,6 +62,29 @@ class DatabaseManager{
         }
     }
     
+    func addNewSchedule(date: String) -> Schedule {
+        let newSchedule = Schedule(date: date)
+        try! realm.write {
+            realm.add(newSchedule)
+        }
+        return newSchedule
+    }
     
+    func addNewRoutine(_ newRuotine: Routine) {
+        try! realm.write {
+            realm.add(newRuotine)
+        }
+    }
     
+    func editRoutine(routine: Routine, id: ObjectId) {
+        if let editingRoutine = realm.object(ofType: Routine.self, forPrimaryKey: id) {
+            try! realm.write {
+                editingRoutine.workList = routine.workList
+                editingRoutine.routineName = routine.routineName
+                editingRoutine.routineDiscription = routine.routineDiscription
+            }
+        } else {
+            print("편집한 routine 저장 불가")
+        }
+    }
 }

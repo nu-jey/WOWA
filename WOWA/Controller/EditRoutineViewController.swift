@@ -11,19 +11,18 @@ import RealmSwift
 class EditRoutineViewController: UIViewController {
 
     @IBOutlet weak var routineNameTextField: UITextField!
-    
     @IBOutlet weak var routineDescriptionTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     var editingRoutine: Routine?
     var tableViewData = [Work]()
     var routineID: ObjectId?
+    var delegate: NewAndEditRoutineViewControllerDelegate?
     
     override func viewDidLoad() {
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
-        
         routineNameTextField.text = editingRoutine?.routineName
         routineDescriptionTextField.text = editingRoutine?.routineDiscription
         tableViewData = (editingRoutine?.workList)!.map { $0 }
@@ -36,10 +35,34 @@ class EditRoutineViewController: UIViewController {
             return
         }
         addViewController.routineID = routineID!
-        addViewController.delegate = self
+        addViewController.delegateForNewRoutine = self
     }
     
+    @IBAction func addNewWorkButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "showNewWorkFromEditRoutine", sender: nil)
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        let tempRoutine = Routine(routineName: routineNameTextField.text!, routineDiscription: routineDescriptionTextField.text!)
+        let tempList = List<Work>()
+        tempList.append(objectsIn: tableViewData)
+        tempRoutine.workList = tempList
+        DatabaseManager.manager.editRoutine(routine: tempRoutine, id: routineID!)
+        delegate?.addRoutineAndReload()
+        _ = navigationController?.popViewController(animated: true)
+    }
 }
+
+extension EditRoutineViewController: ForNewRoutineAddWorkViewControllerDelegate {
+    func addWorkForNewRoutineAndReload(_ newWork: Work) {
+        tableViewData.append(newWork)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
+
 extension EditRoutineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewData.count
@@ -57,13 +80,3 @@ extension EditRoutineViewController: UITableViewDataSource {
     
 }
 
-extension EditRoutineViewController: AddWorkViewControllerDelegate {
-    func addWorkAndReload() {
-        if let loadRoutineData = DatabaseManager.manager.loadRoutineData(id: routineID!) {
-            tableViewData = loadRoutineData.workList.map { $0 }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-}

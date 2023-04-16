@@ -16,6 +16,7 @@ class AddWorkViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     
     weak var delegate: AddWorkViewControllerDelegate?
+    weak var delegateForNewRoutine: ForNewRoutineAddWorkViewControllerDelegate?
     
     var target = "가슴"
     var today = ""
@@ -23,14 +24,13 @@ class AddWorkViewController: UIViewController {
     var newWork = Work()
     var routineID: ObjectId?
     var scheduleID: ObjectId?
-    
+    var isNewRoutine = false
     
     override func viewDidLoad() {
         stepperSet.value = 3
         stepperRep.value = 9
         dateFormatter.dateFormat = "yyyy-MM-dd"
         today = dateFormatter.string(from: Date())
-        print(routineID)
         super.viewDidLoad()
     }
     
@@ -51,26 +51,12 @@ class AddWorkViewController: UIViewController {
         if scheduleID != nil {
             DatabaseManager.manager.addWorkInSchedule(newWork: newWork, id: scheduleID!)
             delegate?.addWorkAndReload()
-            self.dismiss(animated: true)
         } else if routineID != nil {
-            DatabaseManager.manager.addWorkInRoutine(newWork: newWork, id: routineID!)
-            delegate?.addWorkAndReload()
-            self.dismiss(animated: true)
+            delegateForNewRoutine?.addWorkForNewRoutineAndReload(newWork)
+        } else if isNewRoutine {
+            delegateForNewRoutine?.addWorkForNewRoutineAndReload(newWork)
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is MainViewController {
-            let vc = segue.destination as? MainViewController
-            vc?.tableViewData.append(newWork)
-        } else if segue.destination is EditRoutineViewController {
-            let vc = segue.destination as? EditRoutineViewController
-            vc?.tableViewData.append(newWork)
-            
-        } else if segue.destination is NewRoutineViewController {
-            let vc = segue.destination as? NewRoutineViewController
-            vc?.tableViewData.append(newWork)
-        }
+        self.dismiss(animated: true)
     }
     
 }
