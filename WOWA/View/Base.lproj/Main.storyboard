@@ -56,7 +56,7 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="add "/>
                                                 <connections>
-                                                    <segue destination="rh8-fQ-9hH" kind="modal" id="n6A-Mf-BKE"/>
+                                                    <segue destination="rh8-fQ-9hH" kind="modal" identifier="showAddWorkView" id="n6A-Mf-BKE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -458,6 +458,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="saq-Ra-NWK"/>
                     <connections>
+                        <outlet property="addButton" destination="I6b-De-M3a" id="lut-oM-da8"/>
                         <outlet property="nameTextField" destination="0Q2-gH-PQF" id="GMk-0x-gbT"/>
                         <outlet property="repTextField" destination="wmY-u0-l8J" id="emy-gu-GsC"/>
                         <outlet property="selectBodyPart" destination="23m-f2-Hsc" id="dOM-2n-tMk"/>
@@ -472,7 +473,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XuR-Ku-27U"/>
+        <segue reference="n6A-Mf-BKE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>

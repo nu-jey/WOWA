@@ -13,7 +13,7 @@ protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
 }
 
-class MainViewController: UIViewController, UITableViewDelegate {
+class MainViewController: UIViewController {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +24,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
     var tableViewData = [Work]()
     var scheduleID: ObjectId?
     var today = ""
+    var currentWorkIsEditing = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        currentWorkIsEditing = -1
         loadTodaySchedule()
     }
     
@@ -83,10 +85,16 @@ class MainViewController: UIViewController, UITableViewDelegate {
         guard let addViewController = segue.destination as? AddWorkViewController else {
             return
         }
+        if currentWorkIsEditing >= 0 {
+            addViewController.workID = tableViewData[currentWorkIsEditing]._id
+            addViewController.editingWorkTargetIndex = currentWorkIsEditing
+            addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
+            addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
+            addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
+        }
         addViewController.scheduleID = scheduleID!
         addViewController.delegate = self
     }
-    
 }
 
 // MARK: - AddWorkViewControllerDelegate Method
@@ -99,8 +107,26 @@ extension MainViewController: AddWorkViewControllerDelegate {
 // MARK: - FSCalendar Methods
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        var todayWork = DatabaseManager.manager.loadSelectedDateWork(date: dateFormatter.string(from: date))!
-//        print(todayWork)
+        //print(dateFormatter.string(from: date))
+        print(date, Date())
+        let selectedDate = dateFormatter.string(from: date)
+        if  selectedDate == dateFormatter.string(from: Date()) {
+            loadTodaySchedule()
+        } else {
+            if let selectedDateSchedule = DatabaseManager.manager.loadSelectedDateSchedule(date: selectedDate) {
+                tableViewData = selectedDateSchedule.workList.map{ $0 }
+                scheduleID = selectedDateSchedule._id
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                tableViewData = []
+                scheduleID = nil
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -112,7 +138,7 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 }
 
 // MARK: - TableView Methods
-extension MainViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewData.count
     }
@@ -125,10 +151,30 @@ extension MainViewController: UITableViewDataSource {
         cell.rep.text = String(tableViewData[indexPath.row].reps)
         return cell
     }
-     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        print(tableViewData[indexPath.row])
+        let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            print("Delete 클릭 됨")
+            DatabaseManager.manager.deleteWork(id: self.tableViewData[indexPath.row]._id)
+            self.loadTodaySchedule()
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+        
+        
+        let edit = UIContextualAction(style: .normal, title: "Edit") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            self.currentWorkIsEditing = indexPath.row
+            self.performSegue(withIdentifier: "showAddWorkView", sender: nil)
+            success(true)
+        }
+        edit.backgroundColor = .systemTeal
+        
+        return UISwipeActionsConfiguration(actions:[delete, edit])
+    }
 }
 

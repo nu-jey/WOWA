@@ -71,7 +71,7 @@ class RoutineViewController: UIViewController {
             return indexPaths
         }
         
-        if self.hiddenSections.contains(section) {
+        if self.hiddenSections.contains(section) && (tableViewData[section].workList.count > 0){
             isHidden = false
             self.hiddenSections.remove(section)
             self.tableView.insertRows(at: indexPathsForSection(), with: .fade)
@@ -88,11 +88,22 @@ class RoutineViewController: UIViewController {
         performSegue(withIdentifier: "showEditRoutineView", sender: nil)
     }
     
-    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+    @objc func editButtonPressed(_ gesture: UITapGestureRecognizer) {
         selectedIndex = (gesture.view?.tag)!
         performSegue(withIdentifier: "showEditRoutineView", sender: nil)
-        print("partnerProfileTap")
     }
+    
+    @objc func removeButtonPressed(_ gesture: UITapGestureRecognizer) {
+        selectedIndex = (gesture.view?.tag)!
+        let sheet = UIAlertController(title: "Work 삭제", message: "해당 Work를 Routine에서 삭제하시나요?", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in }))
+        sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
+            DatabaseManager.manager.deleteRoutine(id: tableViewData[selectedIndex!]._id)
+            loadAllRoutines()
+        }))
+        present(sheet, animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         loadAllRoutines()
     }
@@ -118,19 +129,25 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         sectionButton.tag = section
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
     
-        let view = UIImageView()
-        view.image = UIImage(systemName: "pencil")
-        view.tag = section
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
-        view.addGestureRecognizer(tapGesture)
-        view.isUserInteractionEnabled = true
+        let editButton = UIImageView()
+        editButton.image = UIImage(systemName: "pencil")
+        editButton.tag = section
+        let editTapGesture = UITapGestureRecognizer(target: self, action: #selector(editButtonPressed(_:)))
+        editButton.addGestureRecognizer(editTapGesture)
+        editButton.isUserInteractionEnabled = true
         
+        let removeButton = UIImageView()
+        removeButton.image = UIImage(systemName: "trash")
+        removeButton.tag = section
+        let removeTapGesture = UITapGestureRecognizer(target: self, action: #selector(removeButtonPressed(_:)))
+        removeButton.addGestureRecognizer(removeTapGesture)
+        removeButton.isUserInteractionEnabled = true
         
         stackView.addArrangedSubview(sectionButton)
-        stackView.addArrangedSubview(view)
+        stackView.addArrangedSubview(editButton)
+        stackView.addArrangedSubview(removeButton)
         
         return stackView
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -76,6 +76,17 @@ class DatabaseManager{
         }
     }
     
+    func editWork(work: Work, id: ObjectId) {
+        if let editingWork = realm.object(ofType: Work.self, forPrimaryKey: id) {
+            try! realm.write {
+                editingWork.target = work.target
+                editingWork.name = work.name
+                editingWork.set = work.set
+                editingWork.reps = work.reps
+            }
+        }
+    }
+    
     func editRoutine(routine: Routine, id: ObjectId) {
         if let editingRoutine = realm.object(ofType: Routine.self, forPrimaryKey: id) {
             try! realm.write {
@@ -85,6 +96,22 @@ class DatabaseManager{
             }
         } else {
             print("편집한 routine 저장 불가")
+        }
+    }
+    
+    func deleteRoutine(id: ObjectId) {
+        if let targetRoutine = realm.object(ofType: Routine.self, forPrimaryKey: id) {
+            try! realm.write {
+                realm.delete(targetRoutine)
+            }
+        }
+    }
+    
+    func deleteWork(id: ObjectId) {
+        if let targetWork = realm.object(ofType: Work.self, forPrimaryKey: id) {
+            try! realm.write {
+                realm.delete(targetWork)
+            }
         }
     }
 }
