@@ -95,7 +95,7 @@ class RoutineViewController: UIViewController {
     
     @objc func removeButtonPressed(_ gesture: UITapGestureRecognizer) {
         selectedIndex = (gesture.view?.tag)!
-        let sheet = UIAlertController(title: "Work 삭제", message: "해당 Work를 Routine에서 삭제하시나요?", preferredStyle: .alert)
+        let sheet = UIAlertController(title: "Routine 삭제", message: "해당 Routine을 삭제하시나요?", preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in }))
         sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
             DatabaseManager.manager.deleteRoutine(id: tableViewData[selectedIndex!]._id)
