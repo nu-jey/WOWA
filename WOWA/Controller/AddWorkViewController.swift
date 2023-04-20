@@ -25,6 +25,7 @@ class AddWorkViewController: UIViewController {
     var routineID: ObjectId?
     var scheduleID: ObjectId?
     var isNewRoutine = false
+    var editingWorkIndex = -1
     var editingWorkTargetIndex = -1
     var editingWorkTargetRep = -1
     var editingWorkTargetSet = -1
@@ -45,12 +46,12 @@ class AddWorkViewController: UIViewController {
         newWork.set = Int(stepperSet.value)
         newWork.reps = Int(stepperRep.value)
         
-        if editingWorkTargetIndex > 0 {
+        if editingWorkIndex > 0 {
             if scheduleID != nil {
                 DatabaseManager.manager.editWork(work: newWork, id: workID!)
                 delegate?.addWorkAndReload()
             } else {
-                
+                delegateForNewRoutine?.addWorkForNewRoutineAndReload(newWork)
             }
         } else {
             if scheduleID != nil {
@@ -77,14 +78,16 @@ class AddWorkViewController: UIViewController {
         guard let editRoutineViewController = segue.destination as? EditRoutineViewController else {
             return
         }
-        if editingWorkTargetIndex >= 0 {
-            // editRoutineViewController.tableViewData[editingWorkTargetIndex] = newWork
+        if editingWorkIndex >= 0 {
+            editRoutineViewController.tableViewData[editingWorkIndex] = newWork
+        } else {
             
         }
     }
     func setAddWorkViewText() {
-        if editingWorkTargetIndex >= 0 {
+        if editingWorkIndex >= 0 {
             selectBodyPart.selectRow(editingWorkTargetIndex, inComponent: 0, animated: true)
+            target = wowa.bodyPart[editingWorkTargetIndex]
             repTextField.text = String(editingWorkTargetRep)
             setTextField.text = String(editingWorkTargetSet)
             stepperSet.value = Double(editingWorkTargetSet)

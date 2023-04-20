@@ -18,6 +18,7 @@ class EditRoutineViewController: UIViewController {
     var tableViewData = [Work]()
     var routineID: ObjectId?
     var delegate: NewAndEditRoutineViewControllerDelegate?
+    var currentWorkIsEditing = -1
     
     override func viewDidLoad() {
         
@@ -35,11 +36,22 @@ class EditRoutineViewController: UIViewController {
         guard let addViewController = segue.destination as? AddWorkViewController else {
             return
         }
+        if currentWorkIsEditing >= 0 {
+            addViewController.editingWorkIndex = currentWorkIsEditing
+            addViewController.workID = tableViewData[currentWorkIsEditing]._id
+            print(wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!)
+            addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
+            addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
+            addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
+            addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
+        }
+        
         addViewController.routineID = routineID!
         addViewController.delegateForNewRoutine = self
     }
     
     @IBAction func addNewWorkButtonPressed(_ sender: UIButton) {
+        currentWorkIsEditing = -1
         performSegue(withIdentifier: "showNewWorkFromEditRoutine", sender: nil)
     }
     
@@ -57,7 +69,11 @@ class EditRoutineViewController: UIViewController {
 
 extension EditRoutineViewController: ForNewRoutineAddWorkViewControllerDelegate {
     func addWorkForNewRoutineAndReload(_ newWork: Work) {
-        tableViewData.append(newWork)
+        if currentWorkIsEditing >= 0 {
+            tableViewData[currentWorkIsEditing] = newWork
+        } else {
+            tableViewData.append(newWork)
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -91,9 +107,8 @@ extension EditRoutineViewController: UITableViewDataSource, UITableViewDelegate 
         delete.backgroundColor = .systemRed
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            // 작업 필요
-//            self.currentWorkIsEditing = indexPath.row
-//            self.performSegue(withIdentifier: "showNewWorkFromNewRoutine", sender: nil)
+            self.currentWorkIsEditing = indexPath.row
+            self.performSegue(withIdentifier: "showNewWorkFromEditRoutine", sender: nil)
             
         }
         edit.backgroundColor = .systemTeal

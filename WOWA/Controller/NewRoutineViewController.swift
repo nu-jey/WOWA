@@ -31,6 +31,7 @@ class NewRoutineViewController: UIViewController {
             return
         }
         if currentWorkIsEditing >= 0 {
+            addViewController.editingWorkIndex = currentWorkIsEditing
             addViewController.workID = tableViewData[currentWorkIsEditing]._id
             addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
             addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
@@ -65,7 +66,11 @@ class NewRoutineViewController: UIViewController {
 
 extension NewRoutineViewController: ForNewRoutineAddWorkViewControllerDelegate {
     func addWorkForNewRoutineAndReload(_ newWork: Work) {
-        tableViewData.append(newWork)
+        if currentWorkIsEditing >= 0 {
+            tableViewData[currentWorkIsEditing] = newWork
+        } else {
+            tableViewData.append(newWork)
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -100,10 +105,9 @@ extension NewRoutineViewController: UITableViewDataSource, UITableViewDelegate {
         delete.backgroundColor = .systemRed
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            // 작업 필요
-//            self.currentWorkIsEditing = indexPath.row
-//            self.performSegue(withIdentifier: "showNewWorkFromNewRoutine", sender: nil)
-            
+            self.currentWorkIsEditing = indexPath.row
+            self.performSegue(withIdentifier: "showNewWorkFromNewRoutine", sender: nil)
+            print(self.tableViewData[indexPath.row])
         }
         edit.backgroundColor = .systemTeal
         
