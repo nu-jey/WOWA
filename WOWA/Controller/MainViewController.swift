@@ -18,17 +18,20 @@ class MainViewController: UIViewController {
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     
-    
     let dateFormatter = DateFormatter()
     var rows = 1
     var tableViewData = [Work]()
     var scheduleID: ObjectId?
     var today = ""
     var currentWorkIsEditing = -1
+    var currentSelectedDate: String?
+    var selectedIndex: Int?
+    var hiddenSections = Set<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // FSCalendar 설정
         calendarView.backgroundColor = .white
         calendarView.locale = Locale(identifier: "ko_KR")
         calendarView.appearance.headerDateFormat = "YYYY년 MM월"
@@ -36,7 +39,7 @@ class MainViewController: UIViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         
-        
+        // tableView 설정
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeEvent(_:)))
         swipeUp.direction = .up
         self.view.addGestureRecognizer(swipeUp)
@@ -46,21 +49,24 @@ class MainViewController: UIViewController {
         self.view.addGestureRecognizer(swipeDown)
         
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
-        loadTodaySchedule()
+        tableView.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: "MainTableViewCell")
+        currentSelectedDate = dateFormatter.string(from: Date())
+        loadSchedule(currentSelectedDate!)
         // print(Realm.Configuration.defaultConfiguration.fileURL!)
+        
+        hideAllSections()
+        
     }
     
-    func loadTodaySchedule() {
-        today = dateFormatter.string(from: Date())
-        if let todayWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: today) {
-            tableViewData = todayWorks.workList.map{ $0 }
-            scheduleID = todayWorks._id
+    func loadSchedule(_ date: String) {
+        if let selectedDateWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: date) {
+            tableViewData = selectedDateWorks.workList.map{ $0 }
+            scheduleID = selectedDateWorks._id
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         } else {
-            let newSchedule = DatabaseManager.manager.addNewSchedule(date: today)
+            let newSchedule = DatabaseManager.manager.addNewSchedule(date: date)
             tableViewData = newSchedule.workList.map{ $0 }
             scheduleID = newSchedule._id
         }
@@ -77,7 +83,8 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         currentWorkIsEditing = -1
-        loadTodaySchedule()
+        loadSchedule(currentSelectedDate!)
+        hideAllSections()
     }
     
     // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
@@ -87,7 +94,8 @@ class MainViewController: UIViewController {
         }
         if currentWorkIsEditing >= 0 {
             addViewController.workID = tableViewData[currentWorkIsEditing]._id
-            addViewController.editingWorkTargetIndex = currentWorkIsEditing
+            addViewController.editingWorkIndex = currentWorkIsEditing
+            addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
             addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
             addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
             addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
@@ -95,36 +103,82 @@ class MainViewController: UIViewController {
         addViewController.scheduleID = scheduleID!
         addViewController.delegate = self
     }
+    
+    @objc private func hideSection(sender: UIButton) {
+        let section = sender.tag
+        
+        func indexPathsForSection() -> [IndexPath] {
+            var indexPaths = [IndexPath]()
+            for row in 0..<self.tableViewData[section].set {
+                indexPaths.append(IndexPath(row: row, section: section))
+            }
+            return indexPaths
+        }
+        
+        if self.hiddenSections.contains(section) {
+            self.hiddenSections.remove(section)
+            self.tableView.insertRows(at: indexPathsForSection(), with: .fade)
+        } else {
+            self.hiddenSections.insert(section)
+            self.tableView.deleteRows(at: indexPathsForSection(), with: .fade)
+        }
+    }
+    
+    func hideAllSections() {
+        print(tableViewData.count)
+        for i in 0..<tableViewData.count {
+            if tableView.numberOfRows(inSection: i) > 0 {
+                var indexPaths = [IndexPath]()
+                for row in 0..<self.tableViewData[i].set {
+                    indexPaths.append(IndexPath(row: row, section: i))
+                }
+                self.hiddenSections.insert(i)
+                self.tableView.deleteRows(at: indexPaths, with: .none)
+            }
+        }
+    }
+    
+    @objc func editButtonPressed(_ gesture: UITapGestureRecognizer) {
+        currentWorkIsEditing = (gesture.view?.tag)!
+        performSegue(withIdentifier: "showAddWorkView", sender: nil)
+    }
+    
+    @objc func removeButtonPressed(_ gesture: UITapGestureRecognizer) {
+        selectedIndex = (gesture.view?.tag)!
+        let sheet = UIAlertController(title: "Routine 삭제", message: "해당 Routine을 삭제하시나요?", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in }))
+        sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
+            // DatabaseManager.manager.deleteRoutine(id: tableViewData[selectedIndex!]._id)
+            loadSchedule(currentSelectedDate!)
+        }))
+        present(sheet, animated: true)
+    }
 }
 
 // MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
-        loadTodaySchedule()
+        loadSchedule(currentSelectedDate!)
     }
 }
 
 // MARK: - FSCalendar Methods
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //print(dateFormatter.string(from: date))
-        print(date, Date())
-        let selectedDate = dateFormatter.string(from: date)
-        if  selectedDate == dateFormatter.string(from: Date()) {
-            loadTodaySchedule()
+        currentSelectedDate = dateFormatter.string(from: date)
+        if let selectedDateSchedule = DatabaseManager.manager.loadSelectedDateSchedule(date: currentSelectedDate!) {
+            tableViewData = selectedDateSchedule.workList.map{ $0 }
+            scheduleID = selectedDateSchedule._id
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            hiddenSections = Set(0..<tableViewData.count)
+            
         } else {
-            if let selectedDateSchedule = DatabaseManager.manager.loadSelectedDateSchedule(date: selectedDate) {
-                tableViewData = selectedDateSchedule.workList.map{ $0 }
-                scheduleID = selectedDateSchedule._id
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } else {
-                tableViewData = []
-                scheduleID = nil
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+            tableViewData = []
+            scheduleID = nil
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
     }
@@ -139,30 +193,71 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 
 // MARK: - TableView Methods
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewData.count
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.backgroundColor = .white
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        
+        let sectionButton = UIButton()
+        sectionButton.setTitle("\(tableViewData[section].target) - \(tableViewData[section].name)", for: .normal)
+        sectionButton.backgroundColor = .systemBlue
+        sectionButton.tag = section
+        sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
+    
+        let editButton = UIImageView()
+        editButton.image = UIImage(systemName: "pencil")
+        editButton.tag = section
+        let editTapGesture = UITapGestureRecognizer(target: self, action: #selector(editButtonPressed(_:)))
+        editButton.addGestureRecognizer(editTapGesture)
+        editButton.isUserInteractionEnabled = true
+        
+        let removeButton = UIImageView()
+        removeButton.image = UIImage(systemName: "trash")
+        removeButton.tag = section
+        let removeTapGesture = UITapGestureRecognizer(target: self, action: #selector(removeButtonPressed(_:)))
+        removeButton.addGestureRecognizer(removeTapGesture)
+        removeButton.isUserInteractionEnabled = true
+        
+        stackView.addArrangedSubview(sectionButton)
+        stackView.addArrangedSubview(editButton)
+        stackView.addArrangedSubview(removeButton)
+        
+        return stackView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.hiddenSections.contains(section) {
+            return 0
+        }
+        return tableViewData[section].set
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
-        cell.bodyPart.text = tableViewData[indexPath.row].target
-        cell.name.text = tableViewData[indexPath.row].name
-        cell.set.text = String(tableViewData[indexPath.row].set)
-        cell.rep.text = String(tableViewData[indexPath.row].reps)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
+        cell.currentSetTextField.text = "Set " + String(indexPath.row + 1)
+        cell.currentRepsTextField.text = String(tableViewData[indexPath.section].reps) + "Reps"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(tableViewData[indexPath.row].set)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        print(tableViewData[indexPath.row])
         let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print("Delete 클릭 됨")
             DatabaseManager.manager.deleteWork(id: self.tableViewData[indexPath.row]._id)
-            self.loadTodaySchedule()
+            self.loadSchedule(self.currentSelectedDate!)
             success(true)
         }
         delete.backgroundColor = .systemRed
