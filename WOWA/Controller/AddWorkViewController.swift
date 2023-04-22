@@ -18,7 +18,7 @@ class AddWorkViewController: UIViewController {
     
     weak var delegate: AddWorkViewControllerDelegate?
     weak var delegateForNewRoutine: ForNewRoutineAddWorkViewControllerDelegate?
-
+    
     var target = "가슴"
     var newWork = Work()
     var workID: ObjectId?
@@ -46,7 +46,7 @@ class AddWorkViewController: UIViewController {
         newWork.set = Int(stepperSet.value)
         newWork.reps = Int(stepperRep.value)
         
-        if editingWorkIndex > 0 {
+        if editingWorkIndex >= 0 {
             if scheduleID != nil {
                 DatabaseManager.manager.editWork(work: newWork, id: workID!)
                 delegate?.addWorkAndReload()
@@ -108,11 +108,11 @@ extension AddWorkViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return wowa.bodyPart.count
+        return wowa.bodyPart.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return wowa.bodyPart[row]
+        return wowa.bodyPart[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

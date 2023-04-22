@@ -104,6 +104,8 @@ class DatabaseManager{
             try! realm.write {
                 realm.delete(targetRoutine)
             }
+        } else {
+            print("")
         }
     }
     
@@ -114,4 +116,29 @@ class DatabaseManager{
             }
         }
     }
+    
+    func addNewWeight(WorkID: ObjectId, weight: Int, currentSet: Int, totalSet: Int) {
+        if let targetWeight = realm.objects(Weight.self).filter("WorkID == '\(WorkID)'").first {
+            // 기존에 weight 모델 데이터 값을 수정
+            try! realm.write {
+                targetWeight.weightPerSet[currentSet] = weight
+            }
+        } else {
+            // 새로운 weight 모델 추가
+            var newWeight = Weight(WorkID: WorkID, set: totalSet)
+            newWeight.weightPerSet[currentSet] = weight
+            try! realm.write {
+                realm.add(newWeight)
+            }
+        }
+    }
+    
+    func deleteWorkInSchedule(id: ObjectId) {
+        if let targetWork = realm.object(ofType: Work.self, forPrimaryKey: id) {
+            try! realm.write {
+                targetWork.set -= 1
+            }
+        }
+    }
+    
 }

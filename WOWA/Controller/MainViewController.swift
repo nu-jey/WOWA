@@ -52,8 +52,6 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: "MainTableViewCell")
         currentSelectedDate = dateFormatter.string(from: Date())
         loadSchedule(currentSelectedDate!)
-        // print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
         hideAllSections()
         
     }
@@ -82,7 +80,6 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentWorkIsEditing = -1
         loadSchedule(currentSelectedDate!)
         hideAllSections()
     }
@@ -99,6 +96,7 @@ class MainViewController: UIViewController {
             addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
             addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
             addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
+            currentWorkIsEditing = -1
         }
         addViewController.scheduleID = scheduleID!
         addViewController.delegate = self
@@ -125,7 +123,6 @@ class MainViewController: UIViewController {
     }
     
     func hideAllSections() {
-        print(tableViewData.count)
         for i in 0..<tableViewData.count {
             if tableView.numberOfRows(inSection: i) > 0 {
                 var indexPaths = [IndexPath]()
@@ -148,10 +145,43 @@ class MainViewController: UIViewController {
         let sheet = UIAlertController(title: "Routine 삭제", message: "해당 Routine을 삭제하시나요?", preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in }))
         sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
-            // DatabaseManager.manager.deleteRoutine(id: tableViewData[selectedIndex!]._id)
+            print(selectedIndex!)
+            DatabaseManager.manager.deleteWork(id: tableViewData[selectedIndex!]._id)
             loadSchedule(currentSelectedDate!)
         }))
         present(sheet, animated: true)
+    }
+    
+    @objc func addWeightButtonPressed(sender: UIButton) {
+        let alert = UIAlertController(title: "운동 완료", message: "무게 등록", preferredStyle: .alert)
+        let add = UIAlertAction(title: "Add", style: .default) { (ok) in
+            sender.setTitle((alert.textFields![0].text)! + "Kg", for: .normal)
+            let sectionAndRow = numConvert2(input: sender.tag)
+            let section = sectionAndRow[0]
+            let row = sectionAndRow[1]
+//            let addedWeight = Int(alert.textFields![0].text!)!
+//            let targetWork = self.tableViewData[sender.tag]
+            // DatabaseManager.manager.addNewWeight(WorkID: <#T##ObjectId#>, weight: addedWeight, currentSet: <#T##Int#>, totalSet: <#T##Int#>)
+        }
+        
+        let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
+            print(sender)
+            
+        }
+
+        alert.addAction(cancel)
+        alert.addAction(add)
+        alert.addTextField()
+        alert.textFields![0].placeholder = "등록 무게 단위는 Kg"
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func numConvert1(input: [Int]) -> Int {
+        
+    }
+    
+    func numConvert2(input: Int) -> [Int] {
+        
     }
 }
 
@@ -199,8 +229,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .white
@@ -213,7 +241,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         sectionButton.backgroundColor = .systemBlue
         sectionButton.tag = section
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
-    
+        
         let editButton = UIImageView()
         editButton.image = UIImage(systemName: "pencil")
         editButton.tag = section
@@ -246,6 +274,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
         cell.currentSetTextField.text = "Set " + String(indexPath.row + 1)
         cell.currentRepsTextField.text = String(tableViewData[indexPath.section].reps) + "Reps"
+        let tempLst = [String(indexPath.section).count, indexPath.section, String(indexPath.row).count, indexPath.row]
+        cell.addWeightButton.tag = numConvert1(input: tempLst)
+        cell.addWeightButton.addTarget(self, action: #selector(addWeightButtonPressed(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -255,8 +286,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("Delete 클릭 됨")
-            DatabaseManager.manager.deleteWork(id: self.tableViewData[indexPath.row]._id)
+            print(indexPath.section, indexPath.row)
+            // schedule에서 set수 조정
+            DatabaseManager.manager.deleteWorkInSchedule(id: self.tableViewData[indexPath.section]._id)
+            // weight에서 해당 무게 존재 시 삭제
             self.loadSchedule(self.currentSelectedDate!)
             success(true)
         }

@@ -24,11 +24,4 @@ class MainTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func addWeightButtonPressed(_ sender: UIButton) {
-        let controller = UIAlertController(title: nil, message: "Write something xD", preferredStyle: .alert)
-        controller.addTextField { field in
-                    
-                }
-    }
-    
 }

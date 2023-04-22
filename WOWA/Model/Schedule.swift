@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 class Schedule: Object {
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var workList = List<Work>()
     @Persisted var date: String
-    @Persisted(primaryKey: true) var _id: ObjectId
     
     convenience init(workList: List<Work> = List<Work>(), date: String) {
         self.init()

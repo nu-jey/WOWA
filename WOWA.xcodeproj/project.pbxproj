@@ -12,6 +12,7 @@
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
 		C292DBD629E6750E00EB97C8 /* EditRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */; };
+		C297631A29F3D2A10056B211 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C297631929F3D2A10056B211 /* Weight.swift */; };
 		C2B00FB729E4410D0028D874 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B00FB629E4410D0028D874 /* Routine.swift */; };
 		C2C5944829F2A25200ED847B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C5944629F2A25200ED847B /* MainTableViewCell.swift */; };
 		C2C5944929F2A25200ED847B /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C5944729F2A25200ED847B /* MainTableViewCell.xib */; };
@@ -41,6 +42,7 @@
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineViewController.swift; sourceTree = "<group>"; };
 		C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewController.swift; sourceTree = "<group>"; };
+		C297631929F3D2A10056B211 /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		C2C5944629F2A25200ED847B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		C2C5944729F2A25200ED847B /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				C2460D3629DD6BE4006A237C /* Work.swift */,
 				C2B00FB629E4410D0028D874 /* Routine.swift */,
 				C2CE553629E981170035E2C1 /* Schedule.swift */,
+				C297631929F3D2A10056B211 /* Weight.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			files = (
 				C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */,
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
+				C297631A29F3D2A10056B211 /* Weight.swift in Sources */,
 				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,
 				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
 				C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */,
