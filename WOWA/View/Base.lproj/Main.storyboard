@@ -47,7 +47,7 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Routine"/>
                                                 <connections>
-                                                    <segue destination="CBm-da-aTF" kind="show" id="P68-K5-XpZ"/>
+                                                    <segue destination="0Aw-S1-OMl" kind="modal" id="7dP-E0-XZK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thu-xm-MvO">
@@ -99,6 +99,31 @@
             </objects>
             <point key="canvasLocation" x="1333.5877862595419" y="6.3380281690140849"/>
         </scene>
+        <!--Add Routine View Controller-->
+        <scene sceneID="3ap-6O-JGt">
+            <objects>
+                <viewController id="0Aw-S1-OMl" customClass="AddRoutineViewController" customModule="WOWA" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EtQ-d5-mrJ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-9c-w3c">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BkQ-wP-1uN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="1eg-9c-w3c" id="wlt-2D-0VL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bcl-VN-HkC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1334" y="682"/>
+        </scene>
         <!--Setting View Controller-->
         <scene sceneID="OxX-vc-YpJ">
             <objects>
@@ -122,6 +147,17 @@
                     <view key="view" contentMode="scaleToFill" id="Qcd-eK-pFP">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGr-bF-sRy">
+                                <rect key="frame" x="142" y="283" width="110" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="My Routine"/>
+                                <connections>
+                                    <segue destination="CBm-da-aTF" kind="show" id="c7t-ll-ItZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -149,7 +185,7 @@
             </objects>
             <point key="canvasLocation" x="406.87022900763355" y="6.3380281690140849"/>
         </scene>
-        <!--Routine-->
+        <!--My Routine-->
         <scene sceneID="Rbz-wo-mg8">
             <objects>
                 <viewController id="CBm-da-aTF" customClass="RoutineViewController" customModule="WOWA" customModuleProvider="target" sceneMemberID="viewController">
@@ -175,7 +211,7 @@
                             <constraint firstItem="8DH-4O-Xry" firstAttribute="leading" secondItem="ej8-P2-kkv" secondAttribute="leading" id="rjc-fC-RU2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Routine" id="6zu-Ln-X2a">
+                    <navigationItem key="navigationItem" title="My Routine" id="6zu-Ln-X2a">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1aN-jB-B8i">
                             <connections>
                                 <segue destination="p0f-51-dVE" kind="show" identifier="showNewRoutineView" id="6W6-6M-0XQ"/>
@@ -189,7 +225,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQf-73-gNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="944" y="742"/>
+            <point key="canvasLocation" x="2527" y="-695"/>
         </scene>
         <!--New Routine-->
         <scene sceneID="I5D-jq-RwD">
@@ -282,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xdI-Ff-NX2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="560" y="1475"/>
+            <point key="canvasLocation" x="3071" y="6"/>
         </scene>
         <!--Eidt Routine-->
         <scene sceneID="JOi-ga-0f4">
@@ -371,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQB-1o-zsg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="1475"/>
+            <point key="canvasLocation" x="3787" y="6"/>
         </scene>
         <!--Add Work View Controller-->
         <scene sceneID="jiQ-aQ-UWq">
@@ -469,11 +505,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWG-Y0-ilA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="742"/>
+            <point key="canvasLocation" x="2121" y="682"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="n6A-Mf-BKE"/>
+        <segue reference="XuR-Ku-27U"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>

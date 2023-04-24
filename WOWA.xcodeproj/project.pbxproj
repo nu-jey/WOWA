@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2034AD729E5955500491FA5 /* MyViewCotroller.swift */; };
+		C224F7CE29F6B83B00105042 /* AddRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */; };
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
@@ -38,6 +39,7 @@
 		AC1BA1652F76B9008A35AEFF /* Pods-WOWA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WOWA.release.xcconfig"; path = "Target Support Files/Pods-WOWA/Pods-WOWA.release.xcconfig"; sourceTree = "<group>"; };
 		C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WOWA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2034AD729E5955500491FA5 /* MyViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewCotroller.swift; sourceTree = "<group>"; };
+		C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewController.swift; sourceTree = "<group>"; };
 		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				C2034AD729E5955500491FA5 /* MyViewCotroller.swift */,
 				C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */,
 				C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */,
+				C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */,
+				C224F7CE29F6B83B00105042 /* AddRoutineViewController.swift in Sources */,
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
 				C297631A29F3D2A10056B211 /* Weight.swift in Sources */,
 				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,

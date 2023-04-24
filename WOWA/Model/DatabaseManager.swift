@@ -118,18 +118,26 @@ class DatabaseManager{
     }
     
     func addNewWeight(WorkID: ObjectId, weight: Int, currentSet: Int, totalSet: Int) {
-        if let targetWeight = realm.objects(Weight.self).filter("WorkID == '\(WorkID)'").first {
+        if let targetWeight = realm.object(ofType: Weight.self, forPrimaryKey: WorkID) {
             // 기존에 weight 모델 데이터 값을 수정
             try! realm.write {
                 targetWeight.weightPerSet[currentSet] = weight
             }
         } else {
             // 새로운 weight 모델 추가
-            var newWeight = Weight(WorkID: WorkID, set: totalSet)
-            newWeight.weightPerSet[currentSet] = weight
             try! realm.write {
+                var newWeight = Weight(WorkID: WorkID, set: totalSet)
+                newWeight.weightPerSet[currentSet] = weight
                 realm.add(newWeight)
             }
+        }
+    }
+    
+    func laodWeight(WorkID: ObjectId) -> [Int]? {
+        if let targetWeight = realm.object(ofType: Weight.self, forPrimaryKey: WorkID) {
+            return targetWeight.weightPerSet.map {$0}
+        } else {
+            return nil
         }
     }
     

@@ -156,12 +156,13 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "운동 완료", message: "무게 등록", preferredStyle: .alert)
         let add = UIAlertAction(title: "Add", style: .default) { (ok) in
             sender.setTitle((alert.textFields![0].text)! + "Kg", for: .normal)
-            let sectionAndRow = numConvert2(input: sender.tag)
+            let sectionAndRow = self.numConvert2(input: sender.tag)
             let section = sectionAndRow[0]
             let row = sectionAndRow[1]
-//            let addedWeight = Int(alert.textFields![0].text!)!
-//            let targetWork = self.tableViewData[sender.tag]
-            // DatabaseManager.manager.addNewWeight(WorkID: <#T##ObjectId#>, weight: addedWeight, currentSet: <#T##Int#>, totalSet: <#T##Int#>)
+            let addedWeight = Int(alert.textFields![0].text!)!
+            let targetWork = self.tableViewData[section]
+            print(row)
+            DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set)
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
@@ -177,11 +178,29 @@ class MainViewController: UIViewController {
     }
     
     func numConvert1(input: [Int]) -> Int {
-        
+        return Int(input.map(String.init).joined())!
     }
     
     func numConvert2(input: Int) -> [Int] {
+        var array = String(input).map { Int(String($0))! }
+        print(array)
+        // section 정보 꺼내기
+        let sectionCount = array[0]
+        var temp = [Int]()
+        for i in 1...sectionCount {
+            temp.append(array[i])
+        }
+        var sectionValue = temp.reduce(0, { $0 * 10 + $1})
         
+        // row 정보 꺼내기
+        let rowCount = array[1]
+        temp = []
+        for i in sectionCount+String(sectionValue).count + 1..<array.count {
+            temp.append(array[i])
+        }
+        let rowValue = temp.reduce(0, { $0 * 10 + $1})
+        
+        return [sectionValue, rowValue]
     }
 }
 
@@ -274,9 +293,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
         cell.currentSetTextField.text = "Set " + String(indexPath.row + 1)
         cell.currentRepsTextField.text = String(tableViewData[indexPath.section].reps) + "Reps"
-        let tempLst = [String(indexPath.section).count, indexPath.section, String(indexPath.row).count, indexPath.row]
-        cell.addWeightButton.tag = numConvert1(input: tempLst)
+        let convertValue = [String(indexPath.section).count, indexPath.section, String(indexPath.row).count, indexPath.row]
+        cell.addWeightButton.tag = numConvert1(input: convertValue)
         cell.addWeightButton.addTarget(self, action: #selector(addWeightButtonPressed(sender:)), for: .touchUpInside)
+        if let weightList = DatabaseManager.manager.laodWeight(WorkID: tableViewData[indexPath.section]._id) {
+            let weight = weightList[indexPath.row] >= 0 ? String(weightList[indexPath.row]) + "Kg" : "Work"
+            cell.addWeightButton.setTitle(weight, for: .normal)
+        }
         return cell
     }
     

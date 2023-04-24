@@ -9,8 +9,7 @@ import Foundation
 import RealmSwift
 
 class Weight: Object {
-    @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var WorkID: ObjectId
+    @Persisted(primaryKey: true) var WorkID: ObjectId
     @Persisted var weightPerSet = List<Int>()
     
     convenience init(WorkID: ObjectId, set: Int) {
