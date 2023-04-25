@@ -51,7 +51,7 @@ class NewRoutineViewController: UIViewController {
     
     @IBAction func addSaveButton(_ sender: Any) {
         let newRoutine = Routine(routineName: routineNameTextField.text!)
-        if let description = routineNameTextField.text {
+        if let description = routineDescriptionTextField.text {
             newRoutine.routineDiscription = description
         }
         for work in tableViewData {

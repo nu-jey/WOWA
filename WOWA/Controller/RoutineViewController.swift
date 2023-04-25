@@ -120,7 +120,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         stackView.axis = .horizontal
         stackView.backgroundColor = .white
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         stackView.spacing = 8
         
         let sectionButton = UIButton()

@@ -86,20 +86,23 @@ class MainViewController: UIViewController {
     
     // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let addViewController = segue.destination as? AddWorkViewController else {
+        if let addViewController = segue.destination as? AddWorkViewController {
+            if currentWorkIsEditing >= 0 {
+                addViewController.workID = tableViewData[currentWorkIsEditing]._id
+                addViewController.editingWorkIndex = currentWorkIsEditing
+                addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
+                addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
+                addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
+                addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
+                currentWorkIsEditing = -1
+            }
+            addViewController.scheduleID = scheduleID!
+            addViewController.delegate = self
+        } else if let addRoutineViewController = segue.destination as? AddRoutineViewController {
+            addRoutineViewController.scheduleID = self.scheduleID
+        } else {
             return
         }
-        if currentWorkIsEditing >= 0 {
-            addViewController.workID = tableViewData[currentWorkIsEditing]._id
-            addViewController.editingWorkIndex = currentWorkIsEditing
-            addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
-            addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
-            addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set
-            addViewController.editingWorkTargetName = tableViewData[currentWorkIsEditing].name
-            currentWorkIsEditing = -1
-        }
-        addViewController.scheduleID = scheduleID!
-        addViewController.delegate = self
     }
     
     @objc private func hideSection(sender: UIButton) {
@@ -146,7 +149,7 @@ class MainViewController: UIViewController {
         sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in }))
         sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
             print(selectedIndex!)
-            DatabaseManager.manager.deleteWork(id: tableViewData[selectedIndex!]._id)
+            DatabaseManager.manager.deleteWorkInSchedule(scheduleID: scheduleID!, workID: tableViewData[selectedIndex!]._id)
             loadSchedule(currentSelectedDate!)
         }))
         present(sheet, animated: true)
@@ -169,7 +172,7 @@ class MainViewController: UIViewController {
             print(sender)
             
         }
-
+        
         alert.addAction(cancel)
         alert.addAction(add)
         alert.addTextField()
@@ -182,7 +185,7 @@ class MainViewController: UIViewController {
     }
     
     func numConvert2(input: Int) -> [Int] {
-        var array = String(input).map { Int(String($0))! }
+        let array = String(input).map { Int(String($0))! }
         print(array)
         // section 정보 꺼내기
         let sectionCount = array[0]
@@ -190,10 +193,8 @@ class MainViewController: UIViewController {
         for i in 1...sectionCount {
             temp.append(array[i])
         }
-        var sectionValue = temp.reduce(0, { $0 * 10 + $1})
+        let sectionValue = temp.reduce(0, { $0 * 10 + $1})
         
-        // row 정보 꺼내기
-        let rowCount = array[1]
         temp = []
         for i in sectionCount+String(sectionValue).count + 1..<array.count {
             temp.append(array[i])
@@ -207,6 +208,7 @@ class MainViewController: UIViewController {
 // MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
+        print("리로딩")
         loadSchedule(currentSelectedDate!)
     }
 }
@@ -311,7 +313,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print(indexPath.section, indexPath.row)
             // schedule에서 set수 조정
-            DatabaseManager.manager.deleteWorkInSchedule(id: self.tableViewData[indexPath.section]._id)
+            
             // weight에서 해당 무게 존재 시 삭제
             self.loadSchedule(self.currentSelectedDate!)
             success(true)

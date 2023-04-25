@@ -141,12 +141,36 @@ class DatabaseManager{
         }
     }
     
-    func deleteWorkInSchedule(id: ObjectId) {
-        if let targetWork = realm.object(ofType: Work.self, forPrimaryKey: id) {
-            try! realm.write {
-                targetWork.set -= 1
+    func deleteWorkInSchedule(scheduleID: ObjectId, workID: ObjectId) {
+        if let targetSchedule = realm.object(ofType: Schedule.self, forPrimaryKey: scheduleID) {
+            if let targetWork = realm.object(ofType: Work.self, forPrimaryKey: workID) {
+                try! realm.write {
+                    let tempWorkList = targetSchedule.workList
+                    tempWorkList.remove(at: tempWorkList.firstIndex(of: targetWork)!)
+                    targetSchedule.workList = tempWorkList
+                }
+            } else {
+                return
             }
+        } else {
+            return
         }
+        
     }
     
+    func addRoutineInSchedule(routineID: ObjectId, scheduleID: ObjectId) {
+        if let targetSchedule = realm.object(ofType: Schedule.self, forPrimaryKey: scheduleID) {
+            if let targetRoutine = realm.object(ofType: Routine.self, forPrimaryKey: routineID) {
+                try! realm.write {
+                    for work in targetRoutine.workList{
+                        targetSchedule.workList.append(work)
+                    }
+                }
+            } else {
+                return
+            }
+        } else {
+            return
+        }
+    }
 }
