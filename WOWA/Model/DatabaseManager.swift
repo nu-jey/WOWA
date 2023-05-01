@@ -117,7 +117,7 @@ class DatabaseManager{
         }
     }
     
-    func addNewWeight(WorkID: ObjectId, weight: Int, currentSet: Int, totalSet: Int) {
+    func addNewWeight(WorkID: ObjectId, weight: Int, currentSet: Int, totalSet: Int, reps: Int, date: String) {
         if let targetWeight = realm.object(ofType: Weight.self, forPrimaryKey: WorkID) {
             // 기존에 weight 모델 데이터 값을 수정
             try! realm.write {
@@ -126,7 +126,7 @@ class DatabaseManager{
         } else {
             // 새로운 weight 모델 추가
             try! realm.write {
-                var newWeight = Weight(WorkID: WorkID, set: totalSet)
+                var newWeight = Weight(WorkID: WorkID, set: totalSet, reps: reps, date: date)
                 newWeight.weightPerSet[currentSet] = weight
                 realm.add(newWeight)
             }
@@ -163,7 +163,10 @@ class DatabaseManager{
             if let targetRoutine = realm.object(ofType: Routine.self, forPrimaryKey: routineID) {
                 try! realm.write {
                     for work in targetRoutine.workList{
-                        targetSchedule.workList.append(work)
+                        let newWork = Work(target: work.target, name: work.name, set: work.set, reps: work.reps)
+                        targetSchedule.workList.append(newWork)
+                        let newWeight = Weight(WorkID: newWork._id, set: newWork.set, reps: newWork.reps, date: targetSchedule.date)
+                        realm.add(newWeight)
                     }
                 }
             } else {
@@ -173,4 +176,33 @@ class DatabaseManager{
             return
         }
     }
+    
+    func removeSetInWork(WorkId: ObjectId, setNum: Int) {
+        if let targetWeight = realm.object(ofType: Weight.self, forPrimaryKey: WorkId) {
+            try! realm.write {
+                targetWeight.weightPerSet.remove(at: setNum)
+                targetWeight.repsPerSet.remove(at: setNum)
+            }
+        }
+        if let targetWork = realm.object(ofType: Work.self, forPrimaryKey: WorkId) {
+            try! realm.write {
+                targetWork.set -= 1
+            }
+        }
+    }
+    
+    func editRepsInWeight(WorkID: ObjectId, setNum: Int, reps: Int) {
+        if let targetWeight = realm.object(ofType: Weight.self, forPrimaryKey: WorkID) {
+            try! realm.write {
+                targetWeight.repsPerSet[setNum] = reps
+            }
+        }
+    }
+    
+    func loadSelectedDateWeights(date: String) -> Results<Weight>? {
+        return realm.objects(Weight.self).filter("date == '\(date)'")
+    }
+    
+   
+    
 }

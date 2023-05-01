@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     let dateFormatter = DateFormatter()
     var rows = 1
     var tableViewData = [Work]()
+    var tableViewDataWeight = [Weight]()
     var scheduleID: ObjectId?
     var today = ""
     var currentWorkIsEditing = -1
@@ -59,6 +60,11 @@ class MainViewController: UIViewController {
     func loadSchedule(_ date: String) {
         if let selectedDateWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: date) {
             tableViewData = selectedDateWorks.workList.map{ $0 }
+            tableViewDataWeight = []
+            for weight in DatabaseManager.manager.loadSelectedDateWeights(date: currentSelectedDate!)! {
+                tableViewDataWeight.append(weight)
+            }
+            print(tableViewDataWeight)
             scheduleID = selectedDateWorks._id
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -100,6 +106,7 @@ class MainViewController: UIViewController {
             addViewController.delegate = self
         } else if let addRoutineViewController = segue.destination as? AddRoutineViewController {
             addRoutineViewController.scheduleID = self.scheduleID
+            addRoutineViewController.date = currentSelectedDate
         } else {
             return
         }
@@ -165,7 +172,7 @@ class MainViewController: UIViewController {
             let addedWeight = Int(alert.textFields![0].text!)!
             let targetWork = self.tableViewData[section]
             print(row)
-            DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set)
+            DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set, reps: targetWork.reps, date: self.currentSelectedDate!)
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
@@ -208,7 +215,6 @@ class MainViewController: UIViewController {
 // MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
-        print("리로딩")
         loadSchedule(currentSelectedDate!)
     }
 }
@@ -294,7 +300,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
         cell.currentSetTextField.text = "Set " + String(indexPath.row + 1)
-        cell.currentRepsTextField.text = String(tableViewData[indexPath.section].reps) + "Reps"
+        cell.currentRepsTextField.text = String(tableViewDataWeight[indexPath.section].repsPerSet[indexPath.row]) + "Reps"
         let convertValue = [String(indexPath.section).count, indexPath.section, String(indexPath.row).count, indexPath.row]
         cell.addWeightButton.tag = numConvert1(input: convertValue)
         cell.addWeightButton.addTarget(self, action: #selector(addWeightButtonPressed(sender:)), for: .touchUpInside)
@@ -312,9 +318,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print(indexPath.section, indexPath.row)
-            // schedule에서 set수 조정
-            
-            // weight에서 해당 무게 존재 시 삭제
+            DatabaseManager.manager.removeSetInWork(WorkId: self.tableViewData[indexPath.section]._id, setNum: indexPath.row)
             self.loadSchedule(self.currentSelectedDate!)
             success(true)
         }
@@ -322,8 +326,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         
         let edit = UIContextualAction(style: .normal, title: "Edit") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            self.currentWorkIsEditing = indexPath.row
-            self.performSegue(withIdentifier: "showAddWorkView", sender: nil)
+            
+            let alert = UIAlertController(title: "Reps 변경", message: "변경 Reps 작성", preferredStyle: .alert)
+            let add = UIAlertAction(title: "Edit", style: .default) { (ok) in
+                let newReps = (alert.textFields![0].text)!
+                DatabaseManager.manager.editRepsInWeight(WorkID: self.tableViewData[indexPath.section]._id, setNum: indexPath.row, reps: Int(newReps)!)
+                self.loadSchedule(self.currentSelectedDate!)
+            }
+            
+            let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
+                
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(add)
+            alert.addTextField()
+            alert.textFields![0].placeholder = "등록 무게 단위는 Kg"
+            self.present(alert, animated: true, completion: nil)
+            
             success(true)
         }
         edit.backgroundColor = .systemTeal

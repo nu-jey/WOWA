@@ -14,6 +14,7 @@ class AddRoutineViewController: UIViewController {
     var tableViewData = [Routine]()
     var routineID: ObjectId?
     var scheduleID: ObjectId?
+    var date: String? 
     var selectedEditingRoutineIndex: Int?
     weak var delegate: AddWorkViewControllerDelegate? // delegate 재활용 
     
@@ -40,6 +41,9 @@ class AddRoutineViewController: UIViewController {
     @objc func loadButtonPressed(_ sender: UIButton) {
         let sheet = UIAlertController(title: "Routine 추가 완료", message: "계속해서 추가하시나요?", preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in
+            if self.scheduleID == nil {
+                self.scheduleID = DatabaseManager.manager.addNewSchedule(date: self.date!)._id
+            }
             DatabaseManager.manager.addRoutineInSchedule(routineID: self.tableViewData[sender.tag]._id, scheduleID: self.scheduleID!)
             self.delegate?.addWorkAndReload()
             self.dismiss(animated: true)
