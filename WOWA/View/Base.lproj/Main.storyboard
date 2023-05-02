@@ -30,8 +30,29 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="qoB-Td-vcp">
                                 <rect key="frame" x="0.0" y="464" width="393" height="354"/>
                                 <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="OA1-MI-FtR">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="들어올린 무게: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-Py-Jf3">
+                                                <rect key="frame" x="0.0" y="0.0" width="196.66666666666666" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nSL-OW-C3D">
+                                                <rect key="frame" x="196.66666666666663" y="0.0" width="196.33333333333337" height="32"/>
+                                                <segments>
+                                                    <segment title="First"/>
+                                                    <segment title="Second"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="pfy-Cs-jh6"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-em-1kf">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="318.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="32" width="393" height="286.66666666666669"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="BYZ-38-t0r" id="mpD-OT-K1D"/>
@@ -92,6 +113,7 @@
                     <connections>
                         <outlet property="calendarHeight" destination="RkB-VW-hKr" id="kzm-TC-62A"/>
                         <outlet property="calendarView" destination="A9n-zr-XqL" id="tQJ-Rj-CuZ"/>
+                        <outlet property="selectedDateTotalWeight" destination="zaD-Py-Jf3" id="wi7-D0-tVF"/>
                         <outlet property="tableView" destination="tFh-em-1kf" id="7Vl-Ea-gWh"/>
                     </connections>
                 </viewController>
@@ -510,7 +532,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XuR-Ku-27U"/>
+        <segue reference="n6A-Mf-BKE"/>
         <segue reference="4GQ-gu-Grd"/>
     </inferredMetricsTieBreakers>
     <resources>

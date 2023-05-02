@@ -122,12 +122,11 @@ class DatabaseManager{
             // 기존에 weight 모델 데이터 값을 수정
             try! realm.write {
                 targetWeight.weightPerSet[currentSet] = weight
-            }
+            } 
         } else {
             // 새로운 weight 모델 추가
             try! realm.write {
                 var newWeight = Weight(WorkID: WorkID, set: totalSet, reps: reps, date: date)
-                newWeight.weightPerSet[currentSet] = weight
                 realm.add(newWeight)
             }
         }

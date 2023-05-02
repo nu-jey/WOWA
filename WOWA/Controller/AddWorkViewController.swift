@@ -24,6 +24,7 @@ class AddWorkViewController: UIViewController {
     var workID: ObjectId?
     var routineID: ObjectId?
     var scheduleID: ObjectId?
+    var selectedDate: String?
     var isNewRoutine = false
     var editingWorkIndex = -1
     var editingWorkTargetIndex = -1
@@ -56,6 +57,7 @@ class AddWorkViewController: UIViewController {
         } else {
             if scheduleID != nil {
                 DatabaseManager.manager.addWorkInSchedule(newWork: newWork, id: scheduleID!)
+                DatabaseManager.manager.addNewWeight(WorkID: newWork._id, weight: -1, currentSet: newWork.set, totalSet: newWork.set, reps: newWork.reps, date: selectedDate!)
                 delegate?.addWorkAndReload()
             } else if routineID != nil {
                 delegateForNewRoutine?.addWorkForNewRoutineAndReload(newWork)

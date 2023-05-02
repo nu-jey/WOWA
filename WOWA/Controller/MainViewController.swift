@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var selectedDateTotalWeight: UILabel!
     
     let dateFormatter = DateFormatter()
     var rows = 1
@@ -53,7 +54,7 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: "MainTableViewCell")
         currentSelectedDate = dateFormatter.string(from: Date())
         loadSchedule(currentSelectedDate!)
-        hideAllSections()
+        foldAllSections()
         
     }
     
@@ -61,10 +62,12 @@ class MainViewController: UIViewController {
         if let selectedDateWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: date) {
             tableViewData = selectedDateWorks.workList.map{ $0 }
             tableViewDataWeight = []
+            var weightSum = 0
             for weight in DatabaseManager.manager.loadSelectedDateWeights(date: currentSelectedDate!)! {
+                weightSum += weight.weightPerSet.filter { $0 != -1 }.reduce(0, +)
                 tableViewDataWeight.append(weight)
             }
-            print(tableViewDataWeight)
+            selectedDateTotalWeight.text = "들어올린 무게: \(weightSum)Kg"
             scheduleID = selectedDateWorks._id
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -75,6 +78,7 @@ class MainViewController: UIViewController {
             scheduleID = newSchedule._id
         }
     }
+
     
     @objc func swipeEvent(_ swipe: UISwipeGestureRecognizer) {
         if swipe.direction == .up {
@@ -87,7 +91,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         loadSchedule(currentSelectedDate!)
-        hideAllSections()
+        foldAllSections()
     }
     
     // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
@@ -103,6 +107,7 @@ class MainViewController: UIViewController {
                 currentWorkIsEditing = -1
             }
             addViewController.scheduleID = scheduleID!
+            addViewController.selectedDate = currentSelectedDate
             addViewController.delegate = self
         } else if let addRoutineViewController = segue.destination as? AddRoutineViewController {
             addRoutineViewController.scheduleID = self.scheduleID
@@ -132,7 +137,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func hideAllSections() {
+    func foldAllSections() {
         for i in 0..<tableViewData.count {
             if tableView.numberOfRows(inSection: i) > 0 {
                 var indexPaths = [IndexPath]()
@@ -141,6 +146,19 @@ class MainViewController: UIViewController {
                 }
                 self.hiddenSections.insert(i)
                 self.tableView.deleteRows(at: indexPaths, with: .none)
+            }
+        }
+    }
+    
+    func unfoldAllSections() {
+        for i in 0..<tableViewData.count {
+            if tableView.numberOfRows(inSection: i) == 0 {
+                var indexPaths = [IndexPath]()
+                for row in 0..<self.tableViewData[i].set {
+                    indexPaths.append(IndexPath(row: row, section: i))
+                }
+                self.hiddenSections.remove(i)
+                self.tableView.insertRows(at: indexPaths,  with: .fade)
             }
         }
     }
@@ -210,6 +228,17 @@ class MainViewController: UIViewController {
         
         return [sectionValue, rowValue]
     }
+    
+    @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            foldAllSections()
+        case 1:
+            unfoldAllSections()
+        default: return 
+        }
+    }
+    
 }
 
 // MARK: - AddWorkViewControllerDelegate Method
@@ -224,20 +253,24 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         currentSelectedDate = dateFormatter.string(from: date)
         if let selectedDateSchedule = DatabaseManager.manager.loadSelectedDateSchedule(date: currentSelectedDate!) {
-            tableViewData = selectedDateSchedule.workList.map{ $0 }
-            scheduleID = selectedDateSchedule._id
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+//            tableViewData = selectedDateSchedule.workList.map{ $0 }
+//            scheduleID = selectedDateSchedule._id
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+            loadSchedule(currentSelectedDate!)
             hiddenSections = Set(0..<tableViewData.count)
             
         } else {
             tableViewData = []
+            tableViewDataWeight = []
             scheduleID = nil
+            selectedDateTotalWeight.text = "아직 운동전 입니다!"
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
+        
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
