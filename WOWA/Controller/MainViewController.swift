@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     var tableViewData = [Work]()
     var tableViewDataWeight = [Weight]()
     var scheduleID: ObjectId?
+    var scheduleDates =  [String]()
     var today = ""
     var currentWorkIsEditing = -1
     var currentSelectedDate: String?
@@ -37,7 +38,19 @@ class MainViewController: UIViewController {
         calendarView.backgroundColor = .white
         calendarView.locale = Locale(identifier: "ko_KR")
         calendarView.appearance.headerDateFormat = "YYYY년 MM월"
+        calendarView.appearance.weekdayTextColor = UIColor.white
+        calendarView.appearance.headerTitleColor = UIColor.white
+        calendarView.appearance.selectionColor = UIColor.yellow
+        calendarView.appearance.todayColor = UIColor.orange
+        calendarView.appearance.todaySelectionColor = UIColor.orange
+        calendarView.appearance.eventDefaultColor = UIColor.yellow
+        calendarView.appearance.eventSelectionColor = UIColor.yellow
+        calendarView.appearance.titleDefaultColor = UIColor.white
+        calendarView.appearance.titlePlaceholderColor = UIColor.white.withAlphaComponent(0.2)
+        calendarView.backgroundColor = UIColor.secondarySystemBackground
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        calendarView.layer.cornerCurve = .continuous
+        calendarView.layer.cornerRadius = 10.0
         calendarView.delegate = self
         calendarView.dataSource = self
         
@@ -77,6 +90,7 @@ class MainViewController: UIViewController {
             tableViewData = newSchedule.workList.map{ $0 }
             scheduleID = newSchedule._id
         }
+        scheduleDates = DatabaseManager.manager.loadAllScheduleDate()
     }
 
     
@@ -189,8 +203,9 @@ class MainViewController: UIViewController {
             let row = sectionAndRow[1]
             let addedWeight = Int(alert.textFields![0].text!)!
             let targetWork = self.tableViewData[section]
-            print(row)
             DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set, reps: targetWork.reps, date: self.currentSelectedDate!)
+            self.loadSchedule(self.currentSelectedDate!)
+            
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
@@ -253,11 +268,6 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         currentSelectedDate = dateFormatter.string(from: date)
         if let selectedDateSchedule = DatabaseManager.manager.loadSelectedDateSchedule(date: currentSelectedDate!) {
-//            tableViewData = selectedDateSchedule.workList.map{ $0 }
-//            scheduleID = selectedDateSchedule._id
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
             loadSchedule(currentSelectedDate!)
             hiddenSections = Set(0..<tableViewData.count)
             
@@ -279,6 +289,15 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
             self.view.layoutIfNeeded()
         }
     }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        if self.scheduleDates.contains(dateFormatter.string(from: date)){
+            return 1
+        }
+        return 0
+    }
+    
+    
 }
 
 // MARK: - TableView Methods

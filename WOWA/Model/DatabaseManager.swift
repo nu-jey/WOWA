@@ -202,6 +202,27 @@ class DatabaseManager{
         return realm.objects(Weight.self).filter("date == '\(date)'")
     }
     
+    func loadAllScheduleDate() -> [String] {
+        return realm.objects(Schedule.self).map { $0.date }
+    }
+    
+    func loadWeightDataForWeek() -> [Int] {
+        var result = [Int]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        for i in (0...6).reversed() {
+            let date = dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: -i, to: Date())!)
+            result.append(realm.objects(Weight.self).filter("date == '\(date)'").map { $0.weightPerSet.reduce(0, +)}.reduce(0, +))
+        }
+        return (result)
+    }
+    func loadWeightDataForMonth(_ duration: Int) {
+        
+    }
+    func loadWeightDataForYear(_ duration: Int) {
+        
+    }
    
     
 }

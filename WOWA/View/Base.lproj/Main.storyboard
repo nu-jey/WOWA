@@ -42,8 +42,8 @@
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nSL-OW-C3D">
                                                 <rect key="frame" x="196.66666666666663" y="0.0" width="196.33333333333337" height="32"/>
                                                 <segments>
-                                                    <segment title="First"/>
-                                                    <segment title="Second"/>
+                                                    <segment title="Fold"/>
+                                                    <segment title="UnFold"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="pfy-Cs-jh6"/>
@@ -171,8 +171,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-XV-4VJ">
+                                <rect key="frame" x="108" y="483" width="176" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                    <segment title="Year"/>
+                                </segments>
+                                <connections>
+                                    <action selector="chartSegmentChanged:" destination="h8a-sY-KO9" eventType="valueChanged" id="01z-8C-wtc"/>
+                                </connections>
+                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGr-bF-sRy">
-                                <rect key="frame" x="142" y="283" width="110" height="35"/>
+                                <rect key="frame" x="198" y="544" width="110" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="My Routine"/>
@@ -348,11 +360,11 @@
             <objects>
                 <viewController id="W87-p9-8yG" customClass="EditRoutineViewController" customModule="WOWA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vCX-rr-nUm">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="57c-FJ-1ec">
-                                <rect key="frame" x="16" y="59" width="361" height="724"/>
+                                <rect key="frame" x="16" y="103" width="361" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="HI0-c5-gVU">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
@@ -387,7 +399,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s7l-Ro-XjP">
-                                        <rect key="frame" x="0.0" y="84" width="361" height="175"/>
+                                        <rect key="frame" x="0.0" y="84" width="361" height="166"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
@@ -395,7 +407,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="y7V-xs-Odc">
-                                        <rect key="frame" x="0.0" y="267" width="361" height="457"/>
+                                        <rect key="frame" x="0.0" y="258" width="361" height="457"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -533,7 +545,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="n6A-Mf-BKE"/>
-        <segue reference="4GQ-gu-Grd"/>
+        <segue reference="pWq-WA-Mia"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>
