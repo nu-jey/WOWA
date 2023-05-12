@@ -171,9 +171,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-XV-4VJ">
-                                <rect key="frame" x="108" y="483" width="176" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-XV-4VJ">
+                                <rect key="frame" x="108.66666666666669" y="410.66666666666669" width="176" height="32"/>
                                 <segments>
                                     <segment title="Week"/>
                                     <segment title="Month"/>
@@ -184,7 +183,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGr-bF-sRy">
-                                <rect key="frame" x="198" y="544" width="110" height="35"/>
+                                <rect key="frame" x="16" y="464" width="110" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="My Routine"/>
@@ -195,6 +194,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BxR-XV-4VJ" firstAttribute="centerY" secondItem="Qcd-eK-pFP" secondAttribute="centerY" id="OOE-Ar-0Df"/>
+                            <constraint firstItem="BxR-XV-4VJ" firstAttribute="centerX" secondItem="Qcd-eK-pFP" secondAttribute="centerX" id="PN6-8o-2qj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My" id="YNS-8Q-oAJ"/>
                 </viewController>

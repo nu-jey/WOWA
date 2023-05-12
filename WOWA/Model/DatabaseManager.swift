@@ -213,15 +213,31 @@ class DatabaseManager{
         
         for i in (0...6).reversed() {
             let date = dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: -i, to: Date())!)
-            result.append(realm.objects(Weight.self).filter("date == '\(date)'").map { $0.weightPerSet.reduce(0, +)}.reduce(0, +))
+            result.append(realm.objects(Weight.self).filter("date == '\(date)'").map { $0.weightPerSet.filter { $0 >= 0 }.reduce(0, +)}.reduce(0, +))
         }
         return (result)
     }
-    func loadWeightDataForMonth(_ duration: Int) {
+    func loadWeightDataForMonth() -> [Int] {
+        var result = [Int]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
+        for i in (0...30).reversed() {
+            let date = dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: -i, to: Date())!)
+            result.append(realm.objects(Weight.self).filter("date == '\(date)'").map { $0.weightPerSet.filter { $0 >= 0}.reduce(0, +)}.reduce(0, +))
+        }
+        return result
     }
-    func loadWeightDataForYear(_ duration: Int) {
+    func loadWeightDataForYear() -> [Int] {
+        var result = [Int]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM"
         
+        for i in (0...11).reversed() {
+            let date = dateFormatter.string(from: Calendar.current.date(byAdding: .month, value: -i, to: Date())!)
+            result.append(realm.objects(Weight.self).filter("date CONTAINS '\(date)'").map { $0.weightPerSet.filter { $0 >= 0}.reduce(0, +)}.reduce(0, +))
+        }
+        return result
     }
    
     

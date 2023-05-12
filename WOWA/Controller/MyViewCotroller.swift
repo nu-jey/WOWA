@@ -18,7 +18,26 @@ class MyViewCotroller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.addSubview(makeChart("week"))
+    }
+    
+    
+    @IBAction func chartSegmentChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            print("week")
+            self.view.addSubview(makeChart("week"))
+        case 1:
+            print("month")
+            self.view.addSubview(makeChart("month"))
+        case 2:
+            print("year")
+            self.view.addSubview(makeChart("year"))
+        default: return
+        }
+    }
+    
+    func makeChart(_ duration: String) -> UIView {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         today = dateFormatter.string(from: Date())
         // 차트 설정
@@ -56,7 +75,13 @@ class MyViewCotroller: UIViewController {
         options.plotOptions = plotOptions
         
         let column = HIColumn()
-        column.data = DatabaseManager.manager.loadWeightDataForWeek()
+        if duration == "week" {
+            column.data = DatabaseManager.manager.loadWeightDataForWeek()
+        } else if duration == "month" {
+            column.data = DatabaseManager.manager.loadWeightDataForMonth()
+        } else {
+            column.data = DatabaseManager.manager.loadWeightDataForYear()
+        }
         options.series = [column]
         
         let credits = HICredits()
@@ -67,29 +92,8 @@ class MyViewCotroller: UIViewController {
         
         chartView.options = options
         
-        self.view.addSubview(chartView)
-    }
-    
-    
-    @IBAction func chartSegmentChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-           
-            
-            print("week")
-        case 1:
-            for i in 0...29 {
-                print(Calendar.current.date(byAdding: .day, value: -i, to: Date())!)
-            }
-            print("month")
-        case 2:
-            for i in 0...11 {
-                print(Calendar.current.date(byAdding: .month, value: -i, to: Date())!)
-            }
-            print("year")
-            
-        default: return
-        }
+        
+        return chartView
     }
     
 }
