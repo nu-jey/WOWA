@@ -228,6 +228,7 @@ class DatabaseManager{
         }
         return result
     }
+    
     func loadWeightDataForYear() -> [Int] {
         var result = [Int]()
         let dateFormatter = DateFormatter()
@@ -236,6 +237,16 @@ class DatabaseManager{
         for i in (0...11).reversed() {
             let date = dateFormatter.string(from: Calendar.current.date(byAdding: .month, value: -i, to: Date())!)
             result.append(realm.objects(Weight.self).filter("date CONTAINS '\(date)'").map { $0.weightPerSet.filter { $0 >= 0}.reduce(0, +)}.reduce(0, +))
+        }
+        return result
+    }
+    
+    func loadWeightDataForSpiderChart() -> [Int] {
+        var result = Array(repeating: 0, count: wowa.bodyPart.count)
+        for w in realm.objects(Weight.self) {
+            if let part = realm.object(ofType: Work.self, forPrimaryKey: w.WorkID)?.target {
+                result[wowa.bodyPart.firstIndex(of: part)!] += w.weightPerSet.filter { $0 > 0 }.reduce(0, +)
+            }
         }
         return result
     }

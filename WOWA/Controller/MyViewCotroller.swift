@@ -16,9 +16,12 @@ class MyViewCotroller: UIViewController {
     let dateFormatter = DateFormatter()
     var today: String?
     
+    @IBOutlet weak var segment: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(makeChart("week"))
+        self.view.addSubview(makeSpiderChart())
     }
     
     
@@ -95,5 +98,78 @@ class MyViewCotroller: UIViewController {
         
         return chartView
     }
-    
+    func makeSpiderChart() -> UIView {
+        let y = segment.frame.origin.y + (segment.frame.origin.y - view.bounds.width) + segment.frame.height
+        let chartView = HIChartView(frame: CGRect(x: 0.0, y: y, width: view.bounds.width, height: view.bounds.width / 2))
+        chartView.theme = "dark-unica"
+        
+        let options = HIOptions()
+        
+        let chart = HIChart()
+        chart.polar = true
+        chart.type = "line"
+        options.chart = chart
+        
+        let title = HITitle()
+        title.text = "부위별 통계"
+        title.x = -80
+        options.title = title
+        
+        let pane = HIPane()
+        pane.size = "90%"
+        options.pane = pane
+        
+        let xAxis = HIXAxis()
+        xAxis.categories = wowa.bodyPart
+        xAxis.tickmarkPlacement = "on"
+        xAxis.lineWidth = 0
+        options.xAxis = [xAxis]
+        
+        let yAxis = HIYAxis()
+        yAxis.gridLineInterpolation = "polygon"
+        yAxis.lineWidth = 0
+        yAxis.min = 0
+        options.yAxis = [yAxis]
+        
+        let tooltip = HITooltip()
+        tooltip.shared = true
+        tooltip.pointFormat = "<span style=\"color:{series.color}\">{series.name}: <b>{point.y:,.0f}kg</b><br/>"
+        options.tooltip = tooltip
+        
+        let legend = HILegend()
+        legend.align = "right"
+        legend.verticalAlign = "middle"
+        legend.layout = "vertical"
+        options.legend = legend
+        
+        let budget = HILine()
+        budget.name = "부위 별 중량 총합"
+        budget.data = DatabaseManager.manager.loadWeightDataForSpiderChart()
+        budget.pointPlacement = "on"
+        options.series = [budget]
+        
+        let responsive = HIResponsive()
+        
+        let rule = HIRules()
+        rule.condition = HICondition()
+        rule.condition.maxWidth = 500
+        
+        rule.chartOptions = [
+            "legend": [
+                "align": "center",
+                "verticalAlign": "bottom",
+                "layout": "horizontal"
+            ],
+            "pane": [
+                "size": "70%"
+            ]
+        ]
+        
+        responsive.rules = [rule]
+        
+        chartView.options = options
+        
+        return chartView
+    }
 }
+

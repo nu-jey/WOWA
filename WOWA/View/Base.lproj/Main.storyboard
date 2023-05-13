@@ -183,7 +183,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGr-bF-sRy">
-                                <rect key="frame" x="16" y="464" width="110" height="35"/>
+                                <rect key="frame" x="127" y="681" width="110" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="My Routine"/>
@@ -191,6 +191,16 @@
                                     <segue destination="CBm-da-aTF" kind="show" id="c7t-ll-ItZ"/>
                                 </connections>
                             </button>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuh-bz-2VO">
+                                <rect key="frame" x="0.0" y="769" width="393" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="statistics" image="chart.xyaxis.line" catalog="system" id="2x9-qc-I3T"/>
+                                    <tabBarItem title="routines" image="dumbbell.fill" catalog="system" id="PzD-l8-LKk"/>
+                                    <tabBarItem title="MyInfo" image="rectangle.fill.badge.person.crop" catalog="system" id="0Ra-4d-jGp"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -200,6 +210,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My" id="YNS-8Q-oAJ"/>
+                    <connections>
+                        <outlet property="segment" destination="BxR-XV-4VJ" id="Piq-Jv-v1K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXv-Fc-pKO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -551,9 +564,12 @@
         <segue reference="pWq-WA-Mia"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
+        <image name="dumbbell.fill" catalog="system" width="128" height="72"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="rectangle.fill.badge.person.crop" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
