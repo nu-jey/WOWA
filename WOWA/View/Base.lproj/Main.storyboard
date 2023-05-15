@@ -106,7 +106,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person" catalog="system" id="3bB-Tp-ggr">
                             <connections>
-                                <segue destination="h8a-sY-KO9" kind="show" id="FBl-7L-2U9"/>
+                                <segue destination="cUs-6h-zDa" kind="show" id="FBl-7L-2U9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -182,25 +182,6 @@
                                     <action selector="chartSegmentChanged:" destination="h8a-sY-KO9" eventType="valueChanged" id="01z-8C-wtc"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGr-bF-sRy">
-                                <rect key="frame" x="127" y="681" width="110" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="My Routine"/>
-                                <connections>
-                                    <segue destination="CBm-da-aTF" kind="show" id="c7t-ll-ItZ"/>
-                                </connections>
-                            </button>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuh-bz-2VO">
-                                <rect key="frame" x="0.0" y="769" width="393" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem title="statistics" image="chart.xyaxis.line" catalog="system" id="2x9-qc-I3T"/>
-                                    <tabBarItem title="routines" image="dumbbell.fill" catalog="system" id="PzD-l8-LKk"/>
-                                    <tabBarItem title="MyInfo" image="rectangle.fill.badge.person.crop" catalog="system" id="0Ra-4d-jGp"/>
-                                </items>
-                            </tabBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -209,6 +190,7 @@
                             <constraint firstItem="BxR-XV-4VJ" firstAttribute="centerX" secondItem="Qcd-eK-pFP" secondAttribute="centerX" id="PN6-8o-2qj"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="통계" image="chart.xyaxis.line" catalog="system" id="UKw-6D-LNJ"/>
                     <navigationItem key="navigationItem" title="My" id="YNS-8Q-oAJ"/>
                     <connections>
                         <outlet property="segment" destination="BxR-XV-4VJ" id="Piq-Jv-v1K"/>
@@ -216,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXv-Fc-pKO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-695"/>
+            <point key="canvasLocation" x="2688" y="-989"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Gnn-Pm-C1w">
@@ -247,6 +229,15 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8DH-4O-Xry">
                                 <rect key="frame" x="0.0" y="103" width="393" height="749"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ILG-0K-rOS">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="plus.circle" catalog="system"/>
+                                    <connections>
+                                        <action selector="addButtonPressed:" destination="CBm-da-aTF" eventType="touchUpInside" id="YWC-4a-KAv"/>
+                                    </connections>
+                                </button>
                                 <connections>
                                     <outlet property="dataSource" destination="CBm-da-aTF" id="zlH-AX-xha"/>
                                     <outlet property="delegate" destination="CBm-da-aTF" id="a07-j1-PZx"/>
@@ -262,6 +253,7 @@
                             <constraint firstItem="8DH-4O-Xry" firstAttribute="leading" secondItem="ej8-P2-kkv" secondAttribute="leading" id="rjc-fC-RU2"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="루틴" image="dumbbell.fill" catalog="system" id="qgk-rj-lhE"/>
                     <navigationItem key="navigationItem" title="My Routine" id="6zu-Ln-X2a">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1aN-jB-B8i">
                             <connections>
@@ -276,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQf-73-gNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2527" y="-695"/>
+            <point key="canvasLocation" x="3576" y="-989"/>
         </scene>
         <!--New Routine-->
         <scene sceneID="I5D-jq-RwD">
@@ -558,6 +550,25 @@
             </objects>
             <point key="canvasLocation" x="2121" y="682"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="qOn-qk-LXC">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="cUs-6h-zDa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="VN1-xD-rbk"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3U1-Ls-Rrd">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="h8a-sY-KO9" kind="relationship" relationship="viewControllers" id="bNg-iV-gru"/>
+                        <segue destination="CBm-da-aTF" kind="relationship" relationship="viewControllers" id="zTF-Ue-0le"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XoX-Q8-eGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1754.9618320610687" y="-695.07042253521126"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="n6A-Mf-BKE"/>
@@ -569,7 +580,7 @@
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="rectangle.fill.badge.person.crop" catalog="system" width="128" height="93"/>
+        <image name="plus.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -126,6 +126,7 @@ class MainViewController: UIViewController {
         } else if let addRoutineViewController = segue.destination as? AddRoutineViewController {
             addRoutineViewController.scheduleID = self.scheduleID
             addRoutineViewController.date = currentSelectedDate
+            addRoutineViewController.delegate = self
         } else {
             return
         }
@@ -259,8 +260,12 @@ class MainViewController: UIViewController {
 // MARK: - AddWorkViewControllerDelegate Method
 extension MainViewController: AddWorkViewControllerDelegate {
     func addWorkAndReload() {
-        loadSchedule(currentSelectedDate!)
+        DispatchQueue.main.async {
+            self.loadSchedule(self.currentSelectedDate!)
+        }
+        foldAllSections()
     }
+    
 }
 
 // MARK: - FSCalendar Methods

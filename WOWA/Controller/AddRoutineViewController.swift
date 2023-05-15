@@ -16,7 +16,7 @@ class AddRoutineViewController: UIViewController {
     var scheduleID: ObjectId?
     var date: String? 
     var selectedEditingRoutineIndex: Int?
-    weak var delegate: AddWorkViewControllerDelegate? // delegate 재활용 
+    weak var delegate: AddWorkViewControllerDelegate? 
     
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
@@ -40,18 +40,18 @@ class AddRoutineViewController: UIViewController {
     
     @objc func loadButtonPressed(_ sender: UIButton) {
         let sheet = UIAlertController(title: "Routine 추가 완료", message: "계속해서 추가하시나요?", preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in
-            if self.scheduleID == nil {
-                self.scheduleID = DatabaseManager.manager.addNewSchedule(date: self.date!)._id
+        sheet.addAction(UIAlertAction(title: "No", style: .default, handler: { [self] _ in
+            if scheduleID == nil {
+                scheduleID = DatabaseManager.manager.addNewSchedule(date: self.date!)._id
             }
             DatabaseManager.manager.addRoutineInSchedule(routineID: self.tableViewData[sender.tag]._id, scheduleID: self.scheduleID!)
-            self.delegate?.addWorkAndReload()
-            self.dismiss(animated: true)
+            delegate?.addWorkAndReload()
+            dismiss(animated: true)
         }))
-        sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+        sheet.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] _ in
             // 추가 동작
             DatabaseManager.manager.addRoutineInSchedule(routineID: self.tableViewData[sender.tag]._id, scheduleID: self.scheduleID!)
-            self.delegate?.addWorkAndReload()
+            delegate?.addWorkAndReload()
         }))
         
         present(sheet, animated: true)

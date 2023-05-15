@@ -107,6 +107,12 @@ class RoutineViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadAllRoutines()
     }
+    
+    @IBAction func addButtonPressed(_ sender: Any) {
+        print("hi")
+        performSegue(withIdentifier: "showNewRoutineView", sender: nil)
+    }
+    
 }
 
 extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
