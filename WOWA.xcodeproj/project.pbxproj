@@ -32,6 +32,8 @@
 		C2E60C7329DAEDB800164371 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7129DAEDB800164371 /* Main.storyboard */; };
 		C2E60C7529DAEDB900164371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7429DAEDB900164371 /* Assets.xcassets */; };
 		C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */; };
+		C2E6E8732A13A6AF001B669D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E6E8722A13A6AF001B669D /* InfoViewController.swift */; };
+		C2E6E8752A13AFB7001B669D /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E6E8742A13AFB7001B669D /* Gym.swift */; };
 		D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		C2E60C7429DAEDB900164371 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2E60C7729DAEDB900164371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2E60C7929DAEDB900164371 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2E6E8722A13A6AF001B669D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		C2E6E8742A13AFB7001B669D /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 				C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */,
 				C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */,
 				C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */,
+				C2E6E8722A13A6AF001B669D /* InfoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				C2B00FB629E4410D0028D874 /* Routine.swift */,
 				C2CE553629E981170035E2C1 /* Schedule.swift */,
 				C297631929F3D2A10056B211 /* Weight.swift */,
+				C2E6E8742A13AFB7001B669D /* Gym.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
 				C297631A29F3D2A10056B211 /* Weight.swift in Sources */,
 				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,
+				C2E6E8752A13AFB7001B669D /* Gym.swift in Sources */,
 				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
 				C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */,
 				C2C5944829F2A25200ED847B /* MainTableViewCell.swift in Sources */,
@@ -313,6 +320,7 @@
 				C2D63F0729DC389200885BB4 /* RoutineViewController.swift in Sources */,
 				C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */,
 				C2DFB56629E0400C00D250DC /* Constants.swift in Sources */,
+				C2E6E8732A13A6AF001B669D /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

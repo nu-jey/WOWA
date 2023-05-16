@@ -251,5 +251,27 @@ class DatabaseManager{
         return result
     }
    
+    func registGym(gymName: String, location: [Double]) {
+        if let gym = realm.objects(Gym.self).first {
+            try! realm.write {
+                gym.gymName = gymName
+                gym.location = List()
+                gym.location.append(objectsIn: location)
+            }
+        } else {
+            try! realm.write {
+                let newGym = Gym(gymName: gymName, location: location)
+                realm.add(newGym)
+            }
+        }
+    }
+    
+    func loadGymInfo() -> Gym? {
+        if let gym = realm.objects(Gym.self).first {
+            return gym
+        } else {
+            return nil
+        }
+    }
     
 }
