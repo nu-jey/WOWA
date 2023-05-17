@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -278,24 +279,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o26-bv-PnX">
-                                <rect key="frame" x="129" y="373" width="136" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="헬스장 위치 등록"/>
-                                <connections>
-                                    <action selector="registGymButtonPressed:" destination="5iU-ka-V72" eventType="touchUpInside" id="Bdr-Ak-MWq"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qA0-Tb-Luu">
+                                <rect key="frame" x="10" y="113" width="373" height="646"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Rq-fq-WtU">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="319"/>
+                                        <standardMapConfiguration key="preferredConfiguration"/>
+                                    </mapView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o26-bv-PnX">
+                                        <rect key="frame" x="0.0" y="327" width="373" height="319"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="헬스장 위치 등록"/>
+                                        <connections>
+                                            <action selector="registGymButtonPressed:" destination="5iU-ka-V72" eventType="touchUpInside" id="Bdr-Ak-MWq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hcy-9V-ZcX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Hcy-9V-ZcX" firstAttribute="trailing" secondItem="qA0-Tb-Luu" secondAttribute="trailing" constant="10" id="4Cn-St-fNl"/>
+                            <constraint firstItem="qA0-Tb-Luu" firstAttribute="leading" secondItem="Hcy-9V-ZcX" secondAttribute="leading" constant="10" id="BNY-zM-Axy"/>
+                            <constraint firstItem="Hcy-9V-ZcX" firstAttribute="bottom" secondItem="qA0-Tb-Luu" secondAttribute="bottom" constant="10" id="NHv-2r-BjD"/>
+                            <constraint firstItem="qA0-Tb-Luu" firstAttribute="top" secondItem="Hcy-9V-ZcX" secondAttribute="top" constant="10" id="qcw-yb-VZN"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="정보" image="info" catalog="system" id="5cl-TG-ivA"/>
+                    <connections>
+                        <outlet property="mapView" destination="7Rq-fq-WtU" id="G62-d2-yay"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdp-VG-RPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4450" y="-989"/>
+            <point key="canvasLocation" x="4449.6183206106871" y="-989.43661971830988"/>
         </scene>
         <!--New Routine-->
         <scene sceneID="I5D-jq-RwD">

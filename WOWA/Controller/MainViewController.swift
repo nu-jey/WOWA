@@ -19,6 +19,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectedDateTotalWeight: UILabel!
     
+    
+    
     let dateFormatter = DateFormatter()
     var rows = 1
     var tableViewData = [Work]()
