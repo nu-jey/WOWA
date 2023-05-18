@@ -39,7 +39,6 @@ class EditRoutineViewController: UIViewController {
         if currentWorkIsEditing >= 0 {
             addViewController.editingWorkIndex = currentWorkIsEditing
             addViewController.workID = tableViewData[currentWorkIsEditing]._id
-            print(wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!)
             addViewController.editingWorkTargetIndex = wowa.bodyPart.firstIndex(of: tableViewData[currentWorkIsEditing].target)!
             addViewController.editingWorkTargetRep = tableViewData[currentWorkIsEditing].reps
             addViewController.editingWorkTargetSet = tableViewData[currentWorkIsEditing].set

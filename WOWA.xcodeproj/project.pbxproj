@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2034AD729E5955500491FA5 /* MyViewCotroller.swift */; };
 		C224F7CE29F6B83B00105042 /* AddRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */; };
+		C23A41132A16155A00A99590 /* SettingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A41122A16155A00A99590 /* SettingInfo.swift */; };
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
@@ -43,6 +44,7 @@
 		C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WOWA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2034AD729E5955500491FA5 /* MyViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewCotroller.swift; sourceTree = "<group>"; };
 		C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewController.swift; sourceTree = "<group>"; };
+		C23A41122A16155A00A99590 /* SettingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInfo.swift; sourceTree = "<group>"; };
 		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				C2CE553629E981170035E2C1 /* Schedule.swift */,
 				C297631929F3D2A10056B211 /* Weight.swift */,
 				C2E6E8742A13AFB7001B669D /* Gym.swift */,
+				C23A41122A16155A00A99590 /* SettingInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				C2E60C7029DAEDB800164371 /* SettingViewController.swift in Sources */,
 				C297631A29F3D2A10056B211 /* Weight.swift in Sources */,
 				C2460D3729DD6BE4006A237C /* Work.swift in Sources */,
+				C23A41132A16155A00A99590 /* SettingInfo.swift in Sources */,
 				C2E6E8752A13AFB7001B669D /* Gym.swift in Sources */,
 				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
 				C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */,
@@ -483,6 +487,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nu-jey.WOWA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -512,6 +519,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nu-jey.WOWA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

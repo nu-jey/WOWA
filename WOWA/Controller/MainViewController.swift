@@ -8,6 +8,7 @@
 import UIKit
 import FSCalendar
 import RealmSwift
+import CoreLocation
 
 protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
@@ -32,6 +33,7 @@ class MainViewController: UIViewController {
     var currentSelectedDate: String?
     var selectedIndex: Int?
     var hiddenSections = Set<Int>()
+    var locationManger = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +73,12 @@ class MainViewController: UIViewController {
         loadSchedule(currentSelectedDate!)
         foldAllSections()
         
+        // 위치 정보
+        locationManger.delegate = self
+        locationManger.desiredAccuracy = kCLLocationAccuracyBest // 위치 정확도 -> 최고 수준으로
+        locationManger.requestWhenInUseAuthorization()
+        print(locationManger.location)
+        isGymNow()
     }
     
     func loadSchedule(_ date: String) {
@@ -257,6 +265,15 @@ class MainViewController: UIViewController {
         }
     }
     
+    func isGymNow() {
+        if let gymInfo = DatabaseManager.manager.loadGymInfo() {
+            let from = CLLocation(latitude: gymInfo.location[0], longitude: gymInfo.location[1])
+            let to = CLLocation(latitude: (locationManger.location?.coordinate.latitude)!, longitude: (locationManger.location?.coordinate.longitude)!)
+    
+            print(from.distance (from: to))
+        }
+    }
+    
 }
 
 // MARK: - AddWorkViewControllerDelegate Method
@@ -408,6 +425,22 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         edit.backgroundColor = .systemTeal
         
         return UISwipeActionsConfiguration(actions:[delete, edit])
+    }
+}
+
+// MARK: - Selection Heading
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // 위치 정보 업데이트
+        print("123")
+        if let location = locations.first {
+            print("위도: \(location.coordinate.latitude)")
+            print("경도: \(location.coordinate.longitude)")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
 

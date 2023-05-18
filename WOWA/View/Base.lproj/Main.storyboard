@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8qR-tf-KYf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8qR-tf-KYf">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -127,7 +128,7 @@
             <objects>
                 <viewController id="0Aw-S1-OMl" customClass="AddRoutineViewController" customModule="WOWA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EtQ-d5-mrJ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-9c-w3c">
@@ -155,14 +156,40 @@
                     <view key="view" contentMode="scaleToFill" id="1xw-S3-efw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BdI-tD-Bb8">
+                                <rect key="frame" x="10" y="113" width="373" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="2M1-mI-I7L"/>
+                                </constraints>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YQ-Rf-Clf">
+                                <rect key="frame" x="16" y="321" width="114" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Regist GYM"/>
+                                <connections>
+                                    <action selector="registGymButtonPressed:" destination="aV7-qJ-FPe" eventType="touchUpInside" id="jg1-bY-mBA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QTO-yY-6P4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BdI-tD-Bb8" firstAttribute="leading" secondItem="QTO-yY-6P4" secondAttribute="leading" constant="10" id="03L-Pu-b3m"/>
+                            <constraint firstItem="QTO-yY-6P4" firstAttribute="trailing" secondItem="BdI-tD-Bb8" secondAttribute="trailing" constant="10" id="I6p-CL-8Wf"/>
+                            <constraint firstItem="BdI-tD-Bb8" firstAttribute="top" secondItem="QTO-yY-6P4" secondAttribute="top" constant="10" id="Vnp-NM-ETs"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Setting" id="HR3-yd-EqW"/>
+                    <connections>
+                        <outlet property="mapView" destination="BdI-tD-Bb8" id="Zlf-de-I0i"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fua-vU-eXe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="943" y="-695"/>
+            <point key="canvasLocation" x="942.74809160305335" y="-695.07042253521126"/>
         </scene>
         <!--My-->
         <scene sceneID="msY-7x-sUt">
@@ -278,38 +305,10 @@
                     <view key="view" contentMode="scaleToFill" id="ydA-Ra-l1P">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qA0-Tb-Luu">
-                                <rect key="frame" x="10" y="113" width="373" height="646"/>
-                                <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Rq-fq-WtU">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="319"/>
-                                        <standardMapConfiguration key="preferredConfiguration"/>
-                                    </mapView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o26-bv-PnX">
-                                        <rect key="frame" x="0.0" y="327" width="373" height="319"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="헬스장 위치 등록"/>
-                                        <connections>
-                                            <action selector="registGymButtonPressed:" destination="5iU-ka-V72" eventType="touchUpInside" id="Bdr-Ak-MWq"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Hcy-9V-ZcX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Hcy-9V-ZcX" firstAttribute="trailing" secondItem="qA0-Tb-Luu" secondAttribute="trailing" constant="10" id="4Cn-St-fNl"/>
-                            <constraint firstItem="qA0-Tb-Luu" firstAttribute="leading" secondItem="Hcy-9V-ZcX" secondAttribute="leading" constant="10" id="BNY-zM-Axy"/>
-                            <constraint firstItem="Hcy-9V-ZcX" firstAttribute="bottom" secondItem="qA0-Tb-Luu" secondAttribute="bottom" constant="10" id="NHv-2r-BjD"/>
-                            <constraint firstItem="qA0-Tb-Luu" firstAttribute="top" secondItem="Hcy-9V-ZcX" secondAttribute="top" constant="10" id="qcw-yb-VZN"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="정보" image="info" catalog="system" id="5cl-TG-ivA"/>
-                    <connections>
-                        <outlet property="mapView" destination="7Rq-fq-WtU" id="G62-d2-yay"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdp-VG-RPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -502,7 +501,7 @@
             <objects>
                 <viewController id="rh8-fQ-9hH" customClass="AddWorkViewController" customModule="WOWA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFill" id="QVo-za-FBq">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="EbS-4O-crB">
