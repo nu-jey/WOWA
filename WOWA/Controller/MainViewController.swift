@@ -9,6 +9,7 @@ import UIKit
 import FSCalendar
 import RealmSwift
 import CoreLocation
+import SwiftUI
 
 protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
@@ -19,7 +20,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectedDateTotalWeight: UILabel!
-    
+    @IBOutlet weak var imageViewGymStatus: UIImageView!
     
     
     let dateFormatter = DateFormatter()
@@ -34,6 +35,7 @@ class MainViewController: UIViewController {
     var selectedIndex: Int?
     var hiddenSections = Set<Int>()
     var locationManger = CLLocationManager()
+    var isGym = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +92,7 @@ class MainViewController: UIViewController {
                 weightSum += weight.weightPerSet.filter { $0 != -1 }.reduce(0, +)
                 tableViewDataWeight.append(weight)
             }
-            selectedDateTotalWeight.text = "들어올린 무게: \(weightSum)Kg"
+            selectedDateTotalWeight.text = " 들어올린 무게: \(weightSum)Kg"
             scheduleID = selectedDateWorks._id
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -116,6 +118,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadSchedule(currentSelectedDate!)
         foldAllSections()
+        isGymNow()
     }
     
     // delegate를 설정하여 AddWorkView로부터 데이터가 추가됨을 확인받고 테이블 뷰 reload
@@ -206,29 +209,37 @@ class MainViewController: UIViewController {
     }
     
     @objc func addWeightButtonPressed(sender: UIButton) {
-        let alert = UIAlertController(title: "운동 완료", message: "무게 등록", preferredStyle: .alert)
-        let add = UIAlertAction(title: "Add", style: .default) { (ok) in
-            sender.setTitle((alert.textFields![0].text)! + "Kg", for: .normal)
-            let sectionAndRow = self.numConvert2(input: sender.tag)
-            let section = sectionAndRow[0]
-            let row = sectionAndRow[1]
-            let addedWeight = Int(alert.textFields![0].text!)!
-            let targetWork = self.tableViewData[section]
-            DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set, reps: targetWork.reps, date: self.currentSelectedDate!)
-            self.loadSchedule(self.currentSelectedDate!)
+        if isGym {
+            let alert = UIAlertController(title: "운동 완료", message: "무게 등록", preferredStyle: .alert)
+            let add = UIAlertAction(title: "Add", style: .default) { (ok) in
+                sender.setTitle((alert.textFields![0].text)! + "Kg", for: .normal)
+                let sectionAndRow = self.numConvert2(input: sender.tag)
+                let section = sectionAndRow[0]
+                let row = sectionAndRow[1]
+                let addedWeight = Int(alert.textFields![0].text!)!
+                let targetWork = self.tableViewData[section]
+                DatabaseManager.manager.addNewWeight(WorkID: targetWork._id, weight: addedWeight, currentSet: row, totalSet: targetWork.set, reps: targetWork.reps, date: self.currentSelectedDate!)
+                self.loadSchedule(self.currentSelectedDate!)
+                
+            }
             
-        }
-        
-        let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
-            print(sender)
+            let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
+                print(sender)
+            }
             
+            alert.addAction(cancel)
+            alert.addAction(add)
+            alert.addTextField()
+            alert.textFields![0].placeholder = "등록 무게 단위는 Kg"
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "헬스장이 아닙니다", message: "헬스장 이동후 운동을 수행하세요", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "확인", style: .cancel) { (cancel) in
+                print(sender)
+            }
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
         }
-        
-        alert.addAction(cancel)
-        alert.addAction(add)
-        alert.addTextField()
-        alert.textFields![0].placeholder = "등록 무게 단위는 Kg"
-        self.present(alert, animated: true, completion: nil)
     }
     
     func numConvert1(input: [Int]) -> Int {
@@ -271,6 +282,13 @@ class MainViewController: UIViewController {
             let to = CLLocation(latitude: (locationManger.location?.coordinate.latitude)!, longitude: (locationManger.location?.coordinate.longitude)!)
     
             print(from.distance (from: to))
+            if from.distance (from: to) > 100 {
+                imageViewGymStatus.tintColor = .red
+                isGym = false
+            } else {
+                imageViewGymStatus.tintColor = .green
+                isGym = true
+            }
         }
     }
     
