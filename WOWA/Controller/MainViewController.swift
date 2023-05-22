@@ -39,7 +39,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
         // FSCalendar 설정
         calendarView.backgroundColor = .white
         calendarView.locale = Locale(identifier: "ko_KR")

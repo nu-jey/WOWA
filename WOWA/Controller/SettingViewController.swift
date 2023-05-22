@@ -56,7 +56,7 @@ class SettingViewController: UIViewController, MKMapViewDelegate {
     @IBAction func registGymButtonPressed(_ sender: UIButton) {
         
         var location = [Double]()
-        // location.append((locationManger.location?.coordinate.latitude)!)
+        location.append((locationManger.location?.coordinate.latitude)!)
         location.append((locationManger.location?.coordinate.longitude)!)
         print("헬스장 등록: \(location)")
         DatabaseManager.manager.registGym(gymName: "제이어스 짐", location: location)

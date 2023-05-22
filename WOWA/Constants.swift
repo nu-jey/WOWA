@@ -10,5 +10,6 @@ import Foundation
 struct wowa {
     static let appName = "WOWA"
     static let bodyPart = ["가슴", "어깨", "등", "복근"]
-    
+    static let set = 4
+    static let rep = 10
 }

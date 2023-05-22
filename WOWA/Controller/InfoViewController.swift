@@ -15,6 +15,13 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
     @IBOutlet weak var mapView: MKMapView!
     var locationManger = CLLocationManager()
     var gymAnnotation: MKPointAnnotation?
+    var settingInfo: SettingInfo?
+
+    @IBOutlet weak var setTextField: UILabel!
+    @IBOutlet weak var repTextField: UILabel!
+    
+    @IBOutlet weak var stepperRep: UIStepper!
+    @IBOutlet weak var stepperSet: UIStepper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,31 +58,80 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
             print(from.distance (from: to))
         }
         
+        loadSettingInfo()
     }
+    
     @IBAction func registGymButtonPressed(_ sender: UIButton) {
-        print("등록")
-//        var location = [Double]()
-//        location.append((locationManger.location?.coordinate.latitude)!)
-//        location.append((locationManger.location?.coordinate.longitude)!)
-//        print("헬스장 등록: \(location)")
-//        DatabaseManager.manager.registGym(gymName: "제이어스 짐", location: location)
-//        if gymAnnotation != nil {
-//            mapView.removeAnnotation(gymAnnotation!)
-//        }
-//        let gymInfo = DatabaseManager.manager.loadGymInfo()
-//        if let gymInfo = DatabaseManager.manager.loadGymInfo() {
-//            gymAnnotation = MKPointAnnotation()
-//            gymAnnotation!.coordinate = CLLocationCoordinate2DMake(gymInfo.location[0], gymInfo.location[1])
-//            gymAnnotation!.title = "헬스장 위치"
-//            gymAnnotation!.subtitle = gymInfo.gymName
-//            mapView.addAnnotation(gymAnnotation!)
-//        }
+        // 위치 정보 불러오기 - 현재 위치
+        var location = [Double]()
+        location.append((locationManger.location?.coordinate.latitude)!)
+        location.append((locationManger.location?.coordinate.longitude)!)
+        
+        let alert = UIAlertController(title: "운동 완료", message: "무게 등록", preferredStyle: .alert)
+        let add = UIAlertAction(title: "Add", style: .default) { [self] (ok) in
+            // realm에 정보 저장
+            DatabaseManager.manager.registGym(gymName: alert.textFields![0].text!, location: location)
+            if gymAnnotation != nil {
+                mapView.removeAnnotation(gymAnnotation!)
+            }
+            
+            // 지도에 헬스장 어노테이션 추가
+            let gymInfo = DatabaseManager.manager.loadGymInfo()
+            if let gymInfo = DatabaseManager.manager.loadGymInfo() {
+                gymAnnotation = MKPointAnnotation()
+                gymAnnotation!.coordinate = CLLocationCoordinate2DMake(gymInfo.location[0], gymInfo.location[1])
+                gymAnnotation!.title = "헬스장 위치"
+                gymAnnotation!.subtitle = gymInfo.gymName
+                mapView.addAnnotation(gymAnnotation!)
+            }
+        }
+        
+        let cancel = UIAlertAction(title: "Cancle", style: .cancel) { (cancel) in
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(add)
+        alert.addTextField()
+        alert.textFields![0].placeholder = "헬스장 이름을 작성해주세요ㅕ"
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func removeGymButtonPressed(_ sender: UIButton) {
         print("삭제")
+        DatabaseManager.manager.deleteGymInfo()
+        if gymAnnotation != nil {
+            mapView.removeAnnotation(gymAnnotation!)
+        }
     }
     
+    @IBAction func stepperSetPressed(_ sender: UIStepper) {
+        setTextField.text = Int(sender.value).description
+    }
+    
+    @IBAction func stepperRepPressed(_ sender: UIStepper) {
+        repTextField.text = Int(sender.value).description
+    }
+    
+    @IBAction func saveSetRepInfoButtonPressed(_ sender: UIButton) {
+        DatabaseManager.manager.saveSettingInfoSetAndRep(set: Int(setTextField.text!)!, rep: Int(repTextField.text!)!)
+    }
+    
+    func loadSettingInfo() {
+        settingInfo = DatabaseManager.manager.loadSettingInfo()
+        if settingInfo != nil {
+            stepperSet.value = Double(settingInfo!.set)
+            setTextField.text = String(settingInfo!.set)
+            stepperRep.value = Double(settingInfo!.rep)
+            repTextField.text = String(settingInfo!.rep)
+            
+        } else {
+            stepperSet.value = 4
+            setTextField.text = String(4)
+            stepperRep.value = 10
+            repTextField.text = String(10)
+        }
+    }
 }
 
 extension InfoViewController: CLLocationManagerDelegate {

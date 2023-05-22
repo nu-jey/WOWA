@@ -122,7 +122,7 @@ class DatabaseManager{
             // 기존에 weight 모델 데이터 값을 수정
             try! realm.write {
                 targetWeight.weightPerSet[currentSet] = weight
-            } 
+            }
         } else {
             // 새로운 weight 모델 추가
             try! realm.write {
@@ -250,7 +250,7 @@ class DatabaseManager{
         }
         return result
     }
-   
+    
     func registGym(gymName: String, location: [Double]) {
         if let gym = realm.objects(Gym.self).first {
             try! realm.write {
@@ -274,4 +274,49 @@ class DatabaseManager{
         }
     }
     
+    func deleteGymInfo() {
+        if let gym = realm.objects(Gym.self).first {
+            print(gym)
+            try! realm.write {
+                realm.delete(gym)
+            }
+        } else {
+            return
+        }
+    }
+    
+    func saveSettingInfoSetAndRep(set: Int, rep: Int) {
+        if let settingInfo = realm.objects(SettingInfo.self).first {
+            try! realm.write {
+                settingInfo.set = set
+                settingInfo.rep = rep
+            }
+        } else {
+            let newSettingInfo = SettingInfo(set: set, rep: rep, bodyPart: wowa.bodyPart)
+            try! realm.write {
+                realm.add(newSettingInfo)
+            }
+        }
+    }
+    func saveSettingInfoBodyPart(bodyPart: [String]) {
+        if let settingInfo = realm.objects(SettingInfo.self).first {
+            try! realm.write {
+                settingInfo.bodyPart = List()
+                settingInfo.bodyPart.append(objectsIn: bodyPart)
+            }
+        } else {
+            let newSettingInfo = SettingInfo(set: wowa.set, rep: wowa.rep, bodyPart: bodyPart)
+            try! realm.write {
+                realm.add(newSettingInfo)
+            }
+        }
+    }
+    
+    func loadSettingInfo() -> SettingInfo? {
+        if let settingInfo = realm.objects(SettingInfo.self).first {
+            return settingInfo
+        } else {
+            return nil 
+        }
+    }
 }
