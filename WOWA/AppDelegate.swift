@@ -7,11 +7,13 @@
 
 import UIKit
 import Highcharts
+import KakaoSDKCommon
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         HIChartView.preload()
+        KakaoSDK.initSDK(appKey: "8b312ae6ef029182139d68873078dda4")
         return true
     }
 

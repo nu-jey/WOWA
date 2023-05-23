@@ -93,7 +93,7 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
         alert.addAction(cancel)
         alert.addAction(add)
         alert.addTextField()
-        alert.textFields![0].placeholder = "헬스장 이름을 작성해주세요ㅕ"
+        alert.textFields![0].placeholder = "헬스장 이름을 작성해주세요"
         self.present(alert, animated: true, completion: nil)
     }
     

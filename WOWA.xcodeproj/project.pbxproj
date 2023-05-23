@@ -35,6 +35,7 @@
 		C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E60C7629DAEDB900164371 /* LaunchScreen.storyboard */; };
 		C2E6E8732A13A6AF001B669D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E6E8722A13A6AF001B669D /* InfoViewController.swift */; };
 		C2E6E8752A13AFB7001B669D /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E6E8742A13AFB7001B669D /* Gym.swift */; };
+		C2F31E2E2A1CF8E700C03DE3 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = C2F31E2D2A1CF8E700C03DE3 /* KakaoSDK */; };
 		D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C293C96F2A01458300987CA5 /* Highcharts in Frameworks */,
+				C2F31E2E2A1CF8E700C03DE3 /* KakaoSDK in Frameworks */,
 				C2D63F0129DBF56C00885BB4 /* FSCalendar in Frameworks */,
 				D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */,
 			);
@@ -200,6 +202,7 @@
 			packageProductDependencies = (
 				C2D63F0029DBF56C00885BB4 /* FSCalendar */,
 				C293C96E2A01458300987CA5 /* Highcharts */,
+				C2F31E2D2A1CF8E700C03DE3 /* KakaoSDK */,
 			);
 			productName = WOWA;
 			productReference = C2E60C6829DAEDB800164371 /* WOWA.app */;
@@ -232,6 +235,7 @@
 			packageReferences = (
 				C2D63EFF29DBF56C00885BB4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				C293C96D2A01458300987CA5 /* XCRemoteSwiftPackageReference "highcharts-ios" */,
+				C2F31E2C2A1CF8E700C03DE3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = C2E60C6929DAEDB800164371 /* Products */;
 			projectDirPath = "";
@@ -475,6 +479,7 @@
 				DEVELOPMENT_TEAM = ULF3FT8T5G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WOWA/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 제공을 동의 ?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -507,6 +512,7 @@
 				DEVELOPMENT_TEAM = ULF3FT8T5G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WOWA/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 제공을 동의 ?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -568,6 +574,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		C2F31E2C2A1CF8E700C03DE3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -580,6 +594,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C2D63EFF29DBF56C00885BB4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		C2F31E2D2A1CF8E700C03DE3 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2F31E2C2A1CF8E700C03DE3 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
