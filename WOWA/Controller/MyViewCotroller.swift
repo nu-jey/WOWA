@@ -177,44 +177,6 @@ class MyViewCotroller: UIViewController {
     }
     
     
-    @IBAction func shareButtonPressed(_ sender: UIButton) {
-        let text = "카카오톡 공유는 카카오 플랫폼 서비스의 대표 기능으로써 사용자의 모바일 기기에 설치된 카카오 플랫폼과 연동하여 다양한 기능을 실행할 수 있습니다.\\n\\n현재 이용할 수 있는 카카오톡 공유는 다음과 같습니다.\\n카카오톡링크\\n카카오톡을 실행하여 사용자가 선택한 채팅방으로 메시지를 전송합니다.\\n카카오스토리링크\\n카카오스토리 글쓰기 화면으로 연결합니다."
-        
-        let textTemplateJsonStringData =
-        """
-        {
-            "object_type": "text",
-            "text": "\(text)",
-            "link": {
-                "web_url": "http://dev.kakao.com",
-                "mobile_web_url": "http://dev.kakao.com"
-            },
-            "button_title": "바로 확인"
-        }
-        """.data(using: .utf8)!
-        
-        guard let templatable = try? SdkJSONDecoder.custom.decode(TextTemplate.self, from: textTemplateJsonStringData) else {
-            return
-        }
-        
-        if ShareApi.isKakaoTalkSharingAvailable()  {
-            ShareApi.shared.shareDefault(templatable: templatable) {(sharingResult, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("shareDefault() success.")
-                    
-                    if let sharingResult = sharingResult {
-                        UIApplication.shared.open(sharingResult.url,
-                                                  options: [:], completionHandler: nil)
-                    }
-                }
-            }
-            
-        } else {
-            print("카카오톡 미설치")
-        }
-        
-    }
+    
 }
+

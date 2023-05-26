@@ -214,15 +214,6 @@
                                     <action selector="chartSegmentChanged:" destination="h8a-sY-KO9" eventType="valueChanged" id="01z-8C-wtc"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yE-Vl-kdt">
-                                <rect key="frame" x="155" y="523" width="83" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="카카오톡"/>
-                                <connections>
-                                    <action selector="shareButtonPressed:" destination="h8a-sY-KO9" eventType="touchUpInside" id="cQt-7S-PUW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

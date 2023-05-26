@@ -5,6 +5,7 @@
 //  Created by 오예준 on 2023/04/04.
 //
 import UIKit
+import KakaoSDKShare
 protocol NewAndEditRoutineViewControllerDelegate: AnyObject {
     func addRoutineAndReload()
 }
@@ -88,6 +89,34 @@ class RoutineViewController: UIViewController {
         performSegue(withIdentifier: "showEditRoutineView", sender: nil)
     }
     
+    @objc func shareButtonPressed(_ gesture: UITapGestureRecognizer) {
+        selectedIndex = (gesture.view?.tag)!
+        let routine = tableViewData[selectedIndex!]
+        let str = """
+                    \(routine.workList)
+                    """
+        if ShareApi.isKakaoTalkSharingAvailable()  {
+            ShareApi.shared.shareCustom(templateId: 94186, templateArgs:["routineName":routine.routineName, "routineDescription":routine.routineDiscription ?? "", "workList": str]) {(sharingResult, error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("shareCustom() success.")
+                        if let sharingResult = sharingResult {
+                            UIApplication.shared.open(sharingResult.url, options: [:], completionHandler: nil)
+                            print(sharingResult.url)
+                        }
+                    }
+                }
+            
+            
+        } else {
+            print("카카오톡 미설치")
+        }
+        
+        
+    }
+    
     @objc func editButtonPressed(_ gesture: UITapGestureRecognizer) {
         selectedIndex = (gesture.view?.tag)!
         performSegue(withIdentifier: "showEditRoutineView", sender: nil)
@@ -135,6 +164,13 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         sectionButton.tag = section
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
     
+        let shareButton = UIImageView()
+        shareButton.image = UIImage(systemName: "arrow.up.message.fill")
+        shareButton.tag = section
+        let shareTapGesture = UITapGestureRecognizer(target: self, action: #selector(shareButtonPressed(_:)))
+        shareButton.addGestureRecognizer(shareTapGesture)
+        shareButton.isUserInteractionEnabled = true
+        
         let editButton = UIImageView()
         editButton.image = UIImage(systemName: "pencil")
         editButton.tag = section
@@ -150,6 +186,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         removeButton.isUserInteractionEnabled = true
         
         stackView.addArrangedSubview(sectionButton)
+        stackView.addArrangedSubview(shareButton)
         stackView.addArrangedSubview(editButton)
         stackView.addArrangedSubview(removeButton)
         
