@@ -14,31 +14,28 @@ import KakaoSDKShare
 
 
 class MyViewCotroller: UIViewController {
-    var weekData: [Weight]?
-    var monthData: [Weight]?
-    var yearData: [Weight]?
     let dateFormatter = DateFormatter()
     var today: String?
-    
+    var chart1: HIChartView?
+    var shareDuration: String?
+    var shareData: [Int]?
     @IBOutlet weak var segment: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.view.addSubview(makeChart("week"))
-        //self.view.addSubview(makeSpiderChart())
+        self.view.addSubview(makeChart("week"))
     }
     
     
     @IBAction func chartSegmentChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            print("week")
             self.view.addSubview(makeChart("week"))
         case 1:
-            print("month")
+            shareDuration = "month"
             self.view.addSubview(makeChart("month"))
         case 2:
-            print("year")
+            shareDuration = "year"
             self.view.addSubview(makeChart("year"))
         default: return
         }
@@ -47,6 +44,7 @@ class MyViewCotroller: UIViewController {
     func makeChart(_ duration: String) -> UIView {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         today = dateFormatter.string(from: Date())
+        shareDuration = duration
         // 차트 설정
         let chartView = HIChartView(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: view.bounds.width))
         chartView.theme = "dark-unica"
@@ -83,11 +81,14 @@ class MyViewCotroller: UIViewController {
         
         let column = HIColumn()
         if duration == "week" {
-            column.data = DatabaseManager.manager.loadWeightDataForWeek()
+            shareData = DatabaseManager.manager.loadWeightDataForWeek()
+            column.data = shareData
         } else if duration == "month" {
-            column.data = DatabaseManager.manager.loadWeightDataForMonth()
+            shareData = DatabaseManager.manager.loadWeightDataForMonth()
+            column.data = shareData
         } else {
-            column.data = DatabaseManager.manager.loadWeightDataForYear()
+            shareData = DatabaseManager.manager.loadWeightDataForYear()
+            column.data = shareData
         }
         options.series = [column]
         
@@ -98,9 +99,9 @@ class MyViewCotroller: UIViewController {
         options.credits = credits
         
         chartView.options = options
+        chart1 = chartView
         
-        
-        return chartView
+        return chart1!
     }
     func makeSpiderChart() -> UIView {
         let y = segment.frame.origin.y + (segment.frame.origin.y - view.bounds.width) + segment.frame.height
@@ -172,10 +173,34 @@ class MyViewCotroller: UIViewController {
         responsive.rules = [rule]
         
         chartView.options = options
-        
         return chartView
     }
     
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        let convertedData =
+          """
+            \(shareData!)
+            """
+        if ShareApi.isKakaoTalkSharingAvailable()  {
+            ShareApi.shared.shareCustom(templateId: 94328, templateArgs:["duration": shareDuration!, "data": convertedData]) {(sharingResult, error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("shareCustom() success.")
+                        if let sharingResult = sharingResult {
+                            UIApplication.shared.open(sharingResult.url, options: [:], completionHandler: nil)
+                            print(sharingResult.url)
+                        }
+                    }
+                }
+            
+            
+        } else {
+            print("카카오톡 미설치")
+        }
+        
+    }
     
     
 }

@@ -214,6 +214,15 @@
                                     <action selector="chartSegmentChanged:" destination="h8a-sY-KO9" eventType="valueChanged" id="01z-8C-wtc"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8H-Mi-w3s">
+                                <rect key="frame" x="23" y="410" width="80" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Share 1"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="h8a-sY-KO9" eventType="touchUpInside" id="WIP-za-NkE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -435,7 +444,10 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83B-cB-JWt">
                                                         <rect key="frame" x="196.66666666666663" y="1.6666666666666288" width="196.33333333333337" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Add"/>
+                                                        <connections>
+                                                            <action selector="addBodyPartButtonPressed:" destination="5iU-ka-V72" eventType="touchUpInside" id="VG6-Bs-wPQ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -480,6 +492,7 @@
                         <outlet property="setTextField" destination="gK5-Bt-FRv" id="b0s-ev-1yy"/>
                         <outlet property="stepperRep" destination="B6L-K7-odP" id="bdP-bW-iPD"/>
                         <outlet property="stepperSet" destination="sZG-zK-Z2R" id="AaX-U0-xNc"/>
+                        <outlet property="tableView" destination="o8f-2M-h7E" id="NrH-yD-dxa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdp-VG-RPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

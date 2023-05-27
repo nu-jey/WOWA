@@ -312,11 +312,17 @@ class DatabaseManager{
         }
     }
     
-    func loadSettingInfo() -> SettingInfo? {
+    func loadSettingInfo() -> SettingInfo {
         if let settingInfo = realm.objects(SettingInfo.self).first {
             return settingInfo
         } else {
-            return nil 
+            var settingInfo = SettingInfo(set: wowa.set, rep: wowa.rep, bodyPart: wowa.bodyPart)
+            try! realm.write {
+                realm.add(settingInfo)
+            }
+            return settingInfo
         }
     }
+    
+    
 }

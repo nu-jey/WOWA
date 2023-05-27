@@ -16,7 +16,9 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
     var locationManger = CLLocationManager()
     var gymAnnotation: MKPointAnnotation?
     var settingInfo: SettingInfo?
-
+    var tableViewData = [String]()
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var setTextField: UILabel!
     @IBOutlet weak var repTextField: UILabel!
     
@@ -54,10 +56,13 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
             // 거리측정
             let from = CLLocation(latitude: gymInfo.location[0], longitude: gymInfo.location[1])
             let to = CLLocation(latitude: (locationManger.location?.coordinate.latitude)!, longitude: (locationManger.location?.coordinate.longitude)!)
-    
+            
             print(from.distance (from: to))
         }
         
+        // tableView
+        tableView.dataSource = self
+        tableView.delegate = self
         loadSettingInfo()
     }
     
@@ -117,20 +122,18 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
         DatabaseManager.manager.saveSettingInfoSetAndRep(set: Int(setTextField.text!)!, rep: Int(repTextField.text!)!)
     }
     
+    
+    @IBAction func addBodyPartButtonPressed(_ sender: UIButton) {
+        
+    }
+    
     func loadSettingInfo() {
         settingInfo = DatabaseManager.manager.loadSettingInfo()
-        if settingInfo != nil {
-            stepperSet.value = Double(settingInfo!.set)
-            setTextField.text = String(settingInfo!.set)
-            stepperRep.value = Double(settingInfo!.rep)
-            repTextField.text = String(settingInfo!.rep)
-            
-        } else {
-            stepperSet.value = 4
-            setTextField.text = String(4)
-            stepperRep.value = 10
-            repTextField.text = String(10)
-        }
+        stepperSet.value = Double(settingInfo!.set)
+        setTextField.text = String(settingInfo!.set)
+        stepperRep.value = Double(settingInfo!.rep)
+        repTextField.text = String(settingInfo!.rep)
+        tableViewData = settingInfo!.bodyPart.map { $0 }
     }
 }
 
@@ -146,4 +149,20 @@ extension InfoViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+}
+
+extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        var content = cell.defaultContentConfiguration()
+        content.text = tableViewData[indexPath.row]
+        cell.contentConfiguration = content
+        return cell
+    }
+    
+    
 }
