@@ -124,7 +124,29 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
     
     
     @IBAction func addBodyPartButtonPressed(_ sender: UIButton) {
+        let alert = UIAlertController(title: "운동 부위", message: "추가", preferredStyle: .alert)
+        let add = UIAlertAction(title: "Add", style: .default) { [self] (ok) in
+            let addPart = alert.textFields![0].text!
+            if DatabaseManager.manager.isPossibleBodyPart(inputBodyPart: addPart) {
+                tableViewData.append(addPart)
+                DatabaseManager.manager.saveSettingInfoBodyPart(bodyPart: tableViewData)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                // 중복 처리
+            }
+        }
         
+        let cancel = UIAlertAction(title: "Cancle", style: .cancel) { (cancel) in
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(add)
+        alert.addTextField()
+        alert.textFields![0].placeholder = "추가할 운동 부위를 작성해주세요"
+        self.present(alert, animated: true, completion: nil)
     }
     
     func loadSettingInfo() {
@@ -162,6 +184,21 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
         content.text = tableViewData[indexPath.row]
         cell.contentConfiguration = content
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "Delete") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            print(indexPath.row)
+            self.tableViewData.remove(at: indexPath.row)
+            DatabaseManager.manager.saveSettingInfoBodyPart(bodyPart: self.tableViewData)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            success(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        delete.backgroundColor = .systemPink
+        return UISwipeActionsConfiguration(actions: [delete])
     }
     
     

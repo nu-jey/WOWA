@@ -324,5 +324,15 @@ class DatabaseManager{
         }
     }
     
-    
+    func isPossibleBodyPart(inputBodyPart: String) -> Bool {
+        if let settingInfo = realm.objects(SettingInfo.self).first {
+            if settingInfo.bodyPart.contains(inputBodyPart) {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
+    }
 }
