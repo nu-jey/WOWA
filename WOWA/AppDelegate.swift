@@ -8,16 +8,22 @@
 import UIKit
 import Highcharts
 import KakaoSDKCommon
+import WatchConnectivity
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // HighChart
         HIChartView.preload()
+        // Kakao 공유 메시지
         KakaoSDK.initSDK(appKey: "a19b726fb422597a549c61dc424c95d2")
+        // watch
+        
+
         return true
     }
 
-    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

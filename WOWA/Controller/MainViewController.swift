@@ -10,6 +10,7 @@ import FSCalendar
 import RealmSwift
 import CoreLocation
 import SwiftUI
+import WatchConnectivity
 
 protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
@@ -36,6 +37,7 @@ class MainViewController: UIViewController {
     var hiddenSections = Set<Int>()
     var locationManger = CLLocationManager()
     var isGym = false
+    var session = WCSession?.self
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -462,3 +464,25 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
+extension MainViewController: WCSessionDelegate {
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    }
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+            print("received data: \(userInfo)")
+                    DispatchQueue.main.async {
+                        if let value = userInfo["watch"] as? String {
+                            print(value)
+                        }
+            }
+    }
+    
+    
+}
