@@ -7,7 +7,8 @@
 
 import SwiftUI
 import CoreMotion
-struct ContentView: View {
+struct CountView: View {
+    var workItem: item
     let lamda: Double = 2 * Double.pi * 5 * 0.002
     
     var motionManager = CMMotionManager()
@@ -19,6 +20,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
+            Text(workItem.name)
             Text("\(accX)")
             Text("\(accY)")
             Text("\(accZ)")
@@ -47,9 +49,4 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
 

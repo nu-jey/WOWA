@@ -18,12 +18,14 @@
 		C293C96F2A01458300987CA5 /* Highcharts in Frameworks */ = {isa = PBXBuildFile; productRef = C293C96E2A01458300987CA5 /* Highcharts */; };
 		C297631A29F3D2A10056B211 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C297631929F3D2A10056B211 /* Weight.swift */; };
 		C2A0A6B92A237CA5003C8F02 /* WOWATACHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0A6B82A237CA5003C8F02 /* WOWATACHApp.swift */; };
-		C2A0A6BB2A237CA5003C8F02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0A6BA2A237CA5003C8F02 /* ContentView.swift */; };
+		C2A0A6BB2A237CA5003C8F02 /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0A6BA2A237CA5003C8F02 /* CountView.swift */; };
 		C2A0A6BD2A237CA6003C8F02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A0A6BC2A237CA6003C8F02 /* Assets.xcassets */; };
 		C2A0A6C02A237CA6003C8F02 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A0A6BF2A237CA6003C8F02 /* Preview Assets.xcassets */; };
 		C2A0A6C32A237CA6003C8F02 /* WOWATACH Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C2A0A6B62A237CA5003C8F02 /* WOWATACH Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2A0A6C82A238072003C8F02 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFB56529E0400C00D250DC /* Constants.swift */; };
 		C2B00FB729E4410D0028D874 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B00FB629E4410D0028D874 /* Routine.swift */; };
+		C2C21CAF2A26E6E7009C0807 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C21CAE2A26E6E7009C0807 /* MainView.swift */; };
+		C2C21CB22A26EEC4009C0807 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C21CB12A26EEC4009C0807 /* RoutineView.swift */; };
 		C2C5944829F2A25200ED847B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C5944629F2A25200ED847B /* MainTableViewCell.swift */; };
 		C2C5944929F2A25200ED847B /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C5944729F2A25200ED847B /* MainTableViewCell.xib */; };
 		C2CE553729E981170035E2C1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CE553629E981170035E2C1 /* Schedule.swift */; };
@@ -85,10 +87,12 @@
 		C297631929F3D2A10056B211 /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		C2A0A6B62A237CA5003C8F02 /* WOWATACH Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WOWATACH Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A0A6B82A237CA5003C8F02 /* WOWATACHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WOWATACHApp.swift; sourceTree = "<group>"; };
-		C2A0A6BA2A237CA5003C8F02 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C2A0A6BA2A237CA5003C8F02 /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		C2A0A6BC2A237CA6003C8F02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2A0A6BF2A237CA6003C8F02 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		C2C21CAE2A26E6E7009C0807 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C2C21CB12A26EEC4009C0807 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		C2C5944629F2A25200ED847B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		C2C5944729F2A25200ED847B /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
 		C2CE553629E981170035E2C1 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -196,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				C2A0A6B82A237CA5003C8F02 /* WOWATACHApp.swift */,
-				C2A0A6BA2A237CA5003C8F02 /* ContentView.swift */,
+				C2C21CB02A26E6EF009C0807 /* View */,
 				C2A0A6BC2A237CA6003C8F02 /* Assets.xcassets */,
 				C2A0A6BE2A237CA6003C8F02 /* Preview Content */,
 				C26698DC2A249AD900EB0B3C /* InterfaceController.swift */,
@@ -210,6 +214,16 @@
 				C2A0A6BF2A237CA6003C8F02 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C2C21CB02A26E6EF009C0807 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C2A0A6BA2A237CA5003C8F02 /* CountView.swift */,
+				C2C21CAE2A26E6E7009C0807 /* MainView.swift */,
+				C2C21CB12A26EEC4009C0807 /* RoutineView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C2E60C5F29DAEDB800164371 = {
@@ -406,9 +420,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A0A6BB2A237CA5003C8F02 /* ContentView.swift in Sources */,
+				C2A0A6BB2A237CA5003C8F02 /* CountView.swift in Sources */,
 				C26698DD2A249AD900EB0B3C /* InterfaceController.swift in Sources */,
 				C2A0A6B92A237CA5003C8F02 /* WOWATACHApp.swift in Sources */,
+				C2C21CB22A26EEC4009C0807 /* RoutineView.swift in Sources */,
+				C2C21CAF2A26E6E7009C0807 /* MainView.swift in Sources */,
 				C2A0A6C82A238072003C8F02 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
