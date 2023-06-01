@@ -12,7 +12,7 @@ struct MainView: View {
         NavigationView {
             VStack{
                 Text("WOWA")
-                NavigationLink("페이지 이동", destination: RoutineView())
+                NavigationLink("Today Schedule", destination: RoutineView())
             }
         }
         
