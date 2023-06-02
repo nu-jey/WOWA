@@ -24,7 +24,6 @@
 		C2A0A6C32A237CA6003C8F02 /* WOWATACH Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C2A0A6B62A237CA5003C8F02 /* WOWATACH Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C2A0A6C82A238072003C8F02 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFB56529E0400C00D250DC /* Constants.swift */; };
 		C2B00FB729E4410D0028D874 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B00FB629E4410D0028D874 /* Routine.swift */; };
-		C2BDF2CA2A28462300EE27F7 /* AddWieghtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDF2C92A28462300EE27F7 /* AddWieghtView.swift */; };
 		C2C21CAF2A26E6E7009C0807 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C21CAE2A26E6E7009C0807 /* MainView.swift */; };
 		C2C21CB22A26EEC4009C0807 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C21CB12A26EEC4009C0807 /* RoutineView.swift */; };
 		C2C5944829F2A25200ED847B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C5944629F2A25200ED847B /* MainTableViewCell.swift */; };
@@ -92,7 +91,6 @@
 		C2A0A6BC2A237CA6003C8F02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2A0A6BF2A237CA6003C8F02 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
-		C2BDF2C92A28462300EE27F7 /* AddWieghtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWieghtView.swift; sourceTree = "<group>"; };
 		C2C21CAE2A26E6E7009C0807 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C2C21CB12A26EEC4009C0807 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		C2C5944629F2A25200ED847B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				C2C21CAE2A26E6E7009C0807 /* MainView.swift */,
 				C2C21CB12A26EEC4009C0807 /* RoutineView.swift */,
 				C2A0A6BA2A237CA5003C8F02 /* CountView.swift */,
-				C2BDF2C92A28462300EE27F7 /* AddWieghtView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -425,7 +422,6 @@
 			files = (
 				C2A0A6BB2A237CA5003C8F02 /* CountView.swift in Sources */,
 				C26698DD2A249AD900EB0B3C /* InterfaceController.swift in Sources */,
-				C2BDF2CA2A28462300EE27F7 /* AddWieghtView.swift in Sources */,
 				C2A0A6B92A237CA5003C8F02 /* WOWATACHApp.swift in Sources */,
 				C2C21CB22A26EEC4009C0807 /* RoutineView.swift in Sources */,
 				C2C21CAF2A26E6E7009C0807 /* MainView.swift in Sources */,
