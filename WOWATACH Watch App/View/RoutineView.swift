@@ -13,14 +13,15 @@ struct item: Identifiable {
     var traget: String
     var name: String
     var set: Int
+    var rep: Int
 }
 
 struct RoutineView: View {
     // 임시 데이터
     var listData: [item] = [
-        item(traget: "가슴", name: "벤치 프레스", set: 4),
-        item(traget: "가슴", name: "딥스", set: 4),
-        item(traget: "가슴", name: "인클라인 프레스", set: 4)
+        item(traget: "가슴", name: "벤치 프레스", set: 4, rep: 10),
+        item(traget: "가슴", name: "딥스", set: 4, rep: 12),
+        item(traget: "가슴", name: "인클라인 프레스", set: 4, rep: 12)
     ]
     var body: some View {
         VStack {

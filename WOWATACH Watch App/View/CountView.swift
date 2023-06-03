@@ -11,20 +11,29 @@ import CoreMotion
 
 struct CountView: View {
     var workItem: item
+    let deltaTime: Double = 0.002
     let lamda: Double = 2 * Double.pi * 5 * 0.002
-    
     var motionManager = CMMotionManager()
+    @State private var preAccX: Double = 0
+    @State private var curAccX: Double = 0
+    @State private var preSpdX: Double = 0
+    @State private var curSpdX: Double = 0
+    @State private var prePosX: Double = 0
+    @State private var curPosX: Double = 0
+    @State private var minPosX: Double = Double(Int.max)
+    @State private var maxPosX: Double = 0
+    
+    
     @State private var accX : Double = 0
     @State private var accY : Double = 0
     @State private var accZ : Double = 0
+    
     @State var progressValue: Float = 0.0
     @State var currentSet = 0
     @State var showModal = false
     @State var weight: Int = 0
-    
-    
-    
-    
+    @State var currentRep: Int = 0
+
     var body: some View {
         GeometryReader { geo in
             VStack {
@@ -32,7 +41,10 @@ struct CountView: View {
                     CircularProgressView(progress: Double(progressValue))
                         .scaledToFit()
                         .frame(width: geo.size.width * 0.7, height: geo.size.height * 0.7)
-                    Text(workItem.name)
+                    VStack{
+                        Text(workItem.name)
+                        Text(String(currentRep) + "/" + String(workItem.rep))
+                    }
                 }
                 Spacer()
                 if weight != 0 {
@@ -55,15 +67,25 @@ struct CountView: View {
                         guard let data = data, error == nil else {
                             return
                         }
-                        print(data.acceleration.x, data.acceleration.y, data.acceleration.z)
-                        accX = lowPassFilter(rawAcc: data.acceleration.x, preAcc: accX)
-                        accY = lowPassFilter(rawAcc: data.acceleration.x, preAcc: accY)
-                        accZ = lowPassFilter(rawAcc: data.acceleration.x, preAcc: accZ)
+                        curAccX = lowPassFilter(rawAcc: abs(data.acceleration.x), preAcc: preAccX)
+                        curSpdX = preSpdX + 0.5 * (curAccX - preAccX) * deltaTime
+                        if curSpdX > 0 {
+                            curPosX = prePosX + 0.5 * (curSpdX - preSpdX) * deltaTime
+                        }
+                        if maxPosX < curPosX {
+                            maxPosX = curPosX
+                        }
+                        if minPosX > curPosX {
+                            minPosX = curPosX
+                        }
+                        preSpdX = curSpdX
+                        preAccX = curAccX
+                        curPosX = prePosX
+                        print(curAccX, curSpdX, curPosX, maxPosX)
                     }
                 }
             }
         }
-        
     }
     func lowPassFilter(rawAcc: Double, preAcc: Double) -> Double {
         return lamda / (1 + lamda) * rawAcc + 1 / (1 + lamda) * preAcc
@@ -71,6 +93,10 @@ struct CountView: View {
      func addSet() {
         currentSet += 1
         progressValue = Float(currentSet) / Float(workItem.set)
+         if currentSet == workItem.set {
+             print("123")
+             WKInterfaceDevice.current().play(.notification)
+         }
     }
 }
 
