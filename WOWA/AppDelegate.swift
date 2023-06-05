@@ -8,8 +8,8 @@
 import UIKit
 import Highcharts
 import KakaoSDKCommon
-import WatchConnectivity
-
+import Realm
+import RealmSwift
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: "a19b726fb422597a549c61dc424c95d2")
         // watch
         
-
+        let sharedDirectory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.WOWA")! as URL
+        let sharedRealmURL = sharedDirectory.appendingPathComponent("db.realm")
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(fileURL: sharedRealmURL)
         return true
     }
 

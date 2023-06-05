@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreMotion
 
-
 struct CountView: View {
     var workItem: item
     let deltaTime: Double = 0.002
@@ -43,7 +42,7 @@ struct CountView: View {
                         .frame(width: geo.size.width * 0.7, height: geo.size.height * 0.7)
                     VStack{
                         Text(workItem.name)
-                        Text(String(currentRep) + "/" + String(workItem.rep))
+                        Text(String(currentRep) + "/" + String(workItem.reps))
                     }
                 }
                 Spacer()
@@ -124,6 +123,8 @@ struct AddWieghtView: View {
     @State private var alpha = 0
     @Environment(\.dismiss) private var dismiss
     @Binding var weight: Int
+    @StateObject var assistant = Assistant()
+    @State private var test = ""
     var body: some View {
         VStack {
             Picker("무게를 골라주세요", selection: $selected) {
@@ -137,8 +138,10 @@ struct AddWieghtView: View {
             }
             Button("Add") {
                 weight = disk[selected] + alpha
+                assistant.addWeight(weight)
                 dismiss()
             }
+            Text(String(assistant.workList))
         }
     }
 }

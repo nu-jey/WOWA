@@ -8,11 +8,15 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SwiftUI
 
 class SettingViewController: UIViewController, MKMapViewDelegate {
     var locationManger = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
     var gymAnnotation: MKPointAnnotation?
+    @ObservedObject var assistant = Assistant()
+    
+    @IBOutlet weak var text: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +77,10 @@ class SettingViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func watchButtonPressed(_ sender: Any) {
+        text.text = String(assistant.weight)
+        assistant.loadWorkList(wl: "123")
+    }
     
 }
 

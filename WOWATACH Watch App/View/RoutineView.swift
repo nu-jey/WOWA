@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 
 struct item: Identifiable {
@@ -13,19 +14,19 @@ struct item: Identifiable {
     var traget: String
     var name: String
     var set: Int
-    var rep: Int
+    var reps: Int
+    var _id: String
+}
+class ListData {
+    var data = [item]()
 }
 
 struct RoutineView: View {
-    // 임시 데이터
-    var listData: [item] = [
-        item(traget: "가슴", name: "벤치 프레스", set: 4, rep: 10),
-        item(traget: "가슴", name: "딥스", set: 4, rep: 12),
-        item(traget: "가슴", name: "인클라인 프레스", set: 4, rep: 12)
-    ]
+    @StateObject var assistant = Assistant()
+    @State var listData = ListData()
     var body: some View {
         VStack {
-            List(listData) { item in
+            List(makeListData(str: assistant.workList)) { item in
                 Section(header: Text(item.traget)) {
                     NavigationLink(destination: CountView(workItem: item)) {
                         WorkListCellView(workItem: item)
@@ -34,6 +35,30 @@ struct RoutineView: View {
             }
         }
     }
+    
+    func makeListData(str: String) -> [item] {
+        var res = [item]()
+        var temp = str.components(separatedBy: ["[", "{", "\n", "\t", ";", "]", "}", ","]).filter { $0 != "" && $0 != "Work " && $0 != " Work "}
+        var index = 0
+        if temp.count >= 5 {
+            for i in temp {
+                print(i)
+            }
+            while index < temp.count {
+                let newItem = item(
+                    traget: String(temp[index].split(separator: " = ").last!),
+                    name: String(temp[index + 1].split(separator: " = ").last!),
+                    set: Int(temp[index + 2].split(separator: " = ").last!)!,
+                    reps: Int(temp[index + 3].split(separator: " = ").last!)!,
+                    _id: String(temp[index + 4].split(separator: " = ").last!)
+                )
+                res.append(newItem)
+                index += 5
+            }
+        }
+        return res
+    }
+    
 }
 struct WorkListCellView: View {
     var workItem: item

@@ -16,6 +16,10 @@ protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
 }
 
+//protocol WatchDataRefreshDelegate: AnyObject {
+//    func
+//}
+
 class MainViewController: UIViewController {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
@@ -37,7 +41,9 @@ class MainViewController: UIViewController {
     var hiddenSections = Set<Int>()
     var locationManger = CLLocationManager()
     var isGym = false
-    var session = WCSession?.self
+    
+    @State var text = "test is worked"
+    @ObservedObject var assistant = Assistant()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +79,8 @@ class MainViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: "MainTableViewCell")
+        
+        // 오늘 운동 정보 불러오기 
         currentSelectedDate = dateFormatter.string(from: Date())
         loadSchedule(currentSelectedDate!)
         foldAllSections()
@@ -81,9 +89,17 @@ class MainViewController: UIViewController {
         locationManger.delegate = self
         locationManger.desiredAccuracy = kCLLocationAccuracyBest // 위치 정확도 -> 최고 수준으로
         locationManger.requestWhenInUseAuthorization()
-        print(locationManger.location)
         isGymNow()
     }
+    
+    func shareScheduleForWatch() {
+        let convertedData =
+          """
+            \(tableViewData)
+            """
+        assistant.loadWorkList(wl: convertedData)
+    }
+    
     
     func loadSchedule(_ date: String) {
         if let selectedDateWorks = DatabaseManager.manager.loadSelectedDateSchedule(date: date) {
@@ -118,6 +134,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        shareScheduleForWatch()
         loadSchedule(currentSelectedDate!)
         foldAllSections()
         isGymNow()
@@ -462,27 +479,4 @@ extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-}
-
-extension MainViewController: WCSessionDelegate {
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        
-    }
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    }
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-            print("received data: \(userInfo)")
-                    DispatchQueue.main.async {
-                        if let value = userInfo["watch"] as? String {
-                            print(value)
-                        }
-            }
-    }
-    
-    
 }

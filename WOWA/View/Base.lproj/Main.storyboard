@@ -177,6 +177,22 @@
                                     <action selector="registGymButtonPressed:" destination="aV7-qJ-FPe" eventType="touchUpInside" id="jg1-bY-mBA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82Z-3M-xLa">
+                                <rect key="frame" x="160" y="550" width="73" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Watch"/>
+                                <connections>
+                                    <action selector="watchButtonPressed:" destination="aV7-qJ-FPe" eventType="touchUpInside" id="CQQ-Vh-AUt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHt-4x-ZKN">
+                                <rect key="frame" x="175" y="521" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QTO-yY-6P4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -189,6 +205,7 @@
                     <navigationItem key="navigationItem" title="Setting" id="HR3-yd-EqW"/>
                     <connections>
                         <outlet property="mapView" destination="BdI-tD-Bb8" id="Zlf-de-I0i"/>
+                        <outlet property="text" destination="GHt-4x-ZKN" id="Anh-S9-Akf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fua-vU-eXe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -203,8 +220,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-XV-4VJ">
-                                <rect key="frame" x="108.66666666666669" y="410.66666666666669" width="176" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8H-Mi-w3s">
+                                <rect key="frame" x="16" y="409" width="118" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Share 1"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="h8a-sY-KO9" eventType="touchUpInside" id="WIP-za-NkE"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-XV-4VJ">
+                                <rect key="frame" x="139" y="411" width="238" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Week"/>
                                     <segment title="Month"/>
@@ -214,22 +241,9 @@
                                     <action selector="chartSegmentChanged:" destination="h8a-sY-KO9" eventType="valueChanged" id="01z-8C-wtc"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8H-Mi-w3s">
-                                <rect key="frame" x="23" y="410" width="80" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Share 1"/>
-                                <connections>
-                                    <action selector="shareButtonPressed:" destination="h8a-sY-KO9" eventType="touchUpInside" id="WIP-za-NkE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIR-W0-zjW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="BxR-XV-4VJ" firstAttribute="centerY" secondItem="Qcd-eK-pFP" secondAttribute="centerY" id="OOE-Ar-0Df"/>
-                            <constraint firstItem="BxR-XV-4VJ" firstAttribute="centerX" secondItem="Qcd-eK-pFP" secondAttribute="centerX" id="PN6-8o-2qj"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="통계" image="chart.xyaxis.line" catalog="system" id="UKw-6D-LNJ"/>
                     <navigationItem key="navigationItem" title="My" id="YNS-8Q-oAJ"/>
@@ -239,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXv-Fc-pKO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="-989"/>
+            <point key="canvasLocation" x="2687.7862595419847" y="-989.43661971830988"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Gnn-Pm-C1w">

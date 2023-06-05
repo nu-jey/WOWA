@@ -12,8 +12,8 @@ import KakaoSDKTemplate
 import KakaoSDKCommon
 import KakaoSDKShare
 
-
 class MyViewCotroller: UIViewController {
+    
     let dateFormatter = DateFormatter()
     var today: String?
     var chart1: HIChartView?
@@ -24,12 +24,13 @@ class MyViewCotroller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(makeChart("week"))
+        self.view.addSubview(makeSpiderChart())
     }
-    
     
     @IBAction func chartSegmentChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
+            shareDuration = "week"
             self.view.addSubview(makeChart("week"))
         case 1:
             shareDuration = "month"
