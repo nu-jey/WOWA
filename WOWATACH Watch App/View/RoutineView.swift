@@ -22,53 +22,57 @@ class ListData {
 }
 
 struct RoutineView: View {
-    @StateObject var assistant = Assistant()
-    @State var listData = ListData()
+    var data: [item]
     var body: some View {
         VStack {
-            List(makeListData(str: assistant.workList)) { item in
+            WorkProgressView(workId: data.map { $0._id })
+            List(data) { item in
                 Section(header: Text(item.traget)) {
                     NavigationLink(destination: CountView(workItem: item)) {
-                        WorkListCellView(workItem: item)
+                        WorkListCellView(workItem: item, check: false)
                     }
                 }
             }
         }
     }
     
-    func makeListData(str: String) -> [item] {
-        var res = [item]()
-        var temp = str.components(separatedBy: ["[", "{", "\n", "\t", ";", "]", "}", ","]).filter { $0 != "" && $0 != "Work " && $0 != " Work "}
-        var index = 0
-        if temp.count >= 5 {
-            for i in temp {
-                print(i)
-            }
-            while index < temp.count {
-                let newItem = item(
-                    traget: String(temp[index].split(separator: " = ").last!),
-                    name: String(temp[index + 1].split(separator: " = ").last!),
-                    set: Int(temp[index + 2].split(separator: " = ").last!)!,
-                    reps: Int(temp[index + 3].split(separator: " = ").last!)!,
-                    _id: String(temp[index + 4].split(separator: " = ").last!)
-                )
-                res.append(newItem)
-                index += 5
-            }
-        }
-        return res
-    }
-    
 }
+
 struct WorkListCellView: View {
     var workItem: item
+    var check: Bool
     var body: some View {
-        Text(workItem.name + String(workItem.set))
+        HStack {
+            if check {
+                Image(systemName: "checkmark.circle")
+                    .resizable()
+                    .frame(width: 15, height: 15)
+            } else {
+                Image(systemName: "circle")
+                    .resizable()
+                    .frame(width: 15, height: 15)
+            }
+            Spacer()
+            Text(workItem.name)
+            Spacer()
+            Text(String(workItem.set) + " Set")
+            
+        }
+    }
+}
+
+struct WorkProgressView: View {
+    var workId: [String]
+    @State var progressValue: Double = 0.5
+    var body: some View {
+        ProgressView(value: progressValue)
+            .progressViewStyle(LinearProgressViewStyle(tint: .red))
+            .padding()
     }
 }
 
 struct RoutineView_Previews: PreviewProvider {
     static var previews: some View {
-        RoutineView()
+        RoutineView(data: [item(traget: "가슴", name: "벤치 프레스", set: 4, reps: 10, _id: "123")])
     }
 }
