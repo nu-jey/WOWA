@@ -54,7 +54,7 @@ struct CountView: View {
                     addSet()
                 }
                 .sheet(isPresented: $showModal) {
-                    AddWieghtView(weight: $weight)
+                    AddWieghtView(weight: $weight, currentWork: workItem, currentSet: currentSet)
                 }
                 
             }
@@ -125,6 +125,8 @@ struct AddWieghtView: View {
     @Binding var weight: Int
     @StateObject var assistant = Assistant()
     @State private var test = ""
+    let currentWork: item
+    let currentSet: Int
     var body: some View {
         VStack {
             Picker("무게를 골라주세요", selection: $selected) {
@@ -138,7 +140,7 @@ struct AddWieghtView: View {
             }
             Button("Add") {
                 weight = disk[selected] + alpha
-                assistant.addWeight(weight)
+                assistant.addWeight([currentWork._id, String(currentSet), String(weight)])
                 dismiss()
             }
             Text(String(assistant.workList))

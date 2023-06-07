@@ -16,10 +16,6 @@ protocol AddWorkViewControllerDelegate: AnyObject {
     func addWorkAndReload()
 }
 
-//protocol WatchDataRefreshDelegate: AnyObject {
-//    func
-//}
-
 class MainViewController: UIViewController {
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
@@ -323,6 +319,7 @@ extension MainViewController: AddWorkViewControllerDelegate {
     }
     
 }
+
 
 // MARK: - FSCalendar Methods
 extension MainViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {

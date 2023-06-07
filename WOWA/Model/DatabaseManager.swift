@@ -335,4 +335,12 @@ class DatabaseManager{
             return false
         }
     }
+    
+    func convertObjectID(_ stringValue: String) -> ObjectId? {
+        if let targetID = realm.objects(Weight.self).filter { $0.WorkID.stringValue == stringValue }.first {
+            return targetID.WorkID
+        } else {
+            return nil
+        }
+    }
 }

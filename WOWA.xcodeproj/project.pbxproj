@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2034AD729E5955500491FA5 /* MyViewCotroller.swift */; };
+		C2225A892A30A7C600C10ECF /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
 		C224F7CE29F6B83B00105042 /* AddRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C224F7CD29F6B83B00105042 /* AddRoutineViewController.swift */; };
 		C23A41132A16155A00A99590 /* SettingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A41122A16155A00A99590 /* SettingInfo.swift */; };
 		C23AEB9E2A2C75230080F771 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C23AEB9D2A2C75220080F771 /* Realm */; };
@@ -20,6 +21,7 @@
 		C23AEBA72A2C760F0080F771 /* SettingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A41122A16155A00A99590 /* SettingInfo.swift */; };
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
+		C291EAA22A30A572009F17D0 /* Assistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C0A12A2D7BAB0086F033 /* Assistant.swift */; };
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
 		C292DBD629E6750E00EB97C8 /* EditRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */; };
 		C293C96F2A01458300987CA5 /* Highcharts in Frameworks */ = {isa = PBXBuildFile; productRef = C293C96E2A01458300987CA5 /* Highcharts */; };
@@ -55,7 +57,6 @@
 		C2F6C09C2A2D7B160086F033 /* SessionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C09B2A2D7B160086F033 /* SessionDelegator.swift */; };
 		C2F6C09D2A2D7B180086F033 /* SessionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C09B2A2D7B160086F033 /* SessionDelegator.swift */; };
 		C2F6C0A22A2D7BAB0086F033 /* Assistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C0A12A2D7BAB0086F033 /* Assistant.swift */; };
-		C2F6C0A32A2D7BAB0086F033 /* Assistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C0A12A2D7BAB0086F033 /* Assistant.swift */; };
 		C2F6C0A52A2D7D5D0086F033 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C0A42A2D7D5D0086F033 /* ComplicationController.swift */; };
 		D2CD3C78E8D00AA085ACE5C3 /* Pods_WOWA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C94EF4D86BCFF9759B4A8C /* Pods_WOWA.framework */; };
 /* End PBXBuildFile section */
@@ -457,8 +458,9 @@
 			files = (
 				C2F6C09D2A2D7B180086F033 /* SessionDelegator.swift in Sources */,
 				C2A0A6BB2A237CA5003C8F02 /* CountView.swift in Sources */,
+				C2225A892A30A7C600C10ECF /* DatabaseManager.swift in Sources */,
+				C291EAA22A30A572009F17D0 /* Assistant.swift in Sources */,
 				C2F6C0A52A2D7D5D0086F033 /* ComplicationController.swift in Sources */,
-				C2F6C0A32A2D7BAB0086F033 /* Assistant.swift in Sources */,
 				C23AEBA62A2C760F0080F771 /* Weight.swift in Sources */,
 				C23AEBA72A2C760F0080F771 /* SettingInfo.swift in Sources */,
 				C23AEBA32A2C760F0080F771 /* Gym.swift in Sources */,

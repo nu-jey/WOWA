@@ -9,13 +9,14 @@ import Foundation
 import WatchConnectivity
 import Combine
 
+
 final class Assistant: ObservableObject {
     var session: WCSession
     let delegate: WCSessionDelegate
-    let subject = PassthroughSubject<Int, Never>()
+    let subject = PassthroughSubject<[String], Never>()
     let subjectWorkList = PassthroughSubject<String, Never>()
     
-    @Published private(set) var weight: Int = 0
+    @Published private(set) var weight: [String] = [String]()
     @Published private(set) var workList: String = ""
     
     init(session: WCSession = .default) {
@@ -28,7 +29,7 @@ final class Assistant: ObservableObject {
         subjectWorkList.receive(on: DispatchQueue.main).assign(to: &$workList)
     }
     
-    func addWeight(_ w: Int) {
+    func addWeight(_ w: [String]) {
         weight = w
         session.sendMessage(["weight": weight], replyHandler: nil) { error in
             print("에러 발생: ")
@@ -36,7 +37,7 @@ final class Assistant: ObservableObject {
         }
     }
     
-    func checkWeight() -> Int {
+    func checkWeight() -> [String] {
         return weight
     }
     

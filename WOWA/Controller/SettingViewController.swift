@@ -78,7 +78,7 @@ class SettingViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func watchButtonPressed(_ sender: Any) {
-        text.text = String(assistant.weight)
+        text.text = String(assistant.weight[0])
         assistant.loadWorkList(wl: "123")
     }
     
