@@ -48,15 +48,15 @@ class MainViewController: UIViewController {
         calendarView.backgroundColor = .white
         calendarView.locale = Locale(identifier: "ko_KR")
         calendarView.appearance.headerDateFormat = "YYYY년 MM월"
-        calendarView.appearance.weekdayTextColor = UIColor.white
-        calendarView.appearance.headerTitleColor = UIColor.white
-        calendarView.appearance.selectionColor = UIColor.yellow
-        calendarView.appearance.todayColor = UIColor.orange
-        calendarView.appearance.todaySelectionColor = UIColor.orange
-        calendarView.appearance.eventDefaultColor = UIColor.yellow
-        calendarView.appearance.eventSelectionColor = UIColor.yellow
-        calendarView.appearance.titleDefaultColor = UIColor.white
-        calendarView.appearance.titlePlaceholderColor = UIColor.white.withAlphaComponent(0.2)
+        calendarView.appearance.weekdayTextColor = UIColor(named: "sideColor2")
+        calendarView.appearance.headerTitleColor = UIColor(named: "sideColor2")
+        calendarView.appearance.selectionColor = UIColor(named: "signatureColor")
+        calendarView.appearance.todayColor = UIColor(named: "sideColor1")
+        calendarView.appearance.todaySelectionColor = UIColor(named: "signatureColor")
+        calendarView.appearance.eventDefaultColor = UIColor(named: "sideColor1")
+        calendarView.appearance.eventSelectionColor = UIColor(named: "sideColor1")
+        calendarView.appearance.titleDefaultColor = UIColor(named: "sideColor2")
+        calendarView.appearance.titlePlaceholderColor = UIColor(named: "sideColor2")!.withAlphaComponent(0.2)
         calendarView.backgroundColor = UIColor.secondarySystemBackground
         dateFormatter.dateFormat = "yyyy-MM-dd"
         calendarView.layer.cornerCurve = .continuous
@@ -298,10 +298,10 @@ class MainViewController: UIViewController {
     
             print(from.distance (from: to))
             if from.distance (from: to) > 100 {
-                imageViewGymStatus.tintColor = .red
+                imageViewGymStatus.tintColor = UIColor(named: "sideColor4")
                 isGym = false
             } else {
-                imageViewGymStatus.tintColor = .green
+                imageViewGymStatus.tintColor = UIColor(named: "signatureColor")
                 isGym = true
             }
         }
@@ -372,16 +372,19 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 8
+        stackView.backgroundColor = UIColor(named: "sideColor4")
+        stackView.layer.cornerRadius = 5
         
         let sectionButton = UIButton()
         sectionButton.setTitle("\(tableViewData[section].target) - \(tableViewData[section].name)", for: .normal)
-        sectionButton.backgroundColor = .systemBlue
         sectionButton.tag = section
+        sectionButton.contentHorizontalAlignment = .left // 버튼 텍스트 왼쪽 정렬
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
         
         let editButton = UIImageView()
         editButton.image = UIImage(systemName: "pencil")
         editButton.tag = section
+        editButton.tintColor = UIColor(named: "signatureColor")
         let editTapGesture = UITapGestureRecognizer(target: self, action: #selector(editButtonPressed(_:)))
         editButton.addGestureRecognizer(editTapGesture)
         editButton.isUserInteractionEnabled = true
@@ -389,6 +392,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let removeButton = UIImageView()
         removeButton.image = UIImage(systemName: "trash")
         removeButton.tag = section
+        removeButton.tintColor = UIColor(named: "signatureColor")
         let removeTapGesture = UITapGestureRecognizer(target: self, action: #selector(removeButtonPressed(_:)))
         removeButton.addGestureRecognizer(removeTapGesture)
         removeButton.isUserInteractionEnabled = true
@@ -396,7 +400,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         stackView.addArrangedSubview(sectionButton)
         stackView.addArrangedSubview(editButton)
         stackView.addArrangedSubview(removeButton)
-        
+        // 패딩 설정
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         return stackView
     }
     

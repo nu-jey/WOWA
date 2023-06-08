@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -69,18 +70,22 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jr9-M2-1ut">
                                                 <rect key="frame" x="0.0" y="0.0" width="196" height="34.333333333333336"/>
-                                                <color key="backgroundColor" red="1" green="0.81134520060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="sideColor1"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Routine"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Routine">
+                                                    <color key="baseForegroundColor" name="sideColor4"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="0Aw-S1-OMl" kind="modal" id="7dP-E0-XZK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thu-xm-MvO">
                                                 <rect key="frame" x="197" y="0.0" width="196" height="34.333333333333336"/>
-                                                <color key="backgroundColor" red="1" green="0.81134520060000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="sideColor1"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="add "/>
+                                                <buttonConfiguration key="configuration" style="plain" title="add ">
+                                                    <color key="baseForegroundColor" name="sideColor4"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="rh8-fQ-9hH" kind="modal" identifier="showAddWorkView" id="n6A-Mf-BKE"/>
                                                 </connections>
@@ -263,6 +268,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Hv-oA-LIv">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="signatureColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -828,6 +836,15 @@
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="sideColor1">
+            <color red="1" green="0.85098039215686272" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="sideColor4">
+            <color red="0.27058823529411763" green="0.27058823529411763" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="signatureColor">
+            <color red="0.95686274509803915" green="0.55686274509803924" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

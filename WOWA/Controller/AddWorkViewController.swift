@@ -31,7 +31,7 @@ class AddWorkViewController: UIViewController {
     var editingWorkTargetRep = -1
     var editingWorkTargetSet = -1
     var editingWorkTargetName = ""
-    
+    var settingInfo: SettingInfo?
     
     @IBAction func stepperSetPressed(_ sender: UIStepper) {
         setTextField.text = Int(sender.value).description
@@ -70,6 +70,7 @@ class AddWorkViewController: UIViewController {
     
     override func viewDidLoad() {
         setAddWorkViewText()
+        settingInfo = DatabaseManager.manager.loadSettingInfo()
         super.viewDidLoad()
     }
     
@@ -110,14 +111,14 @@ extension AddWorkViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return wowa.bodyPart.count
+        return settingInfo!.bodyPart.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return wowa.bodyPart[row]
+        return settingInfo!.bodyPart[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        target = wowa.bodyPart[row]
+        target = settingInfo!.bodyPart[row]
     }
 }
