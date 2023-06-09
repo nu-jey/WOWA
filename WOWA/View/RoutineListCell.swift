@@ -11,9 +11,8 @@ class RoutineListCell: UITableViewCell {
 
     @IBOutlet weak var bodyPart: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var set: UILabel!
-    @IBOutlet weak var rep: UILabel!
     
+    @IBOutlet weak var setAndRep: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

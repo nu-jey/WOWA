@@ -315,6 +315,7 @@ extension MainViewController: AddWorkViewControllerDelegate {
         DispatchQueue.main.async {
             self.loadSchedule(self.currentSelectedDate!)
         }
+        unfoldAllSections()
         foldAllSections()
     }
     

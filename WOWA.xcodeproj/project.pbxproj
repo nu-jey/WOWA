@@ -21,6 +21,8 @@
 		C23AEBA72A2C760F0080F771 /* SettingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23A41122A16155A00A99590 /* SettingInfo.swift */; };
 		C2460D3729DD6BE4006A237C /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2460D3629DD6BE4006A237C /* Work.swift */; };
 		C27A5DB529DEE40A00C00786 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */; };
+		C287758E2A330930001F3EE1 /* RoutineTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C287758C2A330930001F3EE1 /* RoutineTableHeader.swift */; };
+		C287758F2A330930001F3EE1 /* RoutineTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C287758D2A330930001F3EE1 /* RoutineTableHeader.xib */; };
 		C291EAA22A30A572009F17D0 /* Assistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6C0A12A2D7BAB0086F033 /* Assistant.swift */; };
 		C292DBD429E6747D00EB97C8 /* NewRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */; };
 		C292DBD629E6750E00EB97C8 /* EditRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */; };
@@ -96,6 +98,8 @@
 		C23AEBA82A2C78C00080F771 /* WOWATACH Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WOWATACH Watch App.entitlements"; sourceTree = "<group>"; };
 		C2460D3629DD6BE4006A237C /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		C27A5DB429DEE40A00C00786 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		C287758C2A330930001F3EE1 /* RoutineTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableHeader.swift; sourceTree = "<group>"; };
+		C287758D2A330930001F3EE1 /* RoutineTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTableHeader.xib; sourceTree = "<group>"; };
 		C292DBD329E6747D00EB97C8 /* NewRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutineViewController.swift; sourceTree = "<group>"; };
 		C292DBD529E6750E00EB97C8 /* EditRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewController.swift; sourceTree = "<group>"; };
 		C297631929F3D2A10056B211 /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 				C2DFB56229E02C1700D250DC /* RoutineListCell.xib */,
 				C2C5944629F2A25200ED847B /* MainTableViewCell.swift */,
 				C2C5944729F2A25200ED847B /* MainTableViewCell.xib */,
+				C287758C2A330930001F3EE1 /* RoutineTableHeader.swift */,
+				C287758D2A330930001F3EE1 /* RoutineTableHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,6 +409,7 @@
 				C2DFB56429E02C1700D250DC /* RoutineListCell.xib in Resources */,
 				C2E60C7829DAEDB900164371 /* LaunchScreen.storyboard in Resources */,
 				C2E60C7529DAEDB900164371 /* Assets.xcassets in Resources */,
+				C287758F2A330930001F3EE1 /* RoutineTableHeader.xib in Resources */,
 				C2E60C7329DAEDB800164371 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +495,7 @@
 				C2E6E8752A13AFB7001B669D /* Gym.swift in Sources */,
 				C2DFB56329E02C1700D250DC /* RoutineListCell.swift in Sources */,
 				C2034AD829E5955500491FA5 /* MyViewCotroller.swift in Sources */,
+				C287758E2A330930001F3EE1 /* RoutineTableHeader.swift in Sources */,
 				C2C5944829F2A25200ED847B /* MainTableViewCell.swift in Sources */,
 				C2CE553729E981170035E2C1 /* Schedule.swift in Sources */,
 				C2F6C09C2A2D7B160086F033 /* SessionDelegator.swift in Sources */,

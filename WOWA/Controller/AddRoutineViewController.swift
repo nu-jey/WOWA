@@ -14,12 +14,13 @@ class AddRoutineViewController: UIViewController {
     var tableViewData = [Routine]()
     var routineID: ObjectId?
     var scheduleID: ObjectId?
-    var date: String? 
+    var date: String?
     var selectedEditingRoutineIndex: Int?
-    weak var delegate: AddWorkViewControllerDelegate? 
+    weak var delegate: AddWorkViewControllerDelegate?
     
     override func viewDidLoad() {
         tableView.register(UINib(nibName: "RoutineListCell", bundle: nil), forCellReuseIdentifier: "RoutineListCell")
+        tableView.register(UINib(nibName: "RoutineTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "RoutineTableHeader")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.sectionHeaderTopPadding = 25
@@ -76,27 +77,52 @@ extension AddRoutineViewController: UITableViewDelegate, UITableViewDataSource {
         return tableViewData.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableViewData[section].routineName + " - " + tableViewData[section].routineDiscription!
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        //return tableViewData[section].routineName + " - " + tableViewData[section].routineDiscription!
+    //    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 75
     }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "RoutineTableHeader") as! RoutineTableHeader
+        if let description = tableViewData[section].routineDiscription {
+            header.routineLable.text = tableViewData[section].routineName + " - " + description
+        } else {
+            header.routineLable.text = tableViewData[section].routineName
+        }
+        header.routineLable.sizeThatFits( CGSize(width: header.routineLable.frame.width, height: 1000))
+        return header
+    }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = UIColor(named: "sideColor4")
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         stackView.spacing = 8
+        stackView.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000)
+        
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
         
         let loadButton = UIButton()
-        loadButton.setTitle("불러오기", for: .normal)
-        loadButton.backgroundColor = .blue
+        let dumbbellImage = UIImage(systemName: "dumbbell", withConfiguration: imageConfig)
+        loadButton.setImage(dumbbellImage, for: .normal)
+        loadButton.tintColor = UIColor(named: "signatureColor")
         loadButton.tag = section
-        loadButton.titleLabel?.font =  UIFont.systemFont(ofSize: 20)
         loadButton.addTarget(self, action: #selector(loadButtonPressed(_:)), for: .touchUpInside)
+    
         
         let editButton = UIButton()
-        editButton.setTitle("편집 하기 ", for: .normal)
-        editButton.backgroundColor = .gray
+        let pencilImage = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        editButton.setImage(pencilImage, for: .normal)
+        editButton.tintColor = UIColor(named: "signatureColor")
         editButton.tag = section
         editButton.addTarget(self, action: #selector(editButtonPressed(_:)), for: .touchUpInside)
         
@@ -106,11 +132,12 @@ extension AddRoutineViewController: UITableViewDelegate, UITableViewDataSource {
         return stackView
         
     }
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-    {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont.systemFont(ofSize: 18)
-    }
+    //
+    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    //    {
+    //        let header = view as! UITableViewHeaderFooterView
+    //        header.textLabel?.font = UIFont.systemFont(ofSize: 18)
+    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -121,8 +148,8 @@ extension AddRoutineViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
         cell.bodyPart.text = tableViewData[indexPath.section].workList[indexPath.row].target
         cell.name.text = tableViewData[indexPath.section].workList[indexPath.row].name
-        cell.set.text = String(tableViewData[indexPath.section].workList[indexPath.row].set)
-        cell.rep.text = String(tableViewData[indexPath.section].workList[indexPath.row].reps)
+        cell.setAndRep.text = String(tableViewData[indexPath.section].workList[indexPath.row].set) + " / " + String(tableViewData[indexPath.section].workList[indexPath.row].reps)
+    
         return cell
     }
     

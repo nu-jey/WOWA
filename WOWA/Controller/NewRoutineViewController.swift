@@ -87,8 +87,9 @@ extension NewRoutineViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
         cell.bodyPart.text = tableViewData[indexPath.row].target
         cell.name.text = tableViewData[indexPath.row].name
-        cell.set.text = String(tableViewData[indexPath.row].set)
-        cell.rep.text = String(tableViewData[indexPath.row].reps)
+        let setText = String(tableViewData[indexPath.section].set)
+        let repText = String(tableViewData[indexPath.section].reps)
+        cell.setAndRep.text = setText + " / " + repText
         return cell
     }
     

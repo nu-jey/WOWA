@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,29 +17,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="h4k-Uj-MEs">
-                        <rect key="frame" x="10" y="10" width="285.33333333333331" height="20.333333333333332"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="h4k-Uj-MEs">
+                        <rect key="frame" x="10" y="10" width="300" height="24"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wad-9Z-EGC">
-                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
+                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZe-fd-vJf">
-                                <rect key="frame" x="81.333333333333329" y="0.0" width="41.333333333333329" height="20.333333333333332"/>
+                                <rect key="frame" x="102.66666666666666" y="0.0" width="94.666666666666657" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehx-uy-kXw">
-                                <rect key="frame" x="162.66666666666666" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZG-PH-IqZ">
-                                <rect key="frame" x="244.00000000000003" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wn-Yy-71Z">
+                                <rect key="frame" x="205.33333333333334" y="0.0" width="94.666666666666657" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,15 +41,20 @@
                         </subviews>
                     </stackView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="h4k-Uj-MEs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="MH6-uv-qMm"/>
+                    <constraint firstAttribute="trailing" secondItem="h4k-Uj-MEs" secondAttribute="trailing" constant="10" id="Mw3-he-djX"/>
+                    <constraint firstAttribute="bottom" secondItem="h4k-Uj-MEs" secondAttribute="bottom" constant="10" id="iu8-QW-jzB"/>
+                    <constraint firstItem="h4k-Uj-MEs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="v2F-xx-LpS"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bodyPart" destination="wad-9Z-EGC" id="rSR-4A-ylR"/>
                 <outlet property="name" destination="SZe-fd-vJf" id="Oso-zE-HJs"/>
-                <outlet property="rep" destination="qZG-PH-IqZ" id="gfd-uR-Zew"/>
-                <outlet property="set" destination="ehx-uy-kXw" id="QR9-QP-L6P"/>
+                <outlet property="setAndRep" destination="9wn-Yy-71Z" id="Za0-4c-17e"/>
             </connections>
-            <point key="canvasLocation" x="132" y="-11"/>
+            <point key="canvasLocation" x="131.29770992366412" y="-11.267605633802818"/>
         </tableViewCell>
     </objects>
 </document>

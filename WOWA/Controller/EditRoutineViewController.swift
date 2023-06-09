@@ -89,8 +89,7 @@ extension EditRoutineViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineListCell", for: indexPath) as! RoutineListCell
         cell.bodyPart.text = tableViewData[indexPath.row].target
         cell.name.text = tableViewData[indexPath.row].name
-        cell.set.text = String(tableViewData[indexPath.row].set)
-        cell.rep.text = String(tableViewData[indexPath.row].reps)
+        cell.setAndRep.text = String(tableViewData[indexPath.row].set) + " / " + String(tableViewData[indexPath.row].reps)
         return cell
     }
     
