@@ -25,6 +25,11 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
     @IBOutlet weak var stepperRep: UIStepper!
     @IBOutlet weak var stepperSet: UIStepper!
     
+    @IBOutlet weak var registGymButton: UIButton!
+    @IBOutlet weak var removeGymButton: UIButton!
+    @IBOutlet weak var setAndRepSaveButton: UIButton!
+    @IBOutlet weak var bodyPartSaveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -64,6 +69,16 @@ class InfoViewController: UIViewController, MKMapViewDelegate  {
         tableView.dataSource = self
         tableView.delegate = self
         loadSettingInfo()
+        
+        setButtonRadius()
+    }
+    
+    func setButtonRadius() {
+        registGymButton.layer.cornerRadius = 5
+        removeGymButton.layer.cornerRadius = 5
+        setAndRepSaveButton.layer.cornerRadius = 5
+        bodyPartSaveButton.layer.cornerRadius = 5
+       
     }
     
     @IBAction func registGymButtonPressed(_ sender: UIButton) {

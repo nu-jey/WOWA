@@ -97,17 +97,17 @@ class RoutineViewController: UIViewController {
                     """
         if ShareApi.isKakaoTalkSharingAvailable()  {
             ShareApi.shared.shareCustom(templateId: 94186, templateArgs:["routineName":routine.routineName, "routineDescription":routine.routineDiscription ?? "", "workList": str]) {(sharingResult, error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    else {
-                        print("shareCustom() success.")
-                        if let sharingResult = sharingResult {
-                            UIApplication.shared.open(sharingResult.url, options: [:], completionHandler: nil)
-                            print(sharingResult.url)
-                        }
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("shareCustom() success.")
+                    if let sharingResult = sharingResult {
+                        UIApplication.shared.open(sharingResult.url, options: [:], completionHandler: nil)
+                        print(sharingResult.url)
                     }
                 }
+            }
             
             
         } else {
@@ -150,23 +150,26 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .white
         stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.distribution = .fill
+        stackView.spacing = 10
+        stackView.backgroundColor = UIColor(named: "sideColor4")
+        stackView.layer.cornerRadius = 5
         
         let sectionButton = UIButton()
-        sectionButton.setTitle(tableViewData[section].routineName, for: .normal)
-        sectionButton.backgroundColor = .systemBlue
+        sectionButton.setTitle("\(tableViewData[section].routineName) - \(tableViewData[section].routineDiscription!)", for: .normal)
         sectionButton.tag = section
+        sectionButton.contentHorizontalAlignment = .left // 버튼 텍스트 왼쪽 정렬
         sectionButton.addTarget(self,action: #selector(self.hideSection(sender:)),for: .touchUpInside)
-    
+        
+        
         let shareButton = UIImageView()
         shareButton.image = UIImage(systemName: "arrow.up.message.fill")
         shareButton.tag = section
+        shareButton.tintColor = UIColor(named: "signatureColor")
         let shareTapGesture = UITapGestureRecognizer(target: self, action: #selector(shareButtonPressed(_:)))
         shareButton.addGestureRecognizer(shareTapGesture)
         shareButton.isUserInteractionEnabled = true
@@ -174,6 +177,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         let editButton = UIImageView()
         editButton.image = UIImage(systemName: "pencil")
         editButton.tag = section
+        editButton.tintColor = UIColor(named: "signatureColor")
         let editTapGesture = UITapGestureRecognizer(target: self, action: #selector(editButtonPressed(_:)))
         editButton.addGestureRecognizer(editTapGesture)
         editButton.isUserInteractionEnabled = true
@@ -181,6 +185,7 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         let removeButton = UIImageView()
         removeButton.image = UIImage(systemName: "trash")
         removeButton.tag = section
+        removeButton.tintColor = UIColor(named: "signatureColor")
         let removeTapGesture = UITapGestureRecognizer(target: self, action: #selector(removeButtonPressed(_:)))
         removeButton.addGestureRecognizer(removeTapGesture)
         removeButton.isUserInteractionEnabled = true
@@ -189,6 +194,9 @@ extension RoutineViewController: UITableViewDataSource ,UITableViewDelegate {
         stackView.addArrangedSubview(shareButton)
         stackView.addArrangedSubview(editButton)
         stackView.addArrangedSubview(removeButton)
+        
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
         return stackView
     }

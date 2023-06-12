@@ -21,10 +21,12 @@ class MyViewCotroller: UIViewController {
     var shareData: [Int]?
     @IBOutlet weak var segment: UISegmentedControl!
     
+    @IBOutlet weak var shareButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(makeChart("week"))
         self.view.addSubview(makeSpiderChart())
+        shareButton.layer.cornerRadius = 5
     }
     
     @IBAction func chartSegmentChanged(_ sender: UISegmentedControl) {

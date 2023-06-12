@@ -401,6 +401,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         stackView.addArrangedSubview(sectionButton)
         stackView.addArrangedSubview(editButton)
         stackView.addArrangedSubview(removeButton)
+        
         // 패딩 설정
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
