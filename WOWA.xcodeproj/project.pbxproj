@@ -109,6 +109,8 @@
 		C2A0A6BC2A237CA6003C8F02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2A0A6BF2A237CA6003C8F02 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C2B00FB629E4410D0028D874 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		C2B516772A4C642200801999 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C2B516782A4C662700801999 /* main.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.ino; sourceTree = "<group>"; };
 		C2C21CAE2A26E6E7009C0807 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C2C21CB12A26EEC4009C0807 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		C2C5944629F2A25200ED847B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C2B516792A4C662E00801999 /* WOWA-2022 */ = {
+			isa = PBXGroup;
+			children = (
+				C2B516782A4C662700801999 /* main.ino */,
+			);
+			path = "WOWA-2022";
+			sourceTree = "<group>";
+		};
 		C2C21CB02A26E6EF009C0807 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +265,8 @@
 		C2E60C5F29DAEDB800164371 = {
 			isa = PBXGroup;
 			children = (
+				C2B516772A4C642200801999 /* README.md */,
+				C2B516792A4C662E00801999 /* WOWA-2022 */,
 				C2F6C09A2A2D7B010086F033 /* Shared */,
 				C2E60C6A29DAEDB800164371 /* WOWA */,
 				C2A0A6B72A237CA5003C8F02 /* WOWATACH Watch App */,
